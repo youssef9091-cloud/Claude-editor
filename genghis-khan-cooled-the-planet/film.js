@@ -30,7 +30,7 @@
       for (let i = 0; i < 1400; i++) { const x = r() * 1024, y = r() * 1024, s = 6 + r() * 60;
         g.globalAlpha = .08 + r() * .14; g.fillStyle = cols[Math.floor(r() * cols.length)];
         g.beginPath(); g.ellipse(x, y, s, s * (.4 + r() * .6), r() * 3, 0, 7); g.fill(); } g.globalAlpha = 1; }
-    buildBlooms(); buildPins();
+    await STUDY.loadPuppets(); buildBlooms(); buildPins();
   }
 
   // ───────────────────────────── helpers ─────────────────────────────
@@ -77,21 +77,25 @@
 
   // ───────────────────────────── the study (study.js) ─────────────────────────────
   // draws the study with camera {z, cx, cy}; states for both people
-  function study(ctx, t, cam, dState, fState) {
+  function study(ctx, t, cam, dState, fState, opt) {
     ctx.save(); const z = cam.z, vw = W / z, vh = H / z;
     const cx = z >= 1 ? clamp(cam.cx, vw / 2, W - vw / 2) : cam.cx, cy = z >= 1 ? clamp(cam.cy, vh / 2, H - vh / 2) : cam.cy;
     ctx.translate(W / 2, H / 2); ctx.scale(z, z); ctx.translate(-cx, -cy);
-    for (const st of [dState, fState]) if (st.nod === undefined) st.nod = st.mouth;
-    STUDY.room(ctx, t, dState, fState); ctx.restore();
+    STUDY.room(ctx, t, dState, fState, opt); ctx.restore();
   }
   const HD = STUDY.headPos('daughter'), HF = STUDY.headPos('father');
+  // smoothed voice energy → nods and head motion while speaking; small idle sway otherwise
+  const energy = (who, t) => { let s = 0; for (let i = 0; i < 6; i++) s += mouthFor(who, t - i / S.FPS); return s / 6; };
+  function alive(who, t, base = {}) {
+    const m = mouthFor(who, t), e = energy(who, t), ph = who === 'father' ? 1.7 : 0;
+    return { t, mouth: m, nod: e, tilt: (base.tilt || 0) + .012 * Math.sin(t * 1.1 + ph) + .025 * (e - .3) * Math.sin(t * 3.1 + ph), lean: (base.lean || 0) + .006 * Math.sin(t * .7 + ph), talk: base.talk || 0 };
+  }
 
   // ───────────────────────────── scenes ─────────────────────────────
   function studyOpen(ctx, t) {
-    const p = easeInOut(prog(t, 0, 6.62)), z = lerp(1.3, 1.6, p);
-    const dLook = t < .3 ? .2 : 1, d = { t, expr: 'eager', look: dLook, lookY: t < .3 ? .9 : 0, mouth: mouthFor('daughter', t), gesture: easeOut(prog(t, 1.5, 1.9)) * (1 - prog(t, 5.6, 6.0)) };
-    const f = { t, expr: t > mk.hook - .3 ? 'curious' : 'knowledgeable', look: -1, mouth: mouthFor('father', t) };
-    study(ctx, t, { z, cx: lerp(550, HD.x + 120, p), cy: lerp(1040, HD.y + 280, p) }, d, f);
+    const p = easeInOut(prog(t, 0, 6.62)), z = lerp(1.25, 1.55, p);
+    const d = alive('daughter', t, { tilt: .03, lean: .015 * easeOut(prog(t, 1.3, 2.2)) }), f = alive('father', t, { tilt: -.025 });
+    study(ctx, t, { z, cx: lerp(545, HD.x + 130, p), cy: lerp(940, HD.y + 250, p) }, d, f);
   }
   function hookLabel(ctx, t) {   // overlay that carries across the dissolve into the map
     if (t < mk.hook || t > 7.2) return; const a = 1 - prog(t, 6.75, 7.15);
@@ -219,13 +223,15 @@
     if (t < mk.carbon) arrow(ctx, 380, 1320, bx - 10, by + 25, prog(t, A.ghaba + .15, A.ghaba + .45));
   }
 
-  function studyDaughter(ctx, t) {
-    const z = lerp(2.0, 2.15, prog(t, 31.94, 34.5));
-    const d = { t, expr: 'critical', look: .9, glasses: true, mouth: mouthFor('daughter', t), tilt: -.08, gesture: easeOut(prog(t, 32.5, 32.85)) };
-    const f = { t, expr: 'knowledgeable', look: -1, mouth: 0 };
-    study(ctx, t, { z, cx: HD.x + 60, cy: HD.y + 160 }, d, f);
-    const p = backOut(prog(t, mk.whatmeans + .15, mk.whatmeans + .5)); if (p > 0) { ctx.save(); ctx.translate(800, 470); ctx.scale(p, p);
-      ctx.fillStyle = '#fbf7ef'; shadowed(ctx, 40); ctx.beginPath(); ctx.ellipse(0, 0, 210, 120, 0, 0, 7); ctx.fill(); ctx.beginPath(); ctx.moveTo(-110, 70); ctx.lineTo(-210, 210); ctx.lineTo(-30, 100); ctx.fill();
+  function studyDaughter(ctx, t) {   // close-up: the sheet's "Critical" bust in front of the softly blurred study
+    const z = lerp(1.7, 1.8, prog(t, 31.94, 34.5));
+    ctx.save(); ctx.filter = 'blur(7px)'; study(ctx, t, { z, cx: HD.x + 120, cy: HD.y + 120 }, {}, {}, { noPeople: true }); ctx.restore();
+    const st = alive('daughter', t, { tilt: -.04 }); st.tilt = clamp(st.tilt, -.05, .0); st.glasses = '#b8452a';   // the sheet's "Critical" look: red frames
+    STUDY.puppet(ctx, 'd_front', 540, 930 + Math.sin(t * 1.8) * 2, 9.2, st, 'daughter');
+    ctx.save(); ctx.filter = 'blur(10px)'; const g = ctx.createLinearGradient(0, 1290, 0, 1920); g.addColorStop(0, '#3e2416'); g.addColorStop(.12, '#2f1b10'); g.addColorStop(1, '#1f120a');
+    ctx.fillStyle = g; ctx.fillRect(-40, 1300, W + 80, 700); ctx.fillStyle = 'rgba(201,162,78,.5)'; ctx.fillRect(-40, 1296, W + 80, 10); ctx.restore();
+    const p = backOut(prog(t, mk.whatmeans + .15, mk.whatmeans + .5)); if (p > 0) { ctx.save(); ctx.translate(820, 290); ctx.scale(p, p);
+      ctx.fillStyle = '#fbf7ef'; shadowed(ctx, 40); ctx.beginPath(); ctx.ellipse(0, 0, 210, 120, 0, 0, 7); ctx.fill(); ctx.beginPath(); ctx.moveTo(-110, 70); ctx.lineTo(-190, 200); ctx.lineTo(-30, 100); ctx.fill();
       ctx.shadowColor = 'transparent'; ctx.font = '700 84px Hand'; ctx.direction = 'rtl'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#222'; ctx.fillText('يعني إيه؟', 0, 8); ctx.restore(); }
   }
 
@@ -315,12 +321,12 @@
     arrow(ctx, 420, 480, 610, 530, prog(t, mk.volcano + .25, mk.volcano + .5));
   }
   function studyClose(ctx, t) {
-    const ec = easeInOut(prog(t, mk.endcard, mk.endcard + .6)), z = lerp(1.32, 1.05, ec);
-    const chuckling = t >= A.chuckle && t < mk.tocamera, toCam = easeInOut(prog(t, mk.tocamera - .15, mk.tocamera + .25));
-    const d = { t, expr: 'eager', look: 1, mouth: mouthFor('daughter', t), lean: .1 * easeOut(prog(t, 57.8, 58.6)), gesture: easeOut(prog(t, 58.4, 58.8)) * (1 - prog(t, 60.9, 61.3)) };
-    const f = { t, expr: chuckling ? 'chuckle' : t >= mk.tocamera ? 'wry' : 'curious', look: lerp(-1, 0, toCam), mouth: chuckling ? .25 + .2 * Math.abs(Math.sin(t * 18)) : mouthFor('father', t),
-      gesture: easeOut(prog(t, mk.endcard - .1, mk.endcard + .3)), pointDir: 0, tilt: chuckling ? .05 * Math.sin(t * 20) : 0 };
-    study(ctx, t, { z, cx: 550, cy: lerp(1050, 980, ec) }, d, f);
+    const ec = easeInOut(prog(t, mk.endcard, mk.endcard + .6)), z = lerp(1.3, 1.05, ec);
+    const chuckling = t >= A.chuckle && t < mk.tocamera, talk = easeInOut(prog(t, A.chuckle - .25, A.chuckle + .05));
+    const d = alive('daughter', t, { tilt: .035, lean: .02 * easeOut(prog(t, 57.8, 58.6)) });
+    const f = alive('father', t, { tilt: t >= mk.tocamera ? 0 : -.03, talk });
+    if (chuckling) { f.mouth = .3 + .2 * Math.abs(Math.sin(t * 16)); f.tilt += .025 * Math.sin(t * 19); f.nod = .6; }
+    study(ctx, t, { z, cx: 545, cy: lerp(980, 960, ec) }, d, f);
     if (ec > 0) { ctx.fillStyle = `rgba(0,0,0,${.4 * ec})`; ctx.fillRect(0, 0, W, H); }
   }
 

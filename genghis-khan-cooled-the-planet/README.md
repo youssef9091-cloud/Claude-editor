@@ -12,3 +12,6 @@ node engine/render.js preview             # 540×960 15 fps → out/preview.mp4
 node engine/render.js render && node engine/render.js mux
 node engine/render.js srt|poster|check|verify
 ```
+
+# Presenters are cut-out puppets traced from the character sheet:
+#   pip install vtracer scipy && python3 -I engine/trace_characters.py   → build/chars/*.svg
