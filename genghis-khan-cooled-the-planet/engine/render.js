@@ -41,8 +41,8 @@ function loudness(file) { const p = require('child_process').spawnSync('ffmpeg',
 C.audio = () => {
   sh('node', ['engine/audio.js']);
   // VO is the lead; music bed already ducked (MIX.duck equivalent) in audio.js
-  sh('ffmpeg', ['-y', '-v', 'error', '-i', S.VO, '-i', `${BUILD}/music.wav`, '-i', `${BUILD}/sfx.wav`, '-filter_complex',
-    `[0:a]aresample=48000,aformat=channel_layouts=stereo,apad=whole_dur=${S.DURATION}[v];[1:a]volume=0.9[m];[2:a]volume=0.8[x];[v][m][x]amix=inputs=3:normalize=0:duration=first[mix]`,
+  sh('ffmpeg', ['-y', '-v', 'error', '-i', S.VO, '-i', `${BUILD}/music.wav`, '-filter_complex',
+    `[0:a]aresample=48000,aformat=channel_layouts=stereo,apad=whole_dur=${S.DURATION}[v];[1:a]volume=1.4[m];[v][m]amix=inputs=2:normalize=0:duration=first[mix]`,
     '-map', '[mix]', '-t', String(S.DURATION), '-c:a', 'pcm_s16le', `${BUILD}/premix.wav`]);
   const p = require('child_process').spawnSync('ffmpeg', ['-hide_banner', '-i', `${BUILD}/premix.wav`, '-af', 'loudnorm=I=-14:TP=-1.0:LRA=11:print_format=json', '-f', 'null', '-'], { encoding: 'utf8' });
   const j = JSON.parse(p.stderr.slice(p.stderr.lastIndexOf('{'), p.stderr.lastIndexOf('}') + 1));
@@ -94,7 +94,7 @@ C.poster = async () => { const picks = { portrait: S.mk.portrait + 1.0, forty: S
 // ── checks ──
 const OK = [], BAD = []; const chk = (c, msg) => { (c ? OK : BAD).push(msg); console.log(`${c ? '✓' : '✗'} ${msg}`); };
 C.qa = async () => {
-  OK.length = BAD.length = 0; const src = ['film.js', 'score.js', 'engine/util.js', 'engine/audio.js'].map(f => fs.readFileSync(f, 'utf8')).join('\n');
+  OK.length = BAD.length = 0; const src = ['film.js', 'study.js', 'score.js', 'engine/util.js', 'engine/audio.js'].map(f => fs.readFileSync(f, 'utf8')).join('\n');
   chk(!/Math\.random/.test(src), 'no Math.random — U.mulberry32 only');
   chk(S.vo.length === 29, `29 vo lines in score (${S.vo.length})`);
   const covered = new Set(S.subtitles.map(s => s.phrase)); chk(covered.size === 29, `subtitles cover all 29 phrases (${S.subtitles.length} cues)`);
@@ -113,7 +113,7 @@ C.qa = async () => {
   chk(S.mk.portrait + .55 < S.anchors.portraitDeadline, `portrait fully on at ${(S.mk.portrait + .55).toFixed(2)} s, before «جنكيز خان.» ends ${S.anchors.portraitDeadline}`);
   chk(S.mk.endcard + .62 < S.anchors.landEndcard, `end card lands ${(S.mk.endcard + .62).toFixed(2)} s, before «ما تفوتكش» ${S.anchors.landEndcard}`);
   chk(S.mk.buttons > S.anchors.voEnd, `buttons pulse at ${S.mk.buttons} s, after the voice ends ${S.anchors.voEnd}`);
-  const photos = sc.filter(s => s.photo).map(s => s.photo).join(' '); chk(photos === 'G02 G03 G04 G05 G06 G07', `photos in brief order: ${photos} (+G01 cut-out, G08 end card)`);
+  const photos = sc.filter(s => s.photo).map(s => s.photo).join(' '); chk(photos === 'G02 G03 G09 G10 G05 G06 G07', `photos in brief order: ${photos} (+G01 cut-out, G08 end card)`);
   console.log(`\nqa: ${OK.length} ✓  ${BAD.length} ✗`); return BAD.length;
 };
 C.pacing = async () => {
@@ -133,7 +133,7 @@ C.check = () => {
   chk(Math.abs(+j.format.duration - S.DURATION) < .1, `duration ${(+j.format.duration).toFixed(2)} s ≈ ${S.DURATION} s`);
   chk(a && a.codec_name === 'aac' && +a.sample_rate === 48000, 'aac 48 kHz');
   const L = loudness(f); chk(Math.abs(L.I + 14) <= 1, `loudness ${L.I} LUFS (target -14)`); chk(L.TP <= -0.9, `true peak ${L.TP} dBTP ≤ -1`);
-  // voice is the loudest thing: compare VO-only loudness of the speech sections with music+sfx
+  // voice is the loudest thing: the music bed must sit well under the VO
   const M = loudness(`${BUILD}/music.wav`), V = loudness(S.VO); chk(V.I - M.I > 8, `voice ${V.I} LUFS vs bed ${M.I} LUFS (bed ${(V.I - M.I).toFixed(1)} dB under)`);
   console.log(`\ncheck: ${OK.length} ✓  ${BAD.length} ✗`); return BAD.length;
 };

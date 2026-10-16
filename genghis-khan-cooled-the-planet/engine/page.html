@@ -16,7 +16,7 @@ html,body{margin:0;background:#000}
 <script>
 (async () => {
   window.TIMING = await (await fetch('../timing.json')).json();
-  for (const s of ['../score.js', '../film.js']) await new Promise((ok, no) => {
+  for (const s of ['../score.js', '../study.js', '../film.js']) await new Promise((ok, no) => {
     const e = document.createElement('script'); e.src = s; e.onload = ok; e.onerror = no; document.body.appendChild(e); });
   const q = new URLSearchParams(location.search), scale = +(q.get('scale') || 1);
   const c = document.getElementById('c'); c.width = SCORE.W * scale; c.height = SCORE.H * scale;

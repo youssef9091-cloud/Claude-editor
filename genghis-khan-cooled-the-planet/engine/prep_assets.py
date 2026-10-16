@@ -20,3 +20,7 @@ for name, f in [('G02_mongolian_steppe', 3), ('G03_ploughed_field', 4), ('G04_fo
     im.filter(ImageFilter.UnsharpMask(radius=2, percent=60, threshold=2)).save(B + name + '.jpg', quality=93)
 Image.open(A + 'G08_channel_endcard.png').convert('RGB').crop((104, 0, 1513, 671)).save(B + 'G08_endcard.png')
 print('assets → build/')
+for name, f in [('G09_forest_before', 4.3), ('G10_forest_after', 4.0)]:   # before/after forests (replace G04)
+    im = Image.open(A + name + '.png').convert('RGB'); im = im.resize((int(im.width * f), int(im.height * f)), Image.LANCZOS)
+    im.filter(ImageFilter.UnsharpMask(radius=2, percent=60, threshold=2)).save(B + name + '.jpg', quality=93)
+print('forests → build/')
