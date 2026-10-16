@@ -24,3 +24,10 @@ for name, f in [('G09_forest_before', 4.3), ('G10_forest_after', 4.0)]:   # befo
     im = Image.open(A + name + '.png').convert('RGB'); im = im.resize((int(im.width * f), int(im.height * f)), Image.LANCZOS)
     im.filter(ImageFilter.UnsharpMask(radius=2, percent=60, threshold=2)).save(B + name + '.jpg', quality=93)
 print('forests → build/')
+# the study, from the location sheet (assets/ref_location_sheet.png): a 9:16 wide plate + soft backgrounds for the singles
+L = Image.open(A + 'ref_location_sheet.png').convert('RGB')
+wide = L.crop((245, 330, 545, 863)).resize((1080, 1919), Image.LANCZOS).filter(ImageFilter.UnsharpMask(radius=2, percent=70, threshold=2))
+wide.save(B + 'room_wide.jpg', quality=93)
+for name, box in [('room_bg_daughter', (150, 430, 344, 775)), ('room_bg_father', (446, 430, 640, 775))]:
+    L.crop(box).resize((1080, 1920), Image.LANCZOS).filter(ImageFilter.GaussianBlur(9)).save(B + name + '.jpg', quality=92)
+print('room plates → build/')

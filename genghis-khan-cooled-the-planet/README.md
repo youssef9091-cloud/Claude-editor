@@ -15,3 +15,4 @@ node engine/render.js srt|poster|check|verify
 
 # Presenters are cut-out puppets traced from the character sheet:
 #   pip install vtracer scipy && python3 -I engine/trace_characters.py   → build/chars/*.svg
+# The study is the location sheet (assets/ref_location_sheet.png), prepared by engine/prep_assets.py.

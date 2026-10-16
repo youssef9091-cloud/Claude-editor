@@ -45,12 +45,15 @@
     M('pin3', 20, cue(20, 'أمريكا'), 'v', 'pin غزو أمريكا ١٥٠٠ — Americas'),
     M('pin4', 21, cue(21, 'وجنكيز'), 'v', 'pin المغول ١٢٠٠ — Asia'),
     M('only', 21, cue(21, 'غاباته'), 'av', 'three pins dim, Mongol pin pulses, trees sprout'),
-    M('ice', 22, start(22), 'v', 'G05 Antarctic aerial'),
-    M('core', 23, cue(23, 'ما'), 'av', 'G06 ice core, flat CO₂ line draws'),
-    M('bubbles', 24, cue(24, 'بيحفظ'), 'v', 'label «هوا من ٨٠٠ سنة» on the bubbles'),
-    M('volcano', 26, cue(26, 'البراكين'), 'av', 'hard cut to G07; the line spikes'),
-    M('back', 27, start(27), 'v', 'study two-shot'),
-    M('tocamera', 28, cue(28, 'بس'), 'v', 'father turns to the lens'),
+    M('twist', 22, start(22), 'v', 'CO₂ chart 1000–1600, Mongol era highlighted'),
+    M('tiny', 23, cue(23, 'صغير'), 'v', 'magnifier over the Mongol era: «أثر صغير جدًا»'),
+    M('notfound', 23, cue(23, 'ما'), 'av', 'stamp «مش باين!» on the Mongol era'),
+    M('qutb', 23, cue(23, 'القطب'), 'v', 'G05 Antarctica, «القطب الجنوبي»'),
+    M('bubbles', 24, cue(24, 'بيحفظ'), 'v', 'G06 ice core: bubbles glow, «فقاعات = هوا قديم»'),
+    M('cooling', 25, start(25), 'v', 'temperature chart dips, «التبريد الكبير»'),
+    M('volcano', 26, cue(26, 'البراكين'), 'av', 'volcano icons on the dips → hard cut to G07'),
+    M('back', 27, start(27), 'v', 'study wide shot, then the daughter asks'),
+    M('tocamera', 28, cue(28, 'بس'), 'v', 'father single, straight to the lens'),
     M('endcard', 29, cue(29, 'اشترك'), 'av', 'G08 slides in from the right'),
     M('buttons', 29, +(end(29) + 0.3).toFixed(3), 'av', 'لايك then اشترك pulse'),
   ];
@@ -63,7 +66,7 @@
     world: cue(15, 'العالم'),               // «العالم كله» globe
     arba3: cue(18, 'أربع'),                 // «٤ كوارث» header
     takbar: cue(21, 'تكبر'),
-    qutb: cue(23, 'القطب'),
+    volcLine: start(26),                    // «كان بسبب البراكين»: icons pop on the dips
     chuckle: start(28),                     // father chuckles on «في…»
     tenpct: start(8),                       // «١٠٪ من سكان الأرض»
     landEndcard: cue(29, 'ما'),             // end card must be fully on by «ما تفوتكش»

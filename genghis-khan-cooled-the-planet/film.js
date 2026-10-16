@@ -8,7 +8,8 @@
   // ───────────────────────────── loading ─────────────────────────────
   const FILES = { G01: 'G01_cutout.png', G02: 'G02_mongolian_steppe.jpg', G03: 'G03_ploughed_field.jpg',
     G09: 'G09_forest_before.jpg', G10: 'G10_forest_after.jpg', G05: 'G05_antarctic_ice_aerial.jpg', G06: 'G06_ice_core_sunlight.jpg',
-    G07: 'G07_volcano_eruption.jpg', G08: 'G08_endcard.png' };
+    G07: 'G07_volcano_eruption.jpg', G08: 'G08_endcard.png',
+    ROOM: 'room_wide.jpg', ROOM_D: 'room_bg_daughter.jpg', ROOM_F: 'room_bg_father.jpg' };
   const mkCanvas = (w, h) => { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; };
 
   async function load() {
@@ -76,14 +77,6 @@
   }
 
   // ───────────────────────────── the study (study.js) ─────────────────────────────
-  // draws the study with camera {z, cx, cy}; states for both people
-  function study(ctx, t, cam, dState, fState, opt) {
-    ctx.save(); const z = cam.z, vw = W / z, vh = H / z;
-    const cx = z >= 1 ? clamp(cam.cx, vw / 2, W - vw / 2) : cam.cx, cy = z >= 1 ? clamp(cam.cy, vh / 2, H - vh / 2) : cam.cy;
-    ctx.translate(W / 2, H / 2); ctx.scale(z, z); ctx.translate(-cx, -cy);
-    STUDY.room(ctx, t, dState, fState, opt); ctx.restore();
-  }
-  const HD = STUDY.headPos('daughter'), HF = STUDY.headPos('father');
   // smoothed voice energy → nods and head motion while speaking; small idle sway otherwise
   const energy = (who, t) => { let s = 0; for (let i = 0; i < 6; i++) s += mouthFor(who, t - i / S.FPS); return s / 6; };
   function alive(who, t, base = {}) {
@@ -92,10 +85,14 @@
   }
 
   // ───────────────────────────── scenes ─────────────────────────────
-  function studyOpen(ctx, t) {
-    const p = easeInOut(prog(t, 0, 6.62)), z = lerp(1.25, 1.55, p);
-    const d = alive('daughter', t, { tilt: .03, lean: .015 * easeOut(prog(t, 1.3, 2.2)) }), f = alive('father', t, { tilt: -.025 });
-    study(ctx, t, { z, cx: lerp(545, HD.x + 130, p), cy: lerp(940, HD.y + 250, p) }, d, f);
+  // opening: wide on the study, then her medium shot as she asks (pose swap: hand on hip → palm up on «هو نفسه»)
+  function studyWideOpen(ctx, t) {
+    STUDY.wide(ctx, t, IMG, alive('daughter', t, { tilt: .02 }), alive('father', t, { tilt: -.03 }), { z: lerp(1.0, 1.06, easeInOut(prog(t, 0, 1.6))), cx: 545, cy: 1000 });
+  }
+  const daughterPose = sw => [['d_front', 3.2, 480, 840, 1 - sw], ['d_explain', 5.6, 480, 840, sw]];   // scales matched by eye spacing
+  function studyDaughterOpen(ctx, t) {
+    const sw = prog(t, 4.42, 4.56), st = alive('daughter', t, { tilt: .025 });
+    STUDY.single(ctx, t, IMG, 'daughter', daughterPose(sw), st, { z: lerp(1, 1.05, prog(t, 1.25, 6.62)), par: lerp(-12, 12, prog(t, 1.25, 6.62)), band: 1430 });
   }
   function hookLabel(ctx, t) {   // overlay that carries across the dissolve into the map
     if (t < mk.hook || t > 7.2) return; const a = 1 - prog(t, 6.75, 7.15);
@@ -223,15 +220,11 @@
     if (t < mk.carbon) arrow(ctx, 380, 1320, bx - 10, by + 25, prog(t, A.ghaba + .15, A.ghaba + .45));
   }
 
-  function studyDaughter(ctx, t) {   // close-up: the sheet's "Critical" bust in front of the softly blurred study
-    const z = lerp(1.7, 1.8, prog(t, 31.94, 34.5));
-    ctx.save(); ctx.filter = 'blur(7px)'; study(ctx, t, { z, cx: HD.x + 120, cy: HD.y + 120 }, {}, {}, { noPeople: true }); ctx.restore();
-    const st = alive('daughter', t, { tilt: -.04 }); st.tilt = clamp(st.tilt, -.05, .0); st.glasses = '#b8452a';   // the sheet's "Critical" look: red frames
-    STUDY.puppet(ctx, 'd_front', 540, 930 + Math.sin(t * 1.8) * 2, 9.2, st, 'daughter');
-    ctx.save(); ctx.filter = 'blur(10px)'; const g = ctx.createLinearGradient(0, 1290, 0, 1920); g.addColorStop(0, '#3e2416'); g.addColorStop(.12, '#2f1b10'); g.addColorStop(1, '#1f120a');
-    ctx.fillStyle = g; ctx.fillRect(-40, 1300, W + 80, 700); ctx.fillStyle = 'rgba(201,162,78,.5)'; ctx.fillRect(-40, 1296, W + 80, 10); ctx.restore();
-    const p = backOut(prog(t, mk.whatmeans + .15, mk.whatmeans + .5)); if (p > 0) { ctx.save(); ctx.translate(820, 290); ctx.scale(p, p);
-      ctx.fillStyle = '#fbf7ef'; shadowed(ctx, 40); ctx.beginPath(); ctx.ellipse(0, 0, 210, 120, 0, 0, 7); ctx.fill(); ctx.beginPath(); ctx.moveTo(-110, 70); ctx.lineTo(-190, 200); ctx.lineTo(-30, 100); ctx.fill();
+  function studyDaughter(ctx, t) {   // «يعني إيه؟»: tighter on her, the sheet's "Critical" red frames on
+    const st = alive('daughter', t, { tilt: -.035 }); st.glasses = '#b8452a';
+    STUDY.single(ctx, t, IMG, 'daughter', [['d_front', 5.2, 540, 900, 1]], st, { z: lerp(1, 1.04, prog(t, 31.94, 34.5)), band: 1400 });
+    const p = backOut(prog(t, mk.whatmeans + .15, mk.whatmeans + .5)); if (p > 0) { ctx.save(); ctx.translate(830, 280); ctx.scale(p, p);
+      ctx.fillStyle = '#fbf7ef'; shadowed(ctx, 40); ctx.beginPath(); ctx.ellipse(0, 0, 200, 115, 0, 0, 7); ctx.fill(); ctx.beginPath(); ctx.moveTo(-110, 70); ctx.lineTo(-180, 190); ctx.lineTo(-30, 100); ctx.fill();
       ctx.shadowColor = 'transparent'; ctx.font = '700 84px Hand'; ctx.direction = 'rtl'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#222'; ctx.fillText('يعني إيه؟', 0, 8); ctx.restore(); }
   }
 
@@ -290,43 +283,87 @@
         ctx.fillStyle = i % 2 ? '#4caf50' : '#6fcf5a'; ctx.beginPath(); ctx.arc(0, -24, 12, 0, 7); ctx.fill(); ctx.restore(); } }
   }
 
-  function iceScene(ctx, t) {
-    const p = prog(t, 47.29, 50.65); ctx.save(); zoomAbout(ctx, lerp(1.04, 1.14, p)); cover(ctx, IMG.G05, 1, lerp(.6, .42, p), .5); ctx.restore();
-    pop(ctx, t, mk.ice + .3, 'القطب الجنوبي', 540, 420, { size: 92 });
+  // ── the twist, told plainly: CO₂ chart (no trace) → Antarctica → ice core (old air) → temperature chart (volcanic dips) → volcano ──
+  function darkCard(ctx) { ctx.fillStyle = '#14161b'; ctx.fillRect(0, 0, W, H); const v = ctx.createRadialGradient(540, 900, 100, 540, 900, 1100);
+    v.addColorStop(0, 'rgba(60,70,90,.35)'); v.addColorStop(1, 'rgba(0,0,0,0)'); ctx.fillStyle = v; ctx.fillRect(0, 0, W, H); }
+  const CH = { x0: 130, x1: 950, y0: 620, y1: 1180 }, yx = yr => lerp(CH.x0, CH.x1, (yr - 1000) / 600);
+  function axes(ctx, a, title) {
+    ctx.save(); ctx.globalAlpha *= a; ctx.strokeStyle = 'rgba(255,255,255,.7)'; ctx.lineWidth = 3; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(CH.x0, CH.y0 - 30); ctx.lineTo(CH.x0, CH.y1); ctx.lineTo(CH.x1 + 25, CH.y1); ctx.stroke();
+    ctx.font = '700 40px Cap'; ctx.fillStyle = 'rgba(255,255,255,.8)'; ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+    for (const yr of [1000, 1200, 1400, 1600]) { const x = yx(yr); ctx.fillText(arNum(yr), x, CH.y1 + 16); ctx.beginPath(); ctx.moveTo(x, CH.y1); ctx.lineTo(x, CH.y1 + 10); ctx.stroke(); }
+    ctx.restore(); label(ctx, title, 540, 380, { size: 74, alpha: a });
   }
-  const CORE_BUB = (() => { const r = mulberry32(55), a = []; for (let i = 0; i < 7; i++) a.push([380 + r() * 320, 620 + r() * 620]); return a; })();
-  function coreLine(ctx, t, t0, t1, spikeAt) {   // CO₂ line across the frame; flat, or spiking
-    const p = prog(t, t0, t1); if (p <= 0) return; const r = mulberry32(12), pts = [];
-    for (let x = 90; x <= 990; x += 10) { let y = 1080 + (r() - .5) * 6; if (spikeAt) { const d = (x - spikeAt) / 60; y -= 560 * Math.exp(-d * d) * (x > spikeAt - 40 ? 1 : .9); } pts.push([x, y]); }
-    const n = Math.floor(pts.length * p); ctx.save(); ctx.lineCap = ctx.lineJoin = 'round';
-    for (const [w, c] of [[16, spikeAt ? 'rgba(255,120,60,.25)' : 'rgba(150,220,255,.25)'], [5, spikeAt ? '#ffd2a0' : '#e8f7ff']]) {
-      ctx.strokeStyle = c; ctx.lineWidth = w; ctx.beginPath(); pts.slice(0, Math.max(2, n)).forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke(); }
-    ctx.font = '700 40px Cap'; ctx.fillStyle = '#fff'; shadowed(ctx, 40); ctx.textAlign = 'left'; ctx.fillText('CO₂', 92, 1030); ctx.restore();
+  const WIG = (() => { const r = mulberry32(91); return Array.from({ length: 64 }, () => r() - .5); })();
+  const wig = (yr, amp) => { const u = (yr - 1000) / 600 * 62, i = Math.floor(u), f = u - i; return amp * lerp(WIG[i], WIG[i + 1], f * f * (3 - 2 * f)); };
+  const series = fn => { const pts = []; for (let i = 0; i <= 200; i++) { const yr = lerp(1000, 1600, i / 200); pts.push([yx(yr), fn(yr)]); } return pts; };
+  const CO2 = series(yr => 890 + wig(yr, 24));                                                                         // flat: no Mongol dip
+  const TEMP = series(yr => 840 + wig(yr, 20) + 190 * Math.exp(-(((yr - 1262) / 26) ** 2)) + 120 * Math.exp(-(((yr - 1455) / 22) ** 2)));   // two sharp cold dips
+  function strokeSeries(ctx, pts, p, color, glow) { const n = Math.max(2, Math.floor(pts.length * clamp(p))); if (p <= 0) return; ctx.save(); ctx.lineCap = ctx.lineJoin = 'round';
+    for (const [w, c] of [[16, glow], [5, color]]) { ctx.strokeStyle = c; ctx.lineWidth = w; ctx.beginPath(); pts.slice(0, n).forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke(); } ctx.restore(); }
+  function co2Chart(ctx, t) {
+    darkCard(ctx); const a = prog(t, mk.twist - .3, mk.twist);
+    const ba = prog(t, 48.2, 48.6);
+    if (ba > 0) { ctx.fillStyle = `rgba(200,40,40,${.22 * ba})`; ctx.fillRect(yx(1200), CH.y0 - 20, yx(1380) - yx(1200), CH.y1 - CH.y0 + 20);
+      label(ctx, 'فترة المغول', (yx(1200) + yx(1380)) / 2, CH.y1 - 40, { size: 50, alpha: ba, color: '#ff9b8f' }); }
+    axes(ctx, a, 'ثاني أكسيد الكربون في الهوا');
+    strokeSeries(ctx, CO2, easeInOut(prog(t, mk.twist, mk.twist + 1.2)), '#e8f7ff', 'rgba(150,220,255,.28)');
+    const mp = easeInOut(prog(t, mk.tiny - .15, mk.tiny + .4));
+    if (mp > 0) { const R = 150, cx = lerp(980, yx(1290), mp), cy = lerp(1500, 890, mp);
+      ctx.save(); ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.clip(); ctx.fillStyle = '#1e2229'; ctx.fillRect(cx - R, cy - R, 2 * R, 2 * R);
+      ctx.fillStyle = 'rgba(200,40,40,.18)'; ctx.fillRect(cx - R, cy - R, 2 * R, 2 * R);
+      ctx.translate(cx, cy); ctx.scale(2.6, 2.6); ctx.translate(-cx, -cy); strokeSeries(ctx, CO2, 1, '#e8f7ff', 'rgba(150,220,255,.28)'); ctx.restore();
+      ctx.save(); ctx.strokeStyle = '#c9a24e'; ctx.lineWidth = 12; shadowed(ctx, 40); ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.stroke();
+      ctx.lineWidth = 26; ctx.lineCap = 'round'; ctx.strokeStyle = '#5a3a22'; ctx.beginPath(); ctx.moveTo(cx + R * .72, cy + R * .72); ctx.lineTo(cx + R * 1.5, cy + R * 1.5); ctx.stroke(); ctx.restore(); }
+    pop(ctx, t, mk.tiny + .35, 'أثر صغير جدًا', 540, 1290, { size: 78 });
+    pop(ctx, t, mk.tiny + .6, '٠٫١٨ جزء في المليون بس', 540, 1385, { size: 46, font: 'Cap', color: '#cfe6ff' });
+    const sp = prog(t, mk.notfound, mk.notfound + .25); if (sp > 0) { ctx.save(); ctx.translate(yx(1290), 560); ctx.rotate(-.16); const sc = lerp(1.9, 1, easeOut(sp)); ctx.scale(sc, sc); ctx.globalAlpha = clamp(sp * 2);
+      ctx.strokeStyle = '#e0352b'; ctx.lineWidth = 8; ctx.strokeRect(-190, -60, 380, 120); ctx.font = '700 84px Cap'; ctx.fillStyle = '#e0352b'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.direction = 'rtl'; ctx.fillText('مش باين!', 0, 6); ctx.restore(); }
   }
-  function coreScene(ctx, t) {
-    const p = prog(t, 50.40, 57.06); ctx.save(); zoomAbout(ctx, lerp(1.0, 1.12, easeInOut(p)), 540, 900);
-    cover(ctx, IMG.G06, 1, .45, .5);
-    const ba = prog(t, mk.bubbles, mk.bubbles + .4);
-    if (ba > 0) for (const [i, [x, y]] of CORE_BUB.entries()) glowDot(ctx, x, y, 9 + 3 * Math.sin(t * 5 + i), 'rgba(255,240,180,1)', ba);
+  function antarctica(ctx, t) {
+    const p = prog(t, mk.qutb - .3, 52.6); ctx.save(); zoomAbout(ctx, lerp(1.04, 1.1, p)); cover(ctx, IMG.G05, 1, lerp(.55, .45, p), .5); ctx.restore();
+    pop(ctx, t, mk.qutb + .02, 'القطب الجنوبي', 540, 400, { size: 96 });
+  }
+  const CORE_BUB = (() => { const r = mulberry32(55), a = []; for (let i = 0; i < 8; i++) a.push([400 + r() * 280, 700 + r() * 560]); return a; })();
+  function iceCore(ctx, t) {
+    const p = prog(t, 52.3, 54.95); ctx.save(); zoomAbout(ctx, lerp(1.0, 1.08, easeInOut(p)), 540, 900); cover(ctx, IMG.G06, 1, .45, .5);
+    const ba = prog(t, mk.bubbles, mk.bubbles + .4); if (ba > 0) for (const [i, [x, y]] of CORE_BUB.entries()) glowDot(ctx, x, y, 10 + 3 * Math.sin(t * 5 + i), 'rgba(255,240,180,1)', ba);
     ctx.restore();
-    coreLine(ctx, t, mk.core + .25, A.qutb + .6, 0);
-    pop(ctx, t, mk.bubbles + .1, 'هوا من ٨٠٠ سنة', 540, 420, { size: 84 });
-    const [bx, by] = CORE_BUB[0]; arrow(ctx, 520, 480, bx + 20, by - 30, prog(t, mk.bubbles + .25, mk.bubbles + .55));
+    pop(ctx, t, 52.4, 'عينة تلج', 540, 380, { size: 90 }); arrow(ctx, 540, 440, 560, 610, prog(t, 52.55, 52.85));
+    pop(ctx, t, mk.bubbles + .1, 'فقاعات = هوا قديم', 540, 1340, { size: 80 });
+    const [bx, by] = CORE_BUB[0]; arrow(ctx, 520, 1280, bx, by + 30, prog(t, mk.bubbles + .3, mk.bubbles + .6));
+  }
+  function volcanoIcon(ctx, x, y, s, t) { ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+    for (let i = 0; i < 3; i++) { const q = ((t * .8 + i / 3) % 1); ctx.fillStyle = `rgba(160,160,160,${.6 * (1 - q)})`; ctx.beginPath(); ctx.arc(Math.sin(i * 2 + t) * 8, -70 - q * 70, 16 + q * 18, 0, 7); ctx.fill(); }
+    ctx.fillStyle = '#7a4a32'; ctx.beginPath(); ctx.moveTo(-60, 0); ctx.lineTo(-14, -60); ctx.lineTo(14, -60); ctx.lineTo(60, 0); ctx.closePath(); ctx.fill();
+    ctx.fillStyle = '#ff6a2a'; ctx.beginPath(); ctx.moveTo(-14, -60); ctx.lineTo(14, -60); ctx.lineTo(6, -40); ctx.lineTo(-6, -40); ctx.closePath(); ctx.fill(); ctx.restore(); }
+  function tempChart(ctx, t) {
+    darkCard(ctx); axes(ctx, prog(t, mk.cooling - .18, mk.cooling + .1), 'حرارة الأرض');
+    label(ctx, 'أبرد', CH.x0 + 70, CH.y1 - 30, { size: 40, font: 'Cap', color: '#9fd0ff', alpha: prog(t, mk.cooling, mk.cooling + .3), clamp: false });
+    label(ctx, 'أدفى', CH.x0 + 70, CH.y0 + 10, { size: 40, font: 'Cap', color: '#ffb36b', alpha: prog(t, mk.cooling, mk.cooling + .3), clamp: false });
+    strokeSeries(ctx, TEMP, easeInOut(prog(t, mk.cooling, mk.cooling + 1.1)), '#ffb36b', 'rgba(255,150,80,.28)');
+    const dx = yx(1262), dy = 840 + 190;
+    pop(ctx, t, mk.cooling + .9, 'التبريد الكبير', 540, 1300, { size: 84, color: '#9fd0ff' }); arrow(ctx, 470, 1250, dx + 10, dy + 30, prog(t, mk.cooling + 1.05, mk.cooling + 1.35));
+    for (const [i, yr] of [1262, 1455].entries()) { const q = backOut(prog(t, A.volcLine + i * .18, A.volcLine + .35 + i * .18)); if (q > 0) volcanoIcon(ctx, yx(yr), 600, q, t); }
+    pop(ctx, t, A.volcLine + .3, 'براكين', yx(1360), 470, { size: 66, color: '#ffb38a' });
   }
   function volcanoScene(ctx, t) {
     const k = Math.exp(-(t - mk.volcano) * 4), sx = Math.sin(t * 71) * 14 * k, sy = Math.cos(t * 53) * 12 * k;
-    ctx.save(); ctx.translate(sx, sy); zoomAbout(ctx, lerp(1.06, 1.1, prog(t, 57.06, 58.2))); cover(ctx, IMG.G07, 1, .55, .5); ctx.restore();
-    coreLine(ctx, t, mk.volcano, mk.volcano + .3, 640);
-    pop(ctx, t, mk.volcano + .12, 'البراكين', 330, 450, { size: 100, color: '#ffd2a0' });
-    arrow(ctx, 420, 480, 610, 530, prog(t, mk.volcano + .25, mk.volcano + .5));
+    ctx.save(); ctx.translate(sx, sy); zoomAbout(ctx, lerp(1.06, 1.1, prog(t, mk.volcano, mk.back + .5))); cover(ctx, IMG.G07, 1, .55, .5); ctx.restore();
+    pop(ctx, t, mk.volcano + .1, 'السبب الحقيقي: البراكين', 540, 400, { size: 82, color: '#ffd2a0' });
   }
-  function studyClose(ctx, t) {
-    const ec = easeInOut(prog(t, mk.endcard, mk.endcard + .6)), z = lerp(1.3, 1.05, ec);
-    const chuckling = t >= A.chuckle && t < mk.tocamera, talk = easeInOut(prog(t, A.chuckle - .25, A.chuckle + .05));
-    const d = alive('daughter', t, { tilt: .035, lean: .02 * easeOut(prog(t, 57.8, 58.6)) });
-    const f = alive('father', t, { tilt: t >= mk.tocamera ? 0 : -.03, talk });
+  // closing: wide as she starts asking → her medium shot (palm up) → his medium shot, straight to camera → end card
+  function studyWideClose(ctx, t) {
+    STUDY.wide(ctx, t, IMG, alive('daughter', t, { tilt: .03 }), alive('father', t, { tilt: -.03 }), { z: lerp(1.0, 1.05, prog(t, mk.back, 59.0)), cx: 545, cy: 1000 });
+  }
+  function studyDaughterAsk(ctx, t) {
+    STUDY.single(ctx, t, IMG, 'daughter', daughterPose(1), alive('daughter', t, { tilt: .03 }), { z: lerp(1, 1.04, prog(t, 58.7, 61.25)), par: lerp(10, -10, prog(t, 58.7, 61.25)), band: 1430 });
+  }
+  function studyFather(ctx, t) {
+    const ec = easeInOut(prog(t, mk.endcard, mk.endcard + .6)), chuckling = t >= A.chuckle && t < mk.tocamera;
+    const f = alive('father', t, { tilt: t < mk.tocamera ? -.035 : 0 });
     if (chuckling) { f.mouth = .3 + .2 * Math.abs(Math.sin(t * 16)); f.tilt += .025 * Math.sin(t * 19); f.nod = .6; }
-    study(ctx, t, { z, cx: 545, cy: lerp(980, 960, ec) }, d, f);
+    STUDY.single(ctx, t, IMG, 'father', [['f_34_full', 6.0, 540, 870, 1]], f, { z: lerp(1, 1.05, prog(t, 60.95, mk.endcard)) * lerp(1, .94, ec), par: lerp(-10, 10, prog(t, 60.95, 64)), band: 1400 });
     if (ec > 0) { ctx.fillStyle = `rgba(0,0,0,${.4 * ec})`; ctx.fillRect(0, 0, W, H); }
   }
 
@@ -364,7 +401,8 @@
   // ───────────────────────────── timeline ─────────────────────────────
   // a/b: scene in/out. overlap = dissolve. The only hard cut is core → volcano.
   const SCENES = [
-    { name: 'study-open', a: 0, b: 6.62, kind: 'study', chars: true, draw: studyOpen },
+    { name: 'study-wide', a: 0, b: 1.55, kind: 'study', chars: true, draw: studyWideOpen },
+    { name: 'study-daughter-asks', a: 1.25, b: 6.62, kind: 'study', chars: true, draw: studyDaughterOpen },
     { name: 'map-mongolia', a: 6.32, b: 14.15, kind: 'map', draw: mapMongolia },
     { name: 'grid-steppe', a: 13.85, b: 19.95, kind: 'photo', photo: 'G02', draw: gridScene },
     { name: 'field', a: 19.65, b: mk.before, kind: 'photo', photo: 'G03', draw: fieldScene },
@@ -373,11 +411,15 @@
     { name: 'map-blooms', a: mk.blooms, b: mk.whatmeans, kind: 'map', draw: mapBlooms },
     { name: 'study-daughter', a: mk.whatmeans - .3, b: 34.5, kind: 'study', chars: true, draw: studyDaughter },
     { name: 'stat-petrol', a: 34.2, b: 39.45, kind: 'stat', draw: petrolScene },
-    { name: 'map-pins', a: 39.15, b: mk.ice, kind: 'map', draw: mapPins },
-    { name: 'ice', a: mk.ice - .3, b: mk.core, kind: 'photo', photo: 'G05', draw: iceScene },
-    { name: 'core', a: mk.core - .25, b: mk.volcano, kind: 'photo', photo: 'G06', draw: coreScene },
+    { name: 'map-pins', a: 39.15, b: mk.twist, kind: 'map', draw: mapPins },
+    { name: 'chart-co2', a: mk.twist - .3, b: mk.qutb, kind: 'stat', draw: co2Chart },
+    { name: 'antarctica', a: mk.qutb - .3, b: 52.6, kind: 'photo', photo: 'G05', draw: antarctica },
+    { name: 'ice-core', a: 52.3, b: mk.cooling + .17, kind: 'photo', photo: 'G06', draw: iceCore },
+    { name: 'chart-temp', a: mk.cooling - .18, b: mk.volcano, kind: 'stat', draw: tempChart },
     { name: 'volcano', a: mk.volcano, b: mk.back + .5, kind: 'photo', photo: 'G07', hardIn: true, draw: volcanoScene },
-    { name: 'study-close', a: mk.back, b: S.DURATION + 1, kind: 'study', chars: true, draw: studyClose },
+    { name: 'study-wide-close', a: mk.back, b: 59.0, kind: 'study', chars: true, draw: studyWideClose },
+    { name: 'study-daughter-q', a: 58.7, b: 61.25, kind: 'study', chars: true, draw: studyDaughterAsk },
+    { name: 'study-father', a: 60.95, b: S.DURATION + 1, kind: 'study', chars: true, draw: studyFather },
   ];
 
   function draw(ctx, t) {
