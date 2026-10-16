@@ -9,7 +9,7 @@
   const FILES = { G01: 'G01_cutout.png', G02: 'G02_mongolian_steppe.jpg', G03: 'G03_ploughed_field.jpg',
     G09: 'G09_forest_before.jpg', G10: 'G10_forest_after.jpg', G05: 'G05_antarctic_ice_aerial.jpg', G06: 'G06_ice_core_sunlight.jpg',
     G07: 'G07_volcano_eruption.jpg', G08: 'G08_endcard.png',
-    ROOM: 'room_wide.jpg', ROOM_D: 'room_bg_daughter.jpg', ROOM_F: 'room_bg_father.jpg' };
+    G11: 'G11_ice_drilling.jpg', G12: 'G12_lava_haze.jpg', ROOM: 'room_wide.jpg', ROOM_D: 'room_bg_daughter.jpg', ROOM_F: 'room_bg_father.jpg' };
   const mkCanvas = (w, h) => { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; };
 
   async function load() {
@@ -321,8 +321,9 @@
       ctx.strokeStyle = '#e0352b'; ctx.lineWidth = 8; ctx.strokeRect(-190, -60, 380, 120); ctx.font = '700 84px Cap'; ctx.fillStyle = '#e0352b'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.direction = 'rtl'; ctx.fillText('مش باين!', 0, 6); ctx.restore(); }
   }
   function antarctica(ctx, t) {
-    const p = prog(t, mk.qutb - .3, 52.6); ctx.save(); zoomAbout(ctx, lerp(1.04, 1.1, p)); cover(ctx, IMG.G05, 1, lerp(.55, .45, p), .5); ctx.restore();
-    pop(ctx, t, mk.qutb + .02, 'القطب الجنوبي', 540, 400, { size: 96 });
+    const p = prog(t, mk.qutb - .3, 52.6); ctx.save(); zoomAbout(ctx, lerp(1.04, 1.1, p), 520, 1000); cover(ctx, IMG.G11, 1, .5, .5); ctx.restore();
+    pop(ctx, t, mk.qutb + .02, 'القطب الجنوبي', 540, 360, { size: 96 });
+    pop(ctx, t, mk.qutb + .25, 'العلما بيحفروا في التلج', 540, 470, { size: 58 });
   }
   const CORE_BUB = (() => { const r = mulberry32(55), a = []; for (let i = 0; i < 8; i++) a.push([400 + r() * 280, 700 + r() * 560]); return a; })();
   function iceCore(ctx, t) {
@@ -338,7 +339,10 @@
     ctx.fillStyle = '#7a4a32'; ctx.beginPath(); ctx.moveTo(-60, 0); ctx.lineTo(-14, -60); ctx.lineTo(14, -60); ctx.lineTo(60, 0); ctx.closePath(); ctx.fill();
     ctx.fillStyle = '#ff6a2a'; ctx.beginPath(); ctx.moveTo(-14, -60); ctx.lineTo(14, -60); ctx.lineTo(6, -40); ctx.lineTo(-6, -40); ctx.closePath(); ctx.fill(); ctx.restore(); }
   function tempChart(ctx, t) {
-    darkCard(ctx); axes(ctx, prog(t, mk.cooling - .18, mk.cooling + .1), 'حرارة الأرض');
+    darkCard(ctx);   // volcanic ground + haze behind the chart, brightening as «كان بسبب البراكين» lands
+    ctx.save(); ctx.globalAlpha = lerp(.28, .62, easeInOut(prog(t, A.volcLine - .1, A.volcLine + .5))); zoomAbout(ctx, lerp(1.0, 1.06, prog(t, mk.cooling - .18, mk.volcano)), 540, 1300);
+    cover(ctx, IMG.G12, 1, .5, .55); ctx.restore(); ctx.fillStyle = 'rgba(14,16,20,.35)'; ctx.fillRect(CH.x0 - 40, CH.y0 - 60, CH.x1 - CH.x0 + 100, CH.y1 - CH.y0 + 140);
+    axes(ctx, prog(t, mk.cooling - .18, mk.cooling + .1), 'حرارة الأرض');
     label(ctx, 'أبرد', CH.x0 + 70, CH.y1 - 30, { size: 40, font: 'Cap', color: '#9fd0ff', alpha: prog(t, mk.cooling, mk.cooling + .3), clamp: false });
     label(ctx, 'أدفى', CH.x0 + 70, CH.y0 + 10, { size: 40, font: 'Cap', color: '#ffb36b', alpha: prog(t, mk.cooling, mk.cooling + .3), clamp: false });
     strokeSeries(ctx, TEMP, easeInOut(prog(t, mk.cooling, mk.cooling + 1.1)), '#ffb36b', 'rgba(255,150,80,.28)');
@@ -413,7 +417,7 @@
     { name: 'stat-petrol', a: 34.2, b: 39.45, kind: 'stat', draw: petrolScene },
     { name: 'map-pins', a: 39.15, b: mk.twist, kind: 'map', draw: mapPins },
     { name: 'chart-co2', a: mk.twist - .3, b: mk.qutb, kind: 'stat', draw: co2Chart },
-    { name: 'antarctica', a: mk.qutb - .3, b: 52.6, kind: 'photo', photo: 'G05', draw: antarctica },
+    { name: 'antarctica', a: mk.qutb - .3, b: 52.6, kind: 'photo', photo: 'G11', draw: antarctica },
     { name: 'ice-core', a: 52.3, b: mk.cooling + .17, kind: 'photo', photo: 'G06', draw: iceCore },
     { name: 'chart-temp', a: mk.cooling - .18, b: mk.volcano, kind: 'stat', draw: tempChart },
     { name: 'volcano', a: mk.volcano, b: mk.back + .5, kind: 'photo', photo: 'G07', hardIn: true, draw: volcanoScene },

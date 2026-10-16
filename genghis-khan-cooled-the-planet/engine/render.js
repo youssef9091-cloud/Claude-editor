@@ -44,9 +44,9 @@ C.audio = () => {
   sh('ffmpeg', ['-y', '-v', 'error', '-i', S.VO, '-i', `${BUILD}/music.wav`, '-filter_complex',
     `[0:a]aresample=48000,aformat=channel_layouts=stereo,apad=whole_dur=${S.DURATION}[v];[1:a]volume=1.4[m];[v][m]amix=inputs=2:normalize=0:duration=first[mix]`,
     '-map', '[mix]', '-t', String(S.DURATION), '-c:a', 'pcm_s16le', `${BUILD}/premix.wav`]);
-  const p = require('child_process').spawnSync('ffmpeg', ['-hide_banner', '-i', `${BUILD}/premix.wav`, '-af', 'loudnorm=I=-14:TP=-1.0:LRA=11:print_format=json', '-f', 'null', '-'], { encoding: 'utf8' });
+  const p = require('child_process').spawnSync('ffmpeg', ['-hide_banner', '-i', `${BUILD}/premix.wav`, '-af', 'loudnorm=I=-14:TP=-1.5:LRA=11:print_format=json', '-f', 'null', '-'], { encoding: 'utf8' });
   const j = JSON.parse(p.stderr.slice(p.stderr.lastIndexOf('{'), p.stderr.lastIndexOf('}') + 1));
-  sh('ffmpeg', ['-y', '-v', 'error', '-i', `${BUILD}/premix.wav`, '-af', `loudnorm=I=-14:TP=-1.0:LRA=11:measured_I=${j.input_i}:measured_TP=${j.input_tp}:measured_LRA=${j.input_lra}:measured_thresh=${j.input_thresh}:offset=${j.target_offset}:linear=true,aresample=48000`,
+  sh('ffmpeg', ['-y', '-v', 'error', '-i', `${BUILD}/premix.wav`, '-af', `loudnorm=I=-14:TP=-1.5:LRA=11:measured_I=${j.input_i}:measured_TP=${j.input_tp}:measured_LRA=${j.input_lra}:measured_thresh=${j.input_thresh}:offset=${j.target_offset}:linear=true,aresample=48000`,
     '-c:a', 'pcm_s16le', `${BUILD}/mix.wav`]);
   const L = loudness(`${BUILD}/mix.wav`); console.log(`mix: ${L.I} LUFS, true peak ${L.TP} dBTP`);
 };
@@ -113,7 +113,7 @@ C.qa = async () => {
   chk(S.mk.portrait + .55 < S.anchors.portraitDeadline, `portrait fully on at ${(S.mk.portrait + .55).toFixed(2)} s, before «جنكيز خان.» ends ${S.anchors.portraitDeadline}`);
   chk(S.mk.endcard + .62 < S.anchors.landEndcard, `end card lands ${(S.mk.endcard + .62).toFixed(2)} s, before «ما تفوتكش» ${S.anchors.landEndcard}`);
   chk(S.mk.buttons > S.anchors.voEnd, `buttons pulse at ${S.mk.buttons} s, after the voice ends ${S.anchors.voEnd}`);
-  const photos = sc.filter(s => s.photo).map(s => s.photo).join(' '); chk(photos === 'G02 G03 G09 G10 G05 G06 G07', `photos in brief order: ${photos} (+G01 cut-out, G08 end card)`);
+  const photos = sc.filter(s => s.photo).map(s => s.photo).join(' '); chk(photos === 'G02 G03 G09 G10 G11 G06 G07', `photos in brief order: ${photos} (+G01 cut-out, G08 end card)`);
   console.log(`\nqa: ${OK.length} ✓  ${BAD.length} ✗`); return BAD.length;
 };
 C.pacing = async () => {
@@ -141,9 +141,9 @@ C.verify = async () => {   // final file frames at markers must match the render
   OK.length = BAD.length = 0; const br = await browser(1); fs.mkdirSync(`${BUILD}/verify`, { recursive: true });
   for (const m of S.markers.filter(m => m.sync === 'av')) { const t = Math.round((m.t + .2) * S.FPS) / S.FPS;
     fs.writeFileSync(`${BUILD}/verify/ref.jpg`, await frameJPEG(br.pages[0], t, .95));
-    sh('ffmpeg', ['-y', '-v', 'error', '-ss', String(t + .5 / S.FPS), '-i', `${OUT}/${NAME}.mp4`, '-frames:v', '1', `${BUILD}/verify/got.png`]);
+    sh('ffmpeg', ['-y', '-v', 'error', '-i', `${OUT}/${NAME}.mp4`, '-vf', `select=eq(n\\,${Math.round(t * S.FPS)})`, '-vsync', '0', '-frames:v', '1', `${BUILD}/verify/got.png`]);   // frame-exact
     const p = require('child_process').spawnSync('ffmpeg', ['-i', `${BUILD}/verify/got.png`, '-i', `${BUILD}/verify/ref.jpg`, '-lavfi', 'psnr', '-f', 'null', '-'], { encoding: 'utf8' });
-    const psnr = +(p.stderr.match(/average:([\d.inf]+)/) || [])[1]; chk(psnr > 26 || isNaN(psnr), `${m.name.padEnd(9)} @ ${t.toFixed(2)} s frame matches render (PSNR ${psnr.toFixed ? psnr.toFixed(1) : psnr} dB)`); }
+    const psnr = +(p.stderr.match(/average:([\d.inf]+)/) || [])[1]; chk(psnr > 35 || isNaN(psnr), `${m.name.padEnd(9)} @ ${t.toFixed(2)} s frame matches render (PSNR ${psnr.toFixed ? psnr.toFixed(1) : psnr} dB)`); }
   await br.close(); console.log(`\nverify: ${OK.length} ✓  ${BAD.length} ✗`); return BAD.length;
 };
 C.all = async () => { C.audio(); await C.render(); C.mux(); C.srt(); await C.poster(); C.check(); await C.verify(); };

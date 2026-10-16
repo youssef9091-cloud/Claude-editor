@@ -31,3 +31,7 @@ wide.save(B + 'room_wide.jpg', quality=93)
 for name, box in [('room_bg_daughter', (150, 430, 344, 775)), ('room_bg_father', (446, 430, 640, 775))]:
     L.crop(box).resize((1080, 1920), Image.LANCZOS).filter(ImageFilter.GaussianBlur(9)).save(B + name + '.jpg', quality=92)
 print('room plates → build/')
+for name, f in [('G11_ice_drilling', 1.7), ('G12_lava_haze', 2.0)]:   # ice drilling (replaces G05 in the Antarctica beat), volcanic haze (behind the temperature chart)
+    im = Image.open(A + name + '.png').convert('RGB'); im = im.resize((int(im.width * f), int(im.height * f)), Image.LANCZOS)
+    im.filter(ImageFilter.UnsharpMask(radius=2, percent=50, threshold=2)).save(B + name + '.jpg', quality=93)
+print('drilling + lava → build/')
