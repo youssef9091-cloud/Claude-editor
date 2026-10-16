@@ -1,0 +1,7 @@
+{
+	"dependencies": {
+		"framer-motion": "^14.3.0",
+		"react-use-measure": "^2.1.7",
+		"usehooks-ts": "^3.1.1"
+	}
+}
