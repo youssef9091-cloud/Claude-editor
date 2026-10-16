@@ -80,7 +80,7 @@ async function encode(scale, fps, outFile, workers = 4) {
 C.preview = async () => {
   if (!fs.existsSync(`${BUILD}/mix.wav`)) C.audio();
   await encode(0.5, 15, `${BUILD}/preview_video.mp4`);
-  sh('ffmpeg', ['-y', '-v', 'error', '-i', `${BUILD}/preview_video.mp4`, '-i', `${BUILD}/mix.wav`, '-c:v', 'copy', '-c:a', 'aac', '-b:a', '128k', '-shortest', `${OUT}/preview.mp4`]);
+  sh('ffmpeg', ['-y', '-v', 'error', '-i', `${BUILD}/preview_video.mp4`, '-i', `${BUILD}/mix.wav`, '-c:v', 'copy', '-c:a', 'aac', '-b:a', '128k', '-shortest', '-movflags', '+faststart', `${OUT}/preview.mp4`]);
   console.log(`preview → ${OUT}/preview.mp4`);
 };
 C.render = async () => { await encode(1, S.FPS, `${BUILD}/video.mp4`); console.log(`video → ${BUILD}/video.mp4`); };
