@@ -1,11 +1,2393 @@
 {
   "version": 1,
   "skills": {
+    "2d-character-rig-animation": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/creative-direction/2d-character-rig-animation/SKILL.md",
+      "computedHash": "dc0e649feb58bbe2579d92a1898bf80479577176cbdec012b53ba256734b3912"
+    },
+    "3d-asset-production": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/3d-craft/3d-asset-production/SKILL.md",
+      "computedHash": "933e0ffb2745721931c5cf3d323d9536c5a84a67640b3af9d161e34df10519e5"
+    },
+    "3d-spatial": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/01-by-domain/3d-spatial/SKILL.md",
+      "computedHash": "20687f3db9e35853fc03444255c70771138c682ad83ad8213fa616011e6f39a1"
+    },
+    "Animation Principles - Absolute Beginner": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/04-by-skill-level/absolute-beginner/SKILL.md",
+      "computedHash": "49206c922f9796afdfb4c64490c613c04cddddab04eb1644733d54676e7ea8fa"
+    },
+    "Animation Principles - Advanced": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/04-by-skill-level/advanced/SKILL.md",
+      "computedHash": "ada46d08e907ab2969750ccd1f956e314dbdebce715567318f59ee1dfed367d7"
+    },
+    "Animation Principles - Deep Dive": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/04-by-skill-level/deep-dive/SKILL.md",
+      "computedHash": "1f8941ba4d536a195ec2e144e07e245cf9bccad6350954b5e6aa50be938a8952"
+    },
+    "Animation Principles - Expert": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/04-by-skill-level/expert/SKILL.md",
+      "computedHash": "8e5c28200246644b4dab6a749d0098ecea704950fb4c07b11a72341edad348c0"
+    },
+    "Animation Principles - Intermediate": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/04-by-skill-level/intermediate/SKILL.md",
+      "computedHash": "bd76678b9e8b2d82d5ab75b5fdbf2c67526272a38ef3a7f4171eedae861b93e9"
+    },
+    "Animation Principles - Master": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/04-by-skill-level/master/SKILL.md",
+      "computedHash": "7a36ef5325d4a4e4465b345194bb8a16ebcb8f2527f3d4e02e7a909e590f6b5f"
+    },
+    "Animation Principles - Novice": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/04-by-skill-level/novice/SKILL.md",
+      "computedHash": "ff4f2fc09563615c988806ec9490b5baabdf287eef1e30edadcf97722edfb7eb"
+    },
+    "Animation Principles - Quick Start": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/04-by-skill-level/quick-start/SKILL.md",
+      "computedHash": "b06de9be59750ab3f6a31cc214dbc099d08569c85a34554c1325318d5a2f00eb"
+    },
+    "Animation Principles - Refresher": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/04-by-skill-level/refresher/SKILL.md",
+      "computedHash": "93d5a419a4dac55fc6cc6dfb44d02821dabd4421ed1f467f41b27c0e99754a2b"
+    },
+    "Animation Principles - Teaching Others": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/04-by-skill-level/teaching-others/SKILL.md",
+      "computedHash": "9fd72ee9407bfebd295433c226c0b6a2e8928d951acd2560a2581f3111e6dc18"
+    },
+    "Animation Principles - Troubleshooting": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/04-by-skill-level/troubleshooting/SKILL.md",
+      "computedHash": "10518f3e7556f341ac86daf504688e736607a88115f14dfc6364261cbaddb106"
+    },
+    "Animation Principles - Universal Reference": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/04-by-skill-level/universal-reference/SKILL.md",
+      "computedHash": "b90db3345b4e610ae4e48448000a66b3112818ce3928bd4ecfea0b2e60befd39"
+    },
+    "accessibility-advocate": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/03-by-role-persona/accessibility-advocate/SKILL.md",
+      "computedHash": "a78a3aec53321f613f5fc3f5d42d120d4f0dc8d7bc10f09465d327416baac3e7"
+    },
+    "accessibility-issues": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/12-by-problem-type/accessibility-issues/SKILL.md",
+      "computedHash": "bc83b037ee594fc77752035e409482cbf36d263b1ee18ed7e7718a8141a5db58"
+    },
+    "accessible-motion": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/01-by-domain/accessible-motion/SKILL.md",
+      "computedHash": "b93e61a0740c84bf7435cc746dc113213726bc5e42b7f9efabf8e0ff420f83f2"
+    },
+    "accordions-dropdowns": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/07-by-ui-element/accordions-dropdowns/SKILL.md",
+      "computedHash": "bb5bae55e6f3b2fae8852ff7343c84bea0694e777054003f8ca66a217d5f56af"
+    },
+    "ace-step": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/music-generation/ace-step/SKILL.md",
+      "computedHash": "100d11f293ffbc42d3ce9ac95b1fecbc26ce045d3d76027f2fbf8f27e4c6ec37"
+    },
+    "adobe-firefly-image": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/image-generation/adobe-firefly-image/SKILL.md",
+      "computedHash": "23a21de6b75e43a60197a0c882ac4c4a0e57930cc2e8255c2f1917e26367eec0"
+    },
+    "affirmations": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/agent/affirmations/SKILL.md",
+      "computedHash": "0ac9a224c5101e03276c0ff07388b96af83ef468858854c1c10425f613b18579"
+    },
+    "after-effects": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/09-by-tool-framework/after-effects/SKILL.md",
+      "computedHash": "a2d0df968fcbc07469823c72c1f724d854e2ca6a0d94f3e07d183098741cebbc"
+    },
+    "agent-browser": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/utilities/agent-browser/SKILL.md",
+      "computedHash": "79b1fcbdd43bfdf56780c31daac551b6c28734afef3ec37816122ba1e6fb4cfa"
+    },
+    "agent-tools": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/agent-tools/SKILL.md",
+      "computedHash": "d4388bd70a41006288d8aa3db6f4132e38a26e3ddd725162aca1ef34b1aad6fb"
+    },
+    "agent-ui": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "ui/agent-ui/SKILL.md",
+      "computedHash": "1e36948c369c99b810acc80e17f843a6e5691280695b37ec3a8860d03b164eee"
+    },
+    "ai-automation-workflows": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/content/ai-automation-workflows/SKILL.md",
+      "computedHash": "1840a53cc472429ffb513bfe64c9031205340a64740da7fe5379c22752c18c12"
+    },
+    "ai-avatar-video": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/video/ai-avatar-video/SKILL.md",
+      "computedHash": "fb79eb46607746eb3666903766873f2d2d2ef8c7c5371046b0b91d60b23da8cb"
+    },
+    "ai-content-pipeline": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/content/ai-content-pipeline/SKILL.md",
+      "computedHash": "52a87f0a092c8e33c0a55d2f0c8f1b1dcbcb172a94cec8aea4abfd5eb1540d57"
+    },
+    "ai-image-generation": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/image/ai-image-generation/SKILL.md",
+      "computedHash": "82eca9e2eadda210d66433497ff9d31bc1c0ea2dfcd7f0be4710e9b4ef53addd"
+    },
+    "ai-marketing-videos": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/video/ai-marketing-videos/SKILL.md",
+      "computedHash": "928f1b524bda9d9bc2b33813bddb209c0763dd689c99e33d78c1c344e4104cb5"
+    },
+    "ai-music-generation": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/audio/ai-music-generation/SKILL.md",
+      "computedHash": "5f581e5c9f961e67f1a928507ebc8691bca17467ddc3ab7ba9435668bd4126ce"
+    },
+    "ai-podcast": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/content/ai-podcast/SKILL.md",
+      "computedHash": "1ff39211eae6ebb2c7516b8473f1d7b851b6cfa380891e6da2bca45aebe52040"
+    },
+    "ai-podcast-creation": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/content/ai-podcast-creation/SKILL.md",
+      "computedHash": "02367ae60a2208804028a1706114ccf4d3f47e0b7dd72aafb4bcba19645e02e3"
+    },
+    "ai-product-photography": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/photo/ai-product-photography/SKILL.md",
+      "computedHash": "84a018d69da88f19dd02fa865a3f2caf37f0ae3fc2dd8bc9677e1ef75a6f16f4"
+    },
+    "ai-rag-pipeline": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/llm/ai-rag-pipeline/SKILL.md",
+      "computedHash": "279c26a6499410b5c72022866202325d7e21e2ab5c0879ba5cb6f9747607553b"
+    },
+    "ai-social-media-content": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/social/ai-social-media-content/SKILL.md",
+      "computedHash": "f1f4026f2803efa668c34eff9292ebdbf0c4468b9ded50c626f17f25c0a17f0b"
+    },
+    "ai-video-generation": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/video/ai-video-generation/SKILL.md",
+      "computedHash": "8524cc49ad3dca2a4502903234061b307636e44b08496e982747cdb9590f5556"
+    },
+    "ai-voice-cloning": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/audio/ai-voice-cloning/SKILL.md",
+      "computedHash": "224c1ed77ac7936204727c890a0a4ea52f4fd197963f34da3b9081149472ea1e"
+    },
+    "alibaba-image-models": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/image-generation/alibaba-image-models/SKILL.md",
+      "computedHash": "cc5619a7ebdec518a2cf97d347ca4920769b4ead83f976614c06369cf0bf8a9d"
+    },
+    "alibaba-wan-video": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/video-generation/alibaba-wan-video/SKILL.md",
+      "computedHash": "bceb50af7948b647d74925dd3699af3d110dc51f48bd257d9fcc73340dff881a"
+    },
+    "amazon-nova-canvas": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/image-generation/amazon-nova-canvas/SKILL.md",
+      "computedHash": "644799d8753f07c97d4e32c03b968c33b583c4413f777d79dae4f0a78a3ed0f0"
+    },
+    "amazon-nova-reel": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/video-generation/amazon-nova-reel/SKILL.md",
+      "computedHash": "5319d8867b5001816e05fc6bf35d747e7bafc55b925fe57fe290e2ab791f2477"
+    },
+    "amazon-polly": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/text-to-speech/amazon-polly/SKILL.md",
+      "computedHash": "c097a8673b755638e5327ce94eedd982265d4606a17c025b96d1c94ff50c4113"
+    },
+    "amazon-transcribe": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/speech-to-text/amazon-transcribe/SKILL.md",
+      "computedHash": "f0b5e789a57e08447d8450a342b87343f8a720527d3d6b60e7c15037d069ac4d"
+    },
     "animate": {
       "source": "delphi-ai/animate-skill",
       "sourceType": "github",
       "skillPath": "SKILL.md",
       "computedHash": "ffe5d0020ae97e7af2eeab79a3cdb2d13da004cc998dff6817b071308923b71f"
+    },
+    "animator-traditional": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/03-by-role-persona/animator-traditional/SKILL.md",
+      "computedHash": "cdd0767d06e2add152238140d8476fa50c8b691884f4994edc94a90dcaf2c6a3"
+    },
+    "anime-animation-production": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/content-formats/anime-animation-production/SKILL.md",
+      "computedHash": "370e3abb3afcc44d8c7043e9e7e782c2f3a365106636c319fbd819afcf99951f"
+    },
+    "anime-js": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/09-by-tool-framework/anime-js/SKILL.md",
+      "computedHash": "06a724fa1feccdd01bc4ec4e0c78861e08b696110c106beb9a77b2370b879a68"
+    },
+    "anticipation-mastery": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/11-by-principle-focus/anticipation-mastery/SKILL.md",
+      "computedHash": "8612c6b487b82f3189bdecfc5efc31530b7fb7c32276c1bf6b9e2a0db29f89cc"
+    },
+    "anticipation-payoff": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/02-by-thinking-style/anticipation-payoff/SKILL.md",
+      "computedHash": "cc3e0789911f841570f46630c293b2c89557a357d7ea268e1af52d9713af8776"
+    },
+    "app-store-screenshots": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/design/app-store-screenshots/SKILL.md",
+      "computedHash": "528a965bb79118a30c52f82c781cc45b4c27b7cfb9e37fa300c1a4f086cfcd1c"
+    },
+    "appeal-mastery": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/11-by-principle-focus/appeal-mastery/SKILL.md",
+      "computedHash": "c21e1acd22e7a4785f50e1ed69a8f86b995ebb567a71e5e6c0a4ae8b744efc93"
+    },
+    "arc-mastery": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/11-by-principle-focus/arc-mastery/SKILL.md",
+      "computedHash": "66016e04e801671bb641e2858004f3c2f5818d8a85b4d3bf930c25e8a5c0ea80"
+    },
+    "assemblyai-transcription": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/speech-to-text/assemblyai-transcription/SKILL.md",
+      "computedHash": "fd7f7c0b256371771d1d54294f379551457740fedb1cd2cce3b5123b685aca68"
+    },
+    "asset-continuity-management": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/governance-delivery/asset-continuity-management/SKILL.md",
+      "computedHash": "ad325386d1de599600c01a20dd41ff24c1eaba66588d16d97c40323efb6d2ab5"
+    },
+    "attention-direction": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/02-by-thinking-style/attention-direction/SKILL.md",
+      "computedHash": "e55e474eeae28af50d312355a77898467456aab838e728c7ab47688d1c200f0b"
+    },
+    "attention-grabbers": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/05-by-animation-type/attention-grabbers/SKILL.md",
+      "computedHash": "e5fe8e044c50c5598a75d0af18c9456c36698943e57c1b5095b9eaca730bfa71"
+    },
+    "attention-management": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/12-by-problem-type/attention-management/SKILL.md",
+      "computedHash": "a6081f7f1b24f2a496140978e8254e7d304dcb7a0dd86f0959b222021808d583"
+    },
+    "audio-mixing-mastering": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/audio-craft/audio-mixing-mastering/SKILL.md",
+      "computedHash": "631776bf2657e763d56fd9707c9ab7814b3e56ee98c5d00e7dd5c93c3ab5cc23"
+    },
+    "audio-reactive-video-composition": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/runtime-assembly/audio-reactive-video-composition/SKILL.md",
+      "computedHash": "e89b97313269c1c53d14326fbdbbaffaebf87ba6b5c5d6df73821363d9cca89f"
+    },
+    "audiobook-production": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/content-formats/audiobook-production/SKILL.md",
+      "computedHash": "a1f8f6e79062a62a72d0343dac2a1796e292ecfeb47ea45062f3a199815642df"
+    },
+    "audioshake-stem-separation": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/source-separation/audioshake-stem-separation/SKILL.md",
+      "computedHash": "601c8428e4d67f0e406d3e346617d413b08e14c4a5ba30553c970313b46f7562"
+    },
+    "avatar-spokesperson-production": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/content-formats/avatar-spokesperson-production/SKILL.md",
+      "computedHash": "2bdab1f8c7410fe226f7379086aa1fdadd211d641a01d67539cb696d0d5cdc4a"
+    },
+    "azure-speech": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/speech-and-voice/azure-speech/SKILL.md",
+      "computedHash": "031a8379d56972182b449c3ed06c3b95da1f81f26f120c7dfe43bf6123b298a7"
+    },
+    "background-removal": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/image/background-removal/SKILL.md",
+      "computedHash": "c3ddcfc3f52bc84fe3a30c0c12e77e6ab5985c950598e2d0c6c867cf55940977"
+    },
+    "black-forest-labs-flux": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/image-generation/black-forest-labs-flux/SKILL.md",
+      "computedHash": "47c031a5dac9d74b5a8bc9f73a396082c368191fbbce8722b488101f2272f7fa"
+    },
+    "book-cover-design": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/design/book-cover-design/SKILL.md",
+      "computedHash": "2f891143db02e0a2973e052281d16331e34ac175c115732526eed3991208d1f6"
+    },
+    "brand-consistency": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/12-by-problem-type/brand-consistency/SKILL.md",
+      "computedHash": "d1edf054ffebe406003d60322c9171257dba161bf2edba6c47fa36ead21f5992"
+    },
+    "brand-launch-film-production": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/content-formats/brand-launch-film-production/SKILL.md",
+      "computedHash": "21ed9f86991ec8c59339a996defd8f2ab5d2bf455dea5e24278db68d6897297a"
+    },
+    "brand-marketing": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/01-by-domain/brand-marketing/SKILL.md",
+      "computedHash": "96dab726e487fb018d814efa1b020e9271ea3d31d030436f606894ed9640f5c4"
+    },
+    "brand-strategist": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/03-by-role-persona/brand-strategist/SKILL.md",
+      "computedHash": "99514f6b370d2338893d67a4ae9d46dcc046e05fe2ee6b5d405d2eabc10b960e"
+    },
+    "bria-fibo-image": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/image-generation/bria-fibo-image/SKILL.md",
+      "computedHash": "f4274d487b73b779f341bcd7e5772c79040e28344fd166fd9eb1fb0069611f9a"
+    },
+    "building-inferencesh-apps": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "sdk/building-apps/SKILL.md",
+      "computedHash": "a31ff32325a5a5a9beb38e6b3fe1e855aafce0f7e3026d278a928e06a80362e8"
+    },
+    "buttons-ctas": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/07-by-ui-element/buttons-ctas/SKILL.md",
+      "computedHash": "f96a46b83334137059fad7ca179d883428be51099f6b939b8923d4d0c19d19bb"
+    },
+    "bytedance-seedream": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/image-generation/bytedance-seedream/SKILL.md",
+      "computedHash": "9142e196eb9bf8d9cfb7d7c0762e00b58b31bfc887ce82b2c003791c84c0d9e6"
+    },
+    "byteplus-seed-speech-tts": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/text-to-speech/byteplus-seed-speech-tts/SKILL.md",
+      "computedHash": "b34f0b6682e3e947fd0881d139b210b6642ae7fa2e29d494a40bc5d735647fd2"
+    },
+    "calm-relaxation": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/06-by-emotional-outcome/calm-relaxation/SKILL.md",
+      "computedHash": "be19319cdb8b79d3fe8aba7f8485044323c570de2fb06bc96f25a9aeeb3ffeba"
+    },
+    "captions-media-accessibility": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/audio-craft/captions-media-accessibility/SKILL.md",
+      "computedHash": "7abb1becc0bcc40d763fcd929cc32da00ca850bcc4adef7817433cf063923446"
+    },
+    "cards-containers": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/07-by-ui-element/cards-containers/SKILL.md",
+      "computedHash": "315eb72c146f3a19cd394c563fc1334b5792bb69e5c2b5d93577b25cfcce49ac"
+    },
+    "carousels-sliders": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/07-by-ui-element/carousels-sliders/SKILL.md",
+      "computedHash": "d7b20723d4e74ee25a7e3baa16c63f693a109132b6bace00e9511632ba4d4525"
+    },
+    "cartesia-sonic": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/text-to-speech/cartesia-sonic/SKILL.md",
+      "computedHash": "ca8dc5f9e56e5e373752f7069251e9111d836dbda4592fbb3eee859f254d658a"
+    },
+    "case-study-writing": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/writing/case-study-writing/SKILL.md",
+      "computedHash": "fee8b5ed09e9795d7d5b01a866f41464a30cd7fd30a1d825873a67eccc1f4e8e"
+    },
+    "character-appeal": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/02-by-thinking-style/character-appeal/SKILL.md",
+      "computedHash": "8b36f1cfca9442a1282086e313c7d3cde5c5c875257964290d4f77dfd728c2c7"
+    },
+    "character-design-continuity": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/creative-direction/character-design-continuity/SKILL.md",
+      "computedHash": "379166cc8ead7080958507e91333aabcf38b976547f049a2558af2f62e8c4e16"
+    },
+    "character-design-sheet": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/design/character-design-sheet/SKILL.md",
+      "computedHash": "903efdb9da49e68a939f3c016e7352f0c352cb593c049e955f62f8f41b64b2d7"
+    },
+    "chat-ui": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "ui/chat-ui/SKILL.md",
+      "computedHash": "5ad5d98943af1ae7b0fd3c292de1b516014b3d4bb61aeb9c1df135e6e6f9d750"
+    },
+    "cinematic-shot-direction": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/creative-direction/cinematic-shot-direction/SKILL.md",
+      "computedHash": "e152b1db7190e0f0301048f69dd3c3073f66ef619ea68538a82588f1ed46d2b2"
+    },
+    "cinematic-trailer-production": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/content-formats/cinematic-trailer-production/SKILL.md",
+      "computedHash": "15fcf6d3c28cd9a06f401d20f4e5bf27acd2c16d0fecf7b9c0972fea82a1a1d9"
+    },
+    "color-grading-finishing": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/post-production/color-grading-finishing/SKILL.md",
+      "computedHash": "4b47248154a816b494354268c81532f8375c5021f8dc05cda8e9386db49fdba5"
+    },
+    "comfort-safety": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/06-by-emotional-outcome/comfort-safety/SKILL.md",
+      "computedHash": "af44dcb7d8fa651798efec341e5f8c30377541f1299e23ca00e8a1359c67b082"
+    },
+    "comfyui-media-workflows": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/runtime-assembly/comfyui-media-workflows/SKILL.md",
+      "computedHash": "bf511abc3c44e9083bdfe98af7a0548c369304dfa96d11fe6bf0cd22e535c920"
+    },
+    "competitor-teardown": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/product/competitor-teardown/SKILL.md",
+      "computedHash": "525dbf4cdc206dc46fec4b44f198fb856c35212b651f60b81f1702dbf6f818ea"
+    },
+    "content-repurposing": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/content/content-repurposing/SKILL.md",
+      "computedHash": "0376e9e4d00b5563ce5698592769b9177afb9d388954bf03f94635581a3ff190"
+    },
+    "continuous-infinite": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/10-by-time-scale/continuous-infinite/SKILL.md",
+      "computedHash": "96b515ea2fe6ea5b21c559514422b50dd320d1e237d96349a18f0e6400e4dcc6"
+    },
+    "continuous-loops": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/05-by-animation-type/continuous-loops/SKILL.md",
+      "computedHash": "e6f83192b6548c0f1fbf56e5d713c84475cebffc6c814d1884b9e6b752d0dc98"
+    },
+    "creative-director": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/03-by-role-persona/creative-director/SKILL.md",
+      "computedHash": "b4cfc2a00cc8e32fd223f7345425bba9db1f1f30478400b576c79ddee2703c6f"
+    },
+    "css-native": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/09-by-tool-framework/css-native/SKILL.md",
+      "computedHash": "9355d5676166acba71a80fad4e8bf41f6b08152bee785ac9259f9a37acab5098"
+    },
+    "customer-persona": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/product/customer-persona/SKILL.md",
+      "computedHash": "1774b3f3011442be2a7b2ad91f447306bf890e7cc6c087f0baf6f506237d633b"
+    },
+    "d-id-avatar-video": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/avatar-video/d-id-avatar-video/SKILL.md",
+      "computedHash": "40480a2a962c0af1f64ca61723eef3718383a93f0414677832cabcd613716767"
+    },
+    "d3-animated-data-visualization": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/runtime-assembly/d3-animated-data-visualization/SKILL.md",
+      "computedHash": "15aea71f184d299af71c71fea5870428227f61e6cc14abdad3e1a8ee767427b9"
+    },
+    "data-visualization": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/01-by-domain/data-visualization/SKILL.md",
+      "computedHash": "025f32d2828f7c9f7eea64d44a5f581cf38049a60f3bdb9d3cc5cd0a773f57ae"
+    },
+    "deepgram-speech": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/speech-and-voice/deepgram-speech/SKILL.md",
+      "computedHash": "fe4ab993ac845180f21c1740ce5327aebc223f8f251db8c8fdbc62537b94915f"
+    },
+    "deepmotion-animate-3d": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/motion-capture/deepmotion-animate-3d/SKILL.md",
+      "computedHash": "a0727f52d2638b2da4f494e7df5dec17ea7b1fd523b5090c5d39a0a0f8c1e4fc"
+    },
+    "deliberate-1200-2000ms": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/10-by-time-scale/deliberate-1200-2000ms/SKILL.md",
+      "computedHash": "09e69a6fce8180383c16fcb575f4d92704701941e31e182047d9aa3213ec3734"
+    },
+    "dialogue-audio": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/audio/dialogue-audio/SKILL.md",
+      "computedHash": "b0ef6daf20b468e438a2035c3b645b6f17fcd0ef7e8728d001798376a03487f9"
+    },
+    "dialogue-editing-adr": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/audio-craft/dialogue-editing-adr/SKILL.md",
+      "computedHash": "82909995456eae6ba7715dd2380e8527daf619a298ea9e77c4c1259f3e12f4ab"
+    },
+    "documentary-montage-production": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/content-formats/documentary-montage-production/SKILL.md",
+      "computedHash": "385c5e3be1448285c2f7a3f2bf97e5bec94a25a044a8f86e5123b1c5d4759829"
+    },
+    "dramatic-2000ms-plus": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/10-by-time-scale/dramatic-2000ms-plus/SKILL.md",
+      "computedHash": "263260ac142d3cd993c6b5f01065cbe9969d007f8be218fe15f3c2d9f7f5168e"
+    },
+    "e-commerce-retail": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/08-by-industry/e-commerce-retail/SKILL.md",
+      "computedHash": "dd791e2661b4444aee4e4dcb118a590af46ae44c20dbd2e33e30a45d02120c32"
+    },
+    "ecommerce-product-imagery": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/content-formats/ecommerce-product-imagery/SKILL.md",
+      "computedHash": "d5f7f14be1be557eee33dadcfbf0ec7c9792a0786adb16ab0084adb4dcf917bd"
+    },
+    "editing-montage": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/post-production/editing-montage/SKILL.md",
+      "computedHash": "26b1f59d113b73595c4266ce16987a634ad851964d9ce3ce8b2fedc62fec32c9"
+    },
+    "education-learning": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/08-by-industry/education-learning/SKILL.md",
+      "computedHash": "6cea077fb90fa0413b8e370f84c3cdaa190e02d2cb27d5c3fe7005779590b28e"
+    },
+    "educational-animation-production": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/content-formats/educational-animation-production/SKILL.md",
+      "computedHash": "b77cf2d464ac24032220e37b8b62cbdd6003e0531092f85578813cfb26d47eb5"
+    },
+    "educator-teacher": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/03-by-role-persona/educator-teacher/SKILL.md",
+      "computedHash": "73f0c585b344a3311bb3cf74c283750113df44bf654fd451c1f8eb3c53846597"
+    },
+    "elegance-sophistication": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/06-by-emotional-outcome/elegance-sophistication/SKILL.md",
+      "computedHash": "8575f5fb712247e5eb4e3591fedf3176b8bde779659ff1da432f3e9b21152cda"
+    },
+    "elevenlabs-agents": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/voice-agents/elevenlabs-agents/SKILL.md",
+      "computedHash": "26fe89e71aa03c742f907cf02df2313252af6dd5a142e506d79f7de5120b6a17"
+    },
+    "elevenlabs-dialogue": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/audio/elevenlabs-dialogue/SKILL.md",
+      "computedHash": "13262f943d5e1853f1f3221856f392572b81f167f55e2514b63b976aeb01f1a4"
+    },
+    "elevenlabs-dubbing": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/audio/elevenlabs-dubbing/SKILL.md",
+      "computedHash": "8037a586c794a47251eec100f5c7cf1b83e6618f5461a3a7aa250a487decb36b"
+    },
+    "elevenlabs-dubbing-voice-conversion": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/speech-and-voice/elevenlabs-dubbing-voice-conversion/SKILL.md",
+      "computedHash": "c722b9c8df40df7c425621d20d88df0918623382adf104a1daf0ee8c127f7dac"
+    },
+    "elevenlabs-music": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/music-generation/elevenlabs-music/SKILL.md",
+      "computedHash": "12b95c8404b701ffab286c1fe13d1ad386507e2cbe10dc3c1dc408127887f284"
+    },
+    "elevenlabs-scribe": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/speech-to-text/elevenlabs-scribe/SKILL.md",
+      "computedHash": "cc01efb0640c6862e93ba8babdbc6215385e00bd626e3a72a4f2d83fed59f0b6"
+    },
+    "elevenlabs-sound-effects": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/sound-generation/elevenlabs-sound-effects/SKILL.md",
+      "computedHash": "eb4b85b0993b6d6aad160722d6be342c7e0f96e50106c3be3e38a54b966683ba"
+    },
+    "elevenlabs-stt": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/audio/elevenlabs-stt/SKILL.md",
+      "computedHash": "5f90d7b578a3320a8526b4467064442544015e5091fe90f5020c7e79b89a72ce"
+    },
+    "elevenlabs-tts": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/text-to-speech/elevenlabs-tts/SKILL.md",
+      "computedHash": "5fd0b70b2d4b530cae7f675f35d5062bbeef02f300c548be3405a44b03a9a17b"
+    },
+    "elevenlabs-voice-changer": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/audio/elevenlabs-voice-changer/SKILL.md",
+      "computedHash": "f58ec86bdfe5ae0d6362def75a7841fc7d5901b40cd86539bce816a274e232b8"
+    },
+    "elevenlabs-voice-isolator": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/audio/elevenlabs-voice-isolator/SKILL.md",
+      "computedHash": "8e760898695d987cc2af9f57525d98e1473567dddf20f04402a1c39b94df6f25"
+    },
+    "email-design": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/design/email-design/SKILL.md",
+      "computedHash": "81d6aee71914763dbdb7477642da188d147dba5a24c5913edab37718d475b4b5"
+    },
+    "embedded-captions": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/embedded-captions/SKILL.md",
+      "computedHash": "002ecd86409f69934acd6c624b3242480d472ea5b54b2988ee74f75799fb99c4"
+    },
+    "emotional-disconnect": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/12-by-problem-type/emotional-disconnect/SKILL.md",
+      "computedHash": "d794bf98e5311d80d647388154835cafdb3e114af569cc12f32144a5d64c7b1d"
+    },
+    "emotional-narrative": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/02-by-thinking-style/emotional-narrative/SKILL.md",
+      "computedHash": "e28b7e5d9724c2a996e43061862cbd4101bdd320a1a62a427f11fd88818661af"
+    },
+    "enterprise-b2b": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/08-by-industry/enterprise-b2b/SKILL.md",
+      "computedHash": "b0a383db860cbd3d53e2b37ab4a9e48940d4a175e2c3494a8c00f24e852c6ec2"
+    },
+    "entrance-animations": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/05-by-animation-type/entrance-animations/SKILL.md",
+      "computedHash": "273d6f42e16b98d45ada32d336e4cd38f137915ef53dce19b3220e3f98287f1f"
+    },
+    "exaggerated-clarity": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/02-by-thinking-style/exaggerated-clarity/SKILL.md",
+      "computedHash": "0377a033df763168d4359223012b443eb7aff3131b683d8c20b2b49e7c286060"
+    },
+    "exaggeration-mastery": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/11-by-principle-focus/exaggeration-mastery/SKILL.md",
+      "computedHash": "1196dab087ed2a1b66298fcad62a1a053046d1fd04cd1f1e81433ed4d73df2bc"
+    },
+    "excitement-energy": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/06-by-emotional-outcome/excitement-energy/SKILL.md",
+      "computedHash": "3f77d265fe8f7fdd58a61b07102ea3cf4cdd6d0d5e8e046404d928a4a8214f5b"
+    },
+    "exit-animations": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/05-by-animation-type/exit-animations/SKILL.md",
+      "computedHash": "06410e4e303150367f6293788a01d9e16a98ef5e39f3c3368873682d35b0c445"
+    },
+    "explainer-video-guide": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/video/explainer-video-guide/SKILL.md",
+      "computedHash": "cb465806f18db940beba7664cb59481479d41fba0483e90b45a463f5a0cd32b8"
+    },
+    "explainer-video-production": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/content-formats/explainer-video-production/SKILL.md",
+      "computedHash": "79cc4a6139d8db6a9e021bbba3b06f89668623c48a9a3aa26eb1a25c23aa0ad7"
+    },
+    "faceless-explainer": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/faceless-explainer/SKILL.md",
+      "computedHash": "495d25c528aae0107dcadbca8336e007f6db9e6fc85873b715eb5aa506ad4165"
+    },
+    "fashion-campaign-production": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/content-formats/fashion-campaign-production/SKILL.md",
+      "computedHash": "af6a9959028a183fac442209cc2e995a6da963362f4c68980e9e6a3920e71ce9"
+    },
+    "feedback-indicators": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/05-by-animation-type/feedback-indicators/SKILL.md",
+      "computedHash": "a384f25c769f01850512d70ce46085c9d147e25616d9519a861582761496a584"
+    },
+    "ffmpeg-media-finishing": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/runtime-assembly/ffmpeg-media-finishing/SKILL.md",
+      "computedHash": "c017d3dfd797796b4563cbe93cc925490fb52f12c0575f56d8a6a731de270bf3"
+    },
+    "figma": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/figma/SKILL.md",
+      "computedHash": "0aed427d5eaac09e92181b85a7ccc9bbdeab138a01272a02c13349546c10bbc8"
+    },
+    "figma-prototyping": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/09-by-tool-framework/figma-prototyping/SKILL.md",
+      "computedHash": "67ed406ee364b69ac688d51c7c78292e8e7a6b4c3e84e1a33f38243b3cebd4bf"
+    },
+    "filmmaker": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/03-by-role-persona/filmmaker/SKILL.md",
+      "computedHash": "f4967e101074221b81a2089927478344caf0eee9805b5d40a177c37976db3cfc"
+    },
+    "fintech-banking": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/08-by-industry/fintech-banking/SKILL.md",
+      "computedHash": "365cbc4c34ecfb20ae499527669237291e801a21b9b58c4506664c940df56f51"
+    },
+    "fish-audio-tts": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/text-to-speech/fish-audio-tts/SKILL.md",
+      "computedHash": "1c9de50abeeee726656ea5e38f8bdb22735433248be167bce08f75bf82e93e02"
+    },
+    "fitness-wellness": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/08-by-industry/fitness-wellness/SKILL.md",
+      "computedHash": "3add060bc9c2212bd840872de5da02d2d4d83db6ba0b45b62f403dab31c5473a"
+    },
+    "flux-image": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/image/flux-image/SKILL.md",
+      "computedHash": "844dd4bd2320b7944f69aaf0bbf10104f510a0c85c5b1876c0770952e1c0e6b8"
+    },
+    "follow-through-overlapping": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/11-by-principle-focus/follow-through-overlapping/SKILL.md",
+      "computedHash": "12bbf29fd37eedf123553a2130cb484ce2127dc6b5aa6b19403bb749c665dd22"
+    },
+    "food-beverage-content-production": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/content-formats/food-beverage-content-production/SKILL.md",
+      "computedHash": "ce001d08f72129b74e7e9df53250ff58799bfce10dfc469556818d59fb6c6959"
+    },
+    "forms-inputs": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/07-by-ui-element/forms-inputs/SKILL.md",
+      "computedHash": "b3093742d03530cf072123d8071167ee7a3590d6a39384f78dd25a7b9340437f"
+    },
+    "framer-motion": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/09-by-tool-framework/framer-motion/SKILL.md",
+      "computedHash": "562bde7d5264b63f4e8402dc20b199118e97d652d501dc58af3fdf3a29f9a1dd"
+    },
+    "friendliness-approachability": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/06-by-emotional-outcome/friendliness-approachability/SKILL.md",
+      "computedHash": "b8b741ab71117d0aea89db68db4415de1a3ee8a5c78c523b5835b7b15475d38d"
+    },
+    "frontend-developer": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/03-by-role-persona/frontend-developer/SKILL.md",
+      "computedHash": "39fa330f101fb32270deba53bae3710cf285aab40d0906477c005245c5c21965"
+    },
+    "game-designer": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/03-by-role-persona/game-designer/SKILL.md",
+      "computedHash": "bb186153afaa4020b09dd35f22813c89fa58aefafcf8d065a45cbf3d0b2cd69e"
+    },
+    "game-development": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/01-by-domain/game-development/SKILL.md",
+      "computedHash": "185ea558f849ac1bc88ec8cc5d08857e730e253e6fa600f5b48c6c20490a10ff"
+    },
+    "game-trailer-production": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/content-formats/game-trailer-production/SKILL.md",
+      "computedHash": "c99d46d5618539d88c7390fde72320078e7ecc12896e642abc290297bd446aad"
+    },
+    "gaming-entertainment": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/08-by-industry/gaming-entertainment/SKILL.md",
+      "computedHash": "1fb9505fde5cfc78924de3591410375f6dae653f7e2a931aba06f0a3683a34ef"
+    },
+    "gemini-live-audio": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/voice-agents/gemini-live-audio/SKILL.md",
+      "computedHash": "91d4ba9670c20a81bcf368c71610ab145fe61d5ba27ede3c1352e13e6b0f721f"
+    },
+    "general-video": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/general-video/SKILL.md",
+      "computedHash": "2ab2f937386bbe6c54f795460737ea768a90406b965e5c32ae0fa8ab9d486707"
+    },
+    "generated-media-qa": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/governance-delivery/generated-media-qa/SKILL.md",
+      "computedHash": "308b37e86dfc6ed13e9649b7c98a6b2bb8a28ea76771ba56a21461e9dd74a027"
+    },
+    "gesture-responses": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/05-by-animation-type/gesture-responses/SKILL.md",
+      "computedHash": "4e402bb4ad925c4475d39a09f5e910e07cdb0395acf0c7d9fadc364c0ec0946e"
+    },
+    "google-cloud-speech": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/speech-and-voice/google-cloud-speech/SKILL.md",
+      "computedHash": "f71f8974fd2937c2840890b882330ecc8d2537ce61146679415ef4c5dbc51306"
+    },
+    "google-gemini-image": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/image-generation/google-gemini-image/SKILL.md",
+      "computedHash": "fecc7850878f7d83a9ed25630c21f334f51c7624bf4095a902ebca0d47046ab6"
+    },
+    "google-gemini-omni-video": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/video-generation/google-gemini-omni-video/SKILL.md",
+      "computedHash": "1ef2a3596676c864e8c51a1f4c858cae382aa8ea95bbc7bb29b76add73fb770b"
+    },
+    "google-lyria": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/music-generation/google-lyria/SKILL.md",
+      "computedHash": "81b636bbcdb673aa8226208027d692b354fc531ab858b54b4131c5901bc6a6ba"
+    },
+    "google-veo": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/video-generation/google-veo/SKILL.md",
+      "computedHash": "8933f304d71c03248eba86ef5c3797066681529b47b10692893a4aca2e91fb3a"
+    },
+    "gpt-image": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/image/gpt-image/SKILL.md",
+      "computedHash": "a23eb1952f8cf42d13774e6822769885bcd413ffabb794b1778fae0aa32f2be6"
+    },
+    "gsap-animation-composition": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/runtime-assembly/gsap-animation-composition/SKILL.md",
+      "computedHash": "ab21eeb7fd776a55a46e6e5a4678f42f5c02c3d89ab0873d653018fe3c2253b1"
+    },
+    "gsap-greensock": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/09-by-tool-framework/gsap-greensock/SKILL.md",
+      "computedHash": "08a5bc6d818dfda5016d37cc0e767c63bbac5372c7cab20cdf4d05209c0af0cc"
+    },
+    "happyhorse": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/video/happyhorse/SKILL.md",
+      "computedHash": "8d62f68dc130e36922c6e4d44acecde848460eeeb0a2ec677fae2c1984877aa8"
+    },
+    "healthcare-medical": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/08-by-industry/healthcare-medical/SKILL.md",
+      "computedHash": "60ce521422303a17164d9d16f4bc4267993bbe6ea12e7a1902e6a5c13ade4dc4"
+    },
+    "hedra-character-video": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/avatar-video/hedra-character-video/SKILL.md",
+      "computedHash": "b38d5790e64d25cb05f8e6c320fd200fa4606854bb94659afb6d905544372da2"
+    },
+    "heygen-avatar-video": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/avatar-video/heygen-avatar-video/SKILL.md",
+      "computedHash": "6b4dd53f989b391dc473e5990cf386d859d7acfed4fe6f18f2f3761a6dff9850"
+    },
+    "higgsfield-video": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/video-generation/higgsfield-video/SKILL.md",
+      "computedHash": "0bdda372f585f2fc0221739ac02e99d1ad1e2f399375d3120dd5cf237bf158bd"
+    },
+    "hover-interactions": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/05-by-animation-type/hover-interactions/SKILL.md",
+      "computedHash": "a8c213b86cfb4f828421ba77fafc92bc96eff6800cd0f32c9a9363b9790e8482"
+    },
+    "hume-evi": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/voice-agents/hume-evi/SKILL.md",
+      "computedHash": "29a9484814b42ca3d4f13b8c356e319003d2a71d3c12ab3b0ad4694e0dbd1381"
+    },
+    "hume-octave": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/text-to-speech/hume-octave/SKILL.md",
+      "computedHash": "93a5ee8879f73294b6e3e7579e9d2328339378cb48edc5f3db18f83fc2558ad8"
+    },
+    "hyperframes": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/hyperframes/SKILL.md",
+      "computedHash": "1e613b9a542ece5b80bc6cbe255a58ca9b9fbe22d506e39e6890ad5eb1a66f15"
+    },
+    "hyperframes-animation": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/hyperframes-animation/SKILL.md",
+      "computedHash": "3d6678f0e325d69026678982b8616e181f8e92a4e7075f1f51a9b9696a265aba"
+    },
+    "hyperframes-audio": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/hyperframes-audio/SKILL.md",
+      "computedHash": "fed70bda20b7480227413f6876682d8ba4935aa069b5491642d55141d9508b24"
+    },
+    "hyperframes-cli": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/hyperframes-cli/SKILL.md",
+      "computedHash": "cfb959b1a3957339c0389a540fb1b28dacb6beaa8ad84e7c494a9fa3a7093245"
+    },
+    "hyperframes-core": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/hyperframes-core/SKILL.md",
+      "computedHash": "f50ee4785cb80fc4b6061ebd5576facf99fe01ee766544261ed917c60c805b21"
+    },
+    "hyperframes-creative": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/hyperframes-creative/SKILL.md",
+      "computedHash": "09964279b80ce3a74e1cec848c795734385ba57567c9b967c8dac4e3c94e9afa"
+    },
+    "hyperframes-keyframes": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/hyperframes-keyframes/SKILL.md",
+      "computedHash": "99f3b420941f6f91d49c36865fb21e46a562cd43a3b88a1f2297f79d55542c35"
+    },
+    "hyperframes-registry": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/hyperframes-registry/SKILL.md",
+      "computedHash": "54b17fdebee3ac56d279f0e2c1cfdab78839c05344bb4c0874c6f3941621e2ff"
+    },
+    "hyperframes-studio": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/hyperframes-studio/SKILL.md",
+      "computedHash": "073b806d264702d330426248608b7d70efb50050b8c61800f74dd6d77a317559"
+    },
+    "hyperframes-video-composition": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/runtime-assembly/hyperframes-video-composition/SKILL.md",
+      "computedHash": "9ee6edce884278307cb645fa56420411a01a817e46d0894d0bd856559697d845"
+    },
+    "icons-badges": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/07-by-ui-element/icons-badges/SKILL.md",
+      "computedHash": "e2bacc8d2516f8b4a4e20575d32741f0d971887c27df84cc009ecf621308fe84"
+    },
+    "ideogram-image": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/image-generation/ideogram-image/SKILL.md",
+      "computedHash": "58eed737285a45e0be0ee7de02fca94beb0e359c46544f1584e7973376e48331"
+    },
+    "image-generation-gateways": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/image-generation/image-generation-gateways/SKILL.md",
+      "computedHash": "fc41837ebee12efa56bcdf9d1b8b6fd54161a856275a649fd18bf55cf76aa936"
+    },
+    "image-to-video": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/video/image-to-video/SKILL.md",
+      "computedHash": "43cbc7d2e8fbd674ff6d4844098fd7ca4c5a087c9cbfd96e47316d3f8b558273"
+    },
+    "image-upscaling": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/image/image-upscaling/SKILL.md",
+      "computedHash": "8eaf33508630b9bf7c5d3a82e189971b588d6849dfcaff033b5e326ce53458a4"
+    },
+    "immersive-spatial-video-production": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/content-formats/immersive-spatial-video-production/SKILL.md",
+      "computedHash": "502fed16fb952ecde940c277c0b1e5c3946ca12194ab809ab963aeaa01ce6386"
+    },
+    "implementation-debugging": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/12-by-problem-type/implementation-debugging/SKILL.md",
+      "computedHash": "4a139e2bc3b1bca758916780300643389594ae2bf1c9e4e4260a0bfbb8cf626c"
+    },
+    "infsh-cli": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/infsh-cli/SKILL.md",
+      "computedHash": "9a86e795a3ec189cbabf3f822ee55369f6fa962ab617b99ed5536b4b6bb66181"
+    },
+    "instant-0-100ms": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/10-by-time-scale/instant-0-100ms/SKILL.md",
+      "computedHash": "3fae710c06a7874698a926ee7faaae66f22a18070eddf24e0d72bf92c046c032"
+    },
+    "javascript-sdk": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "sdk/javascript-sdk/SKILL.md",
+      "computedHash": "596c724bba3ebf30f926cd506806f249357655e911b28e98ae2517b0c06e37bc"
+    },
+    "joy-delight": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/06-by-emotional-outcome/joy-delight/SKILL.md",
+      "computedHash": "40ceecaf030ca33709ff56cd967a0a09c172aaf267d7212895b8541d744ede2c"
+    },
+    "kling-advanced-lip-sync": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/lip-sync/kling-advanced-lip-sync/SKILL.md",
+      "computedHash": "d019247e74188f58cacdf1366107ed20683864b3970076a46959d81dd9ab389f"
+    },
+    "kling-kolors-image": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/image-generation/kling-kolors-image/SKILL.md",
+      "computedHash": "9f61d98c992094d740254c4c13bb213210c8f35fe4db33c7a10c0ee8bbc52e42"
+    },
+    "kling-video": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/video-generation/kling-video/SKILL.md",
+      "computedHash": "ab3ea1b6193b1de9f22c3226b3d7ef8588e3060eed5b41ad554aaec7be969387"
+    },
+    "kokoro-tts": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/text-to-speech/kokoro-tts/SKILL.md",
+      "computedHash": "e3927d64ec7851b62304e65de9561e9cb8a91aee4379e16fcf1b9374a4cc4ed8"
+    },
+    "landing-page-design": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/design/landing-page-design/SKILL.md",
+      "computedHash": "435af3919183e91ded83197f9238740593cac886f45067dc729d8a7095fbfb5a"
+    },
+    "large-500-800ms": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/10-by-time-scale/large-500-800ms/SKILL.md",
+      "computedHash": "de1a915dc4b786e1e41538aa25f2ebe6d6ae4a8a24e972ffdbc656b10d76e142"
+    },
+    "leonardo-image": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/image-generation/leonardo-image/SKILL.md",
+      "computedHash": "5f003b83cf5a8b7afcbd40415fb82b8357a82eb2452d2d246e54d94bd2ac51cf"
+    },
+    "lighting-direction": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/creative-direction/lighting-direction/SKILL.md",
+      "computedHash": "6e6a88cc745143af224f7c1673160d0a6f3138dd3195a020a9c4d0ea32355aee"
+    },
+    "linkedin-content": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/social/linkedin-content/SKILL.md",
+      "computedHash": "cddbe5f32a78d24d1b5f0a715e2cb983a5ab5adc9138fce8654508f6af64bca2"
+    },
+    "lists-grids": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/07-by-ui-element/lists-grids/SKILL.md",
+      "computedHash": "038bb154b1f4631d3eb77cc2c74ecda0c670d16a411853212ed11791fb8081d0"
+    },
+    "livestream-event-production": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/content-formats/livestream-event-production/SKILL.md",
+      "computedHash": "b79bf71d1096673fb1116988919bc3834c751c4339d02b7d6df17666760c32e9"
+    },
+    "llm-models": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/llm/llm-models/SKILL.md",
+      "computedHash": "a4fd7bba32dc3b229a9e7859b1b1129da93ac26f3fcb5a7d1b98741b51d1a34f"
+    },
+    "loaders-spinners": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/07-by-ui-element/loaders-spinners/SKILL.md",
+      "computedHash": "3a287187783b4d18c98c54c3fe43b83e4a76603aa740c8920ff74da7f90219b2"
+    },
+    "loading-states": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/05-by-animation-type/loading-states/SKILL.md",
+      "computedHash": "2356ecbdf34f5dd585f42314f89e053c1d1e05f643930478c8e4e98a126d3b00"
+    },
+    "localization-dubbing-production": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/audio-craft/localization-dubbing-production/SKILL.md",
+      "computedHash": "f186064f96b50e273d81289fa8e26272972b153fc7d8898f9faddda70a8de121"
+    },
+    "logo-design-guide": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/design/logo-design-guide/SKILL.md",
+      "computedHash": "e650f96a4756edb0767d1bf28bad72ecda932dd62bdbac42d01ba975313d322a"
+    },
+    "lottie-animation-delivery": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/runtime-assembly/lottie-animation-delivery/SKILL.md",
+      "computedHash": "51305115b32a4c34f4b2730c30e58af59c420467fad639488c20f0cd55c26a9c"
+    },
+    "lottie-bodymovin": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/09-by-tool-framework/lottie-bodymovin/SKILL.md",
+      "computedHash": "0eece518ff73d47a172e8fed4c5e3b5e0113afd573124659021b3209f17289c9"
+    },
+    "ltx-2-video": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/video-generation/ltx-2-video/SKILL.md",
+      "computedHash": "97f3d12c96fd8b36caea4a3f68a349a5e5b24e9cdc4b0a8644636d79223b9c23"
+    },
+    "luma-photon": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/image-generation/luma-photon/SKILL.md",
+      "computedHash": "14d47fef69aee64f44d97f58637305eb7e7a9f380a898ea71b6a39722e27f466"
+    },
+    "luma-ray-video": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/video-generation/luma-ray-video/SKILL.md",
+      "computedHash": "2e6d3c87b61aa4cf05541745b96d8bd3fccddbbf891ba50db9766f85005eeddc"
+    },
+    "manim-explainer-animation": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/runtime-assembly/manim-explainer-animation/SKILL.md",
+      "computedHash": "3af72e5bcd35850349d38e0e6706b0eac7e7ef247027b64e450f561aa844e57f"
+    },
+    "media-provenance-rights": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/governance-delivery/media-provenance-rights/SKILL.md",
+      "computedHash": "2a50317f0edae95d80f53dc622163b6286208d02d102be135ebaf3a342636f83"
+    },
+    "media-publishing": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/08-by-industry/media-publishing/SKILL.md",
+      "computedHash": "f67650af0e3beafb22208f0a8b35ccf0ee611da2b8352623eaa58de594117f55"
+    },
+    "media-qc-delivery": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/governance-delivery/media-qc-delivery/SKILL.md",
+      "computedHash": "78dce1241a4d924a653fe87292b46c5f89a1a7bb83ff2d844b3b5d8c504c632f"
+    },
+    "media-use": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/media-use/SKILL.md",
+      "computedHash": "1498b6c6a86c2c3b3b7046888035413dea6b7717ff941f14f115092433bb2a8c"
+    },
+    "medium-300-500ms": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/10-by-time-scale/medium-300-500ms/SKILL.md",
+      "computedHash": "04f7a67217586617b6c928ce30e41d949a0c1ad623507d7b37cd8162883fead8"
+    },
+    "meshy-3d": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/3d-generation/meshy-3d/SKILL.md",
+      "computedHash": "c0b11397bd79bd54922166929517a60235a08b9aca72884a2bb55f15b98adeff"
+    },
+    "micro-100-200ms": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/10-by-time-scale/micro-100-200ms/SKILL.md",
+      "computedHash": "30217fa45b6ca4617a64ba76f343d4eea35ae77c02aba8090b7ef5706dba7a85"
+    },
+    "micro-interactions": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/01-by-domain/micro-interactions/SKILL.md",
+      "computedHash": "22a154d2e1a33e32f2946504502849dba5a934ac3654ba625a5807b836272955"
+    },
+    "midjourney-image": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/image-generation/midjourney-image/SKILL.md",
+      "computedHash": "825266e98087b950a62416928c41b495cb81b482ba6f57237ea10ba39a3c7caf"
+    },
+    "midjourney-video": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/video-generation/midjourney-video/SKILL.md",
+      "computedHash": "166e95bc72e9ad24e1d1d0fba1ab605a8b04f74358553274ae51e73befc36775"
+    },
+    "minimax-hailuo-video": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/video-generation/minimax-hailuo-video/SKILL.md",
+      "computedHash": "15f3bd5a60e1b1c0ee131c8fedf42b7cf5d5e50e996b3090ff9ddb6d44534492"
+    },
+    "minimax-music": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/music-generation/minimax-music/SKILL.md",
+      "computedHash": "8660c3376ccf6916626f18f2c93bd7d8853df74664ac49bb9327e1c93ad09bb9"
+    },
+    "minimax-speech": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/text-to-speech/minimax-speech/SKILL.md",
+      "computedHash": "b3fb8f0d53818f299f9faa726a38d53a71a3c472ac2f49271eadabebcb348c12"
+    },
+    "mobile-touch": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/01-by-domain/mobile-touch/SKILL.md",
+      "computedHash": "0675004b7f955c8cbcd8a8bb16aafa3fb56a05fd4a01f9895c1246f1e915970a"
+    },
+    "modals-dialogs": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/07-by-ui-element/modals-dialogs/SKILL.md",
+      "computedHash": "df8a5c9d0f4c55c27a69376d80a429008fc97f12cd90d4e38e098071ae9979f7"
+    },
+    "moonvalley-marey": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/video-generation/moonvalley-marey/SKILL.md",
+      "computedHash": "a09553a5ba5fd86d6a65b8f3658ef6efa3be4569f29b966b24992665a6e5cd15"
+    },
+    "motion-designer": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/03-by-role-persona/motion-designer/SKILL.md",
+      "computedHash": "b3e9b1f0b9ed1154523cb93833dcc08cbdf2177b829d1ec6400a1df26b09a522"
+    },
+    "motion-graphics": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/motion-graphics/SKILL.md",
+      "computedHash": "f2ecbb79ac73f817c38fc002f5bde99be4a020e8cc544f71d3817df994f26986"
+    },
+    "motion-graphics-direction": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/post-production/motion-graphics-direction/SKILL.md",
+      "computedHash": "bc3452d21526be6c3fd8ba5ef2815e0623a77a5c18550b292005c6c20749c410"
+    },
+    "motion-one": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/09-by-tool-framework/motion-one/SKILL.md",
+      "computedHash": "e90dbcae913af9063851892d2634e9e5c8af71973218ed161649a9e956131fe2"
+    },
+    "motion-sickness": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/12-by-problem-type/motion-sickness/SKILL.md",
+      "computedHash": "7c0d83196c50d1e785abb56682ce099f10c5099f33a568ed4f7cd7cd4aca04d6"
+    },
+    "move-ai-motion-capture": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/motion-capture/move-ai-motion-capture/SKILL.md",
+      "computedHash": "53cfec1839279c8f307a4ac18bcde5a49ca6d84d0b960dd8783f77a5433480f2"
+    },
+    "music-supervision-scoring": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/audio-craft/music-supervision-scoring/SKILL.md",
+      "computedHash": "8e984349f31f06dc962bc1221dfaeabff7141653909174b0488ce1437f68397f"
+    },
+    "music-to-video": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/music-to-video/SKILL.md",
+      "computedHash": "8fcdb92e400f2ec38d019352b021632054c05dc80d247963b158d60c60495f6f"
+    },
+    "music-video-production": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/content-formats/music-video-production/SKILL.md",
+      "computedHash": "784c32f8a2a118bed14229e4ccacf8a8ea7e85cddf03aad30a97795ce0d035ec"
+    },
+    "nano-banana": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/image/nano-banana/SKILL.md",
+      "computedHash": "d8021272d2b0512f7334a0a227bc7b79cae2536780c91b9b83844a317c7419f2"
+    },
+    "nano-banana-2": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/image/nano-banana-2/SKILL.md",
+      "computedHash": "8ce15025c31bbf32fd13781bb4d737908a636955f1ce4604550fa1eb5b00e097"
+    },
+    "naturalistic-motion": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/02-by-thinking-style/naturalistic-motion/SKILL.md",
+      "computedHash": "7ed6143e7e12f6bea9d34181b6265c7fdc04b04961ee723b4fc988c8a323e64c"
+    },
+    "navigation-menus": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/07-by-ui-element/navigation-menus/SKILL.md",
+      "computedHash": "ea979bdd07ffe92fce609d72a606f57f5f2250ccc644c720a85c07e4e2efa29e"
+    },
+    "neural-reality-capture": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/3d-craft/neural-reality-capture/SKILL.md",
+      "computedHash": "bfb4bbe85223eef5220c56559676de89a9aa661e102e2c6d8c8c23dfcb9a396d"
+    },
+    "newsletter-curation": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/writing/newsletter-curation/SKILL.md",
+      "computedHash": "d45f4baba4359ede6c8fbc46b58699bf3625ffbb02b6807d22b2856d3a4220ea"
+    },
+    "notifications-toasts": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/07-by-ui-element/notifications-toasts/SKILL.md",
+      "computedHash": "91fdc218713a330d39cf8d0eeaa1a5e41afb55f2735058e0877c435440c63491"
+    },
+    "nvidia-cosmos-video": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/video-generation/nvidia-cosmos-video/SKILL.md",
+      "computedHash": "56ccff1d9c4b237ca506ed3bfca95bb71014c238ad7a250d76990d375bb39c60"
+    },
+    "nvidia-maxine-audio-effects": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/audio-enhancement/nvidia-maxine-audio-effects/SKILL.md",
+      "computedHash": "9251ec509b642af914e66e80f45caab27ce157e2a83a43c92b77e3e7ad8245b9"
+    },
+    "nvidia-speech-nim": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/speech-and-voice/nvidia-speech-nim/SKILL.md",
+      "computedHash": "97944b1ac1fca04cdae67575ff3d63c9c1af01a3b27915f06b22a85cb4d17494"
+    },
+    "odyssey-interactive-video": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/world-models/odyssey-interactive-video/SKILL.md",
+      "computedHash": "b5dbddde90b26f641f8ddf3b6a4e3d7e29e887ae1bd2a111e63c44cf055d80de"
+    },
+    "og-image-design": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/design/og-image-design/SKILL.md",
+      "computedHash": "100e68e3ddd077c497e03616f1991fd88fc84c567786cda188e7b42ec0608911"
+    },
+    "openai-audio": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/speech-and-voice/openai-audio/SKILL.md",
+      "computedHash": "dea6173d34ab3c1669effef7a3e041805aa06e0c81d1e2cca8df2f31e7724e46"
+    },
+    "openai-gpt-image": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/image-generation/openai-gpt-image/SKILL.md",
+      "computedHash": "fa222fd0f6d47289be6e8f0b9738f954d9124b700d4cf828aa6f6b1e6acf043e"
+    },
+    "openai-realtime-voice": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/voice-agents/openai-realtime-voice/SKILL.md",
+      "computedHash": "8dedf3f43754af890a0a1d3fdcff73a111e6b042dc264f9ca9615bbf9b388886"
+    },
+    "orchestrated-sequences": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/10-by-time-scale/orchestrated-sequences/SKILL.md",
+      "computedHash": "2a3ba8f8b6b72555665efce7af7f3743ab804fe050cc17c03600c1ac422bcb1c"
+    },
+    "p-image": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/image/p-image/SKILL.md",
+      "computedHash": "4ac3b0a7b6f387f4eeedeb3645ac34ce5a4039a9a660b20c267e6f6e17986ea3"
+    },
+    "p-video": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/video/p-video/SKILL.md",
+      "computedHash": "0e1bc0cac9aa57377623ed9fdfffdf5729b9770ccf57bdc7e8871ffd2a1a8683"
+    },
+    "p-video-avatar": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/video/p-video-avatar/SKILL.md",
+      "computedHash": "fc41574f38de9529a81d9326cda52cd2b74a9353e6f4fc9dcf2fda3f6255007e"
+    },
+    "page-transitions": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/01-by-domain/page-transitions/SKILL.md",
+      "computedHash": "6dad8fafd493bbac111c708c76de42cbd3532702d2e6b243d113d37c1324d807"
+    },
+    "performance-direction": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/creative-direction/performance-direction/SKILL.md",
+      "computedHash": "921f0f3c617afd991d863399fc4f7a115053a5003b0506c956f72f4580218135"
+    },
+    "performance-optimization": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/12-by-problem-type/performance-optimization/SKILL.md",
+      "computedHash": "438e92d28c9bca04b3aa0935f50cb9fd1c16bfc5bb8a047dae45353e1bd7971e"
+    },
+    "physics-intuition": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/02-by-thinking-style/physics-intuition/SKILL.md",
+      "computedHash": "c3de1200eb5e7f7c732fa79c185bdb3cf824640afeb4f9a19877934ea93213c7"
+    },
+    "pika-video": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/video-generation/pika-video/SKILL.md",
+      "computedHash": "988a0b7fb5bc5533f7c0798b0d3da06c4234da350f28fa17134d34324d7d5cfa"
+    },
+    "pitch-deck-visuals": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/design/pitch-deck-visuals/SKILL.md",
+      "computedHash": "21b5e9eeef27b164d6b09aa3f8371675ab3dbc6549f6739c9b3ecbffa232b51a"
+    },
+    "playfulness-fun": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/06-by-emotional-outcome/playfulness-fun/SKILL.md",
+      "computedHash": "9716e3e321a0c7183f5408c60e1ce411e8f3ec9091d8ae53a63867960bc4a601"
+    },
+    "podcast-production": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/content-formats/podcast-production/SKILL.md",
+      "computedHash": "87d1f944dcd5d453e223ae3e577818ae50fc6765caacdebb64be0fbb7c1727db"
+    },
+    "popmotion": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/09-by-tool-framework/popmotion/SKILL.md",
+      "computedHash": "3132f28eccb26f7e008bfb72c23f9bf710b83c1cae6c2ae6f8ab86920d94e17d"
+    },
+    "power-confidence": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/06-by-emotional-outcome/power-confidence/SKILL.md",
+      "computedHash": "ab38b2e653886583038911019dd79136221192a129e9945c4b026ef61d32280b"
+    },
+    "pr-to-video": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/pr-to-video/SKILL.md",
+      "computedHash": "2144a8cd1f8ff1efdf8895eee2d99d02c0a1b01985e0941e40314f82648f8573"
+    },
+    "precise-video-description": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/creative-direction/precise-video-description/SKILL.md",
+      "computedHash": "ebf12778358d1e36c57360c362d7bb765b6397e85cfd993756eb4f285fa68c1b"
+    },
+    "presentations": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/01-by-domain/presentations/SKILL.md",
+      "computedHash": "e7a0e8b1e4cf9d0d61cf19d792703a69be0dd3a200108c4bfd3d00d686966253"
+    },
+    "press-release-writing": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/writing/press-release-writing/SKILL.md",
+      "computedHash": "27dda1edfe7a58e11795a53e47d94446fcfa96370119372d9afbf5eaed254ff7"
+    },
+    "problem-diagnosis": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/02-by-thinking-style/problem-diagnosis/SKILL.md",
+      "computedHash": "3d75c21cdac7adda57be285dd565e3d04c31670e599cd783220f89a5c078ae2e"
+    },
+    "procedural-canvas-animation": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/runtime-assembly/procedural-canvas-animation/SKILL.md",
+      "computedHash": "fd7025e054e8a18c7ae506e5320f9d92bba78e8ad4131d963e2bfae8547c4970"
+    },
+    "product-ad-production": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/content-formats/product-ad-production/SKILL.md",
+      "computedHash": "88985b0165216c26c43b49a39e7d9579698a00d03dcb3a0970dbdc0f6b7c8697"
+    },
+    "product-changelog": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/product/product-changelog/SKILL.md",
+      "computedHash": "52a3512d06295bda053da253a7762d238a09e7a16a3c64d53696a1fbf3f234b3"
+    },
+    "product-hunt-launch": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/product/product-hunt-launch/SKILL.md",
+      "computedHash": "fc782d778a2a1624aebd645fd0377c4a2557f70cdfb3b70b2a051104f992cf14"
+    },
+    "product-launch-video": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/product-launch-video/SKILL.md",
+      "computedHash": "c5d95afc26de07fe10e59d753eef66e804bcbc5a4e54759bf4d2057023c5b77a"
+    },
+    "product-manager": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/03-by-role-persona/product-manager/SKILL.md",
+      "computedHash": "c21c36e80eff99b66246e716ee00d8b8cfcef6aabf3094a2da0ecf2bd7911793"
+    },
+    "product-photography": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/photo/product-photography/SKILL.md",
+      "computedHash": "7553fa76097f15bebbeaa01e9db720c0437e0732412a6e739f6d16df21370700"
+    },
+    "production-design-direction": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/creative-direction/production-design-direction/SKILL.md",
+      "computedHash": "3f220289818047e02d457efcd4078fc781a20fca52b99661cd6882ad4356e1e8"
+    },
+    "professionalism-credibility": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/06-by-emotional-outcome/professionalism-credibility/SKILL.md",
+      "computedHash": "25743dd374d0f44371d23a39e530850f8e0836c23b292025d2b6cf017803e331"
+    },
+    "prompt-engineering": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/prompting/prompt-engineering/SKILL.md",
+      "computedHash": "557eeb9af0e5320e4b600786858f8cd089c8bf4ada517c0e289f7d899fab2262"
+    },
+    "python-executor": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/utilities/python-executor/SKILL.md",
+      "computedHash": "e2af7331b64414f0902dfffd0d603b5f16db746947fd172be4f8c55f6ba8f192"
+    },
+    "python-sdk": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "sdk/python-sdk/SKILL.md",
+      "computedHash": "f4068c27d05308a6e782dbb5c2c72e72125acc63b9e630d30c9580cb61b6544b"
+    },
+    "qwen-image-2": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/image/qwen-image-2/SKILL.md",
+      "computedHash": "bec28fbba52bddac205e13d6b7f535906f7ad39eb9519ee58b3be56bb37967f7"
+    },
+    "qwen-image-2-pro": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/image/qwen-image-2-pro/SKILL.md",
+      "computedHash": "3066ea080373d00cd45581263b5ebb917009838536bcefa27b7f1d30556cfb53"
+    },
+    "qwen3-tts": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/text-to-speech/qwen3-tts/SKILL.md",
+      "computedHash": "6e2ae322bb623be7b012afc07c54c85d0269140b04f16e050374d2b04f87f171"
+    },
+    "react-spring": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/09-by-tool-framework/react-spring/SKILL.md",
+      "computedHash": "76a8f10391467d5f289d9a9d91f92621a767de26cd0969d2014c59951472e521"
+    },
+    "real-estate-content-production": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/content-formats/real-estate-content-production/SKILL.md",
+      "computedHash": "6efe643e266c8eb322a646362297a5433de185e2e03332fc53ad0669c6045849"
+    },
+    "recraft-image-design": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/image-generation/recraft-image-design/SKILL.md",
+      "computedHash": "87c54148f394b8f9360db0e0893b226c50485f27acc5b5d2fe39c60526c58048"
+    },
+    "reference-media-analysis": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/governance-delivery/reference-media-analysis/SKILL.md",
+      "computedHash": "b31bd5870c0769fb80ede973ca34950af3981890bbc71a45623251a146f14658"
+    },
+    "related-skill": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/utilities/related-skill/SKILL.md",
+      "computedHash": "413cb6d9a924c304ef1836a68a8f21cb990dfadb4de2a28c39aaa0f9a15b01d5"
+    },
+    "remotion-render": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/video/remotion-render/SKILL.md",
+      "computedHash": "5ad33a6307b48a8e756be722ea26e39467cd1713f87fc5a8eff5480ac873eeaf"
+    },
+    "remotion-to-hyperframes": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/remotion-to-hyperframes/SKILL.md",
+      "computedHash": "17c26590575d28118b783f6a534288ac38df50fae5b95826ee9d4976328ad687"
+    },
+    "remotion-video-composition": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/runtime-assembly/remotion-video-composition/SKILL.md",
+      "computedHash": "220c45f60aa2be6918920c9c4e7fe55662f37fdaaf2cb6b22d8786369506aebc"
+    },
+    "resemble-chatterbox": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/text-to-speech/resemble-chatterbox/SKILL.md",
+      "computedHash": "ee2a43030375ac6fb52400f6c30f1177b2bdb9d06499e08bfc4379081256d39e"
+    },
+    "responsive-adaptive": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/10-by-time-scale/responsive-adaptive/SKILL.md",
+      "computedHash": "d378af679ec42b0ef495d26db50521b7c3b61c4be1602ce745266b949be93eb4"
+    },
+    "rhythm-pacing": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/02-by-thinking-style/rhythm-pacing/SKILL.md",
+      "computedHash": "8df7560d9e32be4471963fe61ae369341609e761815167e651900b18bde47f02"
+    },
+    "rive-animations": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/09-by-tool-framework/rive-animations/SKILL.md",
+      "computedHash": "c46aa3e31450cc83f2e03b0215069f4f32b9c6a5ae0d6ba8c80b418b88bdf738"
+    },
+    "runway-image": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/image-generation/runway-image/SKILL.md",
+      "computedHash": "346876348cfd63f48f84296ab63eec82ef3ff2c18d4790b7bd00189a7c656f3c"
+    },
+    "runway-video": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/video-generation/runway-video/SKILL.md",
+      "computedHash": "8fbb09c17fcea74baaefcab48168821fe0b29b322225baf8a0e64956f4769dde"
+    },
+    "saas-product-demo-production": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/content-formats/saas-product-demo-production/SKILL.md",
+      "computedHash": "849e2686e72be75089eabdbbfd2b4a34fc1060a683c2466b82a34e52e9f46269"
+    },
+    "saas-productivity": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/08-by-industry/saas-productivity/SKILL.md",
+      "computedHash": "bc352498d495d851299310bd9c02b3b0dcf993e7943735bb167f87e386e84d5b"
+    },
+    "screen-demo-production": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/content-formats/screen-demo-production/SKILL.md",
+      "computedHash": "e8428660ef43f5a7ce112b998e4517077e3714b33b7ae406ce2a280cb33842e3"
+    },
+    "scroll-animations": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/05-by-animation-type/scroll-animations/SKILL.md",
+      "computedHash": "1dd984a631d29f3ede3cbe3302e8998560e5426761a5f57ed7bb4e74cb8ad2a3"
+    },
+    "secondary-action-mastery": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/11-by-principle-focus/secondary-action-mastery/SKILL.md",
+      "computedHash": "4448915113d7627ce75f1c29a19ffa852e75b8cb03dc86dfd5ff671a6f3bbfee"
+    },
+    "seedance": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/video/seedance/SKILL.md",
+      "computedHash": "406632992062e50e267bb8352543e7a63909358ac8dc975c3c2a64465df06c70"
+    },
+    "seedance-2-0": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/video-generation/seedance-2-0/SKILL.md",
+      "computedHash": "136a22a56dbbff6aaf99542cfd6f01f10f2b3afbd24c3a1c1b6f0223caa56a38"
+    },
+    "seo-content-brief": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/writing/seo-content-brief/SKILL.md",
+      "computedHash": "71fb2a55dcbdc10d51d7dd93ac11e45b9b032fff8811a5b9458c398136b09035"
+    },
+    "slideshow": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/slideshow/SKILL.md",
+      "computedHash": "fa178947b4cfe834d416c4d826d50cdd1f92dfb22395569032a40aa5d26819cc"
+    },
+    "slow-800-1200ms": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/10-by-time-scale/slow-800-1200ms/SKILL.md",
+      "computedHash": "f4997016c15305b273534e94b8613090237e3b6814a9b38e0a9ac4d32e629c11"
+    },
+    "slow-in-out-mastery": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/11-by-principle-focus/slow-in-out-mastery/SKILL.md",
+      "computedHash": "a0330b12899997231ac0713c84d5222dfeaa165b383cc2bec36438fdc0fe0488"
+    },
+    "small-200-300ms": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/10-by-time-scale/small-200-300ms/SKILL.md",
+      "computedHash": "0d90b0052208b0420154df0539291d34b301cc69a8177dae91c5e457055acbfb"
+    },
+    "social-media": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/08-by-industry/social-media/SKILL.md",
+      "computedHash": "92fd1a07117a51b8a30f134564d077ce8c3590ccfcaa637ca9e6f14bdc0bf2cb"
+    },
+    "social-media-carousel": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/social/social-media-carousel/SKILL.md",
+      "computedHash": "f1577f43b6d9b0d692f89fd063c7043e6f518ca8a5e0e5ee115f260ea926e863"
+    },
+    "social-short-production": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/content-formats/social-short-production/SKILL.md",
+      "computedHash": "073dd5c01eebe03747f7704cd41c658b89a81424f25d3ada1e1b7faa859be3ea"
+    },
+    "solid-drawing-mastery": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/11-by-principle-focus/solid-drawing-mastery/SKILL.md",
+      "computedHash": "378f61769062deed2cc905da3790198906cc6f0536744e7c3363ced86087c79a"
+    },
+    "sound-design-foley": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/audio-craft/sound-design-foley/SKILL.md",
+      "computedHash": "d8df73a2f8226502bb472e3d3ac59cc47a916d828a65b6ed95997223a6cbd441"
+    },
+    "spatial-thinking": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/02-by-thinking-style/spatial-thinking/SKILL.md",
+      "computedHash": "4befa382f66849bc1a5060566960e5edc4ab6ff017a8ad91c11a6790c4b4b866"
+    },
+    "speech-to-text": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/audio/speech-to-text/SKILL.md",
+      "computedHash": "051995d4d5a8f396d64b528ddbe10bb4e97c6b590c7c4740f5bae44a70da5eb0"
+    },
+    "squash-stretch-mastery": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/11-by-principle-focus/squash-stretch-mastery/SKILL.md",
+      "computedHash": "f43cb19a541b275dc13cc5d851840ba317aa9c1de0ceac2998b8faea0163403b"
+    },
+    "stability-ai-image": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/image-generation/stability-ai-image/SKILL.md",
+      "computedHash": "ac99d298dcb992fe82d6041b3f455e7a7b88c033651dd50bcb7da3536f977e11"
+    },
+    "stable-audio": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/sound-generation/stable-audio/SKILL.md",
+      "computedHash": "b3cf860e35a33a945718420076cc3ce21bd11a3b33393b49b1f2e80fa9bc15e4"
+    },
+    "staging-mastery": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/11-by-principle-focus/staging-mastery/SKILL.md",
+      "computedHash": "006a64aa509eda441d019d35dde9213262cf0a2223671ad34f95b81e272f2f23"
+    },
+    "state-changes": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/05-by-animation-type/state-changes/SKILL.md",
+      "computedHash": "14465c147bcb76983ab2b6d7b69a9c5755634e4115ee1f5cf666b537e76726e9"
+    },
+    "still-image-retouching-finishing": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/post-production/still-image-retouching-finishing/SKILL.md",
+      "computedHash": "8b41df4182a905f998eee8677b5e9d2fa778a0bc552680369e0eed4de02d1160"
+    },
+    "storyboard-creation": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/video/storyboard-creation/SKILL.md",
+      "computedHash": "6848d2b5a89a3648f7f528a0c08a91e6f4be659a7c233c1e6ebf8ed316fb5561"
+    },
+    "storyboard-previsualization": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/creative-direction/storyboard-previsualization/SKILL.md",
+      "computedHash": "ec29387bc31a600878d43f2a5e62ff37edbdd3435554ed7917074b64e16d1410"
+    },
+    "straight-ahead-pose-mastery": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/11-by-principle-focus/straight-ahead-pose-mastery/SKILL.md",
+      "computedHash": "e7275055e84bf08682fbf1259f357f1217d04e2046f56a36d361b539b1578553"
+    },
+    "suno-music": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/music-generation/suno-music/SKILL.md",
+      "computedHash": "f8ba55664660af80a24a0ecd24751a6179fe3a2aea6e7db4b44eab56913778d2"
+    },
+    "sync-labs-lipsync": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/lip-sync/sync-labs-lipsync/SKILL.md",
+      "computedHash": "8a854e078830d417ec2f250267bb966171850b8c9bc1f39a7ef436c5629a18d6"
+    },
+    "synthesia-avatar-video": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/avatar-video/synthesia-avatar-video/SKILL.md",
+      "computedHash": "ef20a79920b2b507a6b43c5addafeef7cdf3909a94bae7d6b94f290c57101573"
+    },
+    "talking-head-podcast-recut": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/content-formats/talking-head-podcast-recut/SKILL.md",
+      "computedHash": "badcc2a12af777a19693a8e2fcfb8ebddf2f5213a7b2f3b6d9d516656d28f412"
+    },
+    "talking-head-production": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/video/talking-head-production/SKILL.md",
+      "computedHash": "5269c56bb80ec5a1663d68aab180d3f39200d17ed5fe8b38fb0f42e4427878a7"
+    },
+    "talking-head-recut": {
+      "source": "heygen-com/hyperframes",
+      "sourceType": "github",
+      "skillPath": "skills/talking-head-recut/SKILL.md",
+      "computedHash": "83df91f488236abbc53d3c817f31b4554de8e772c2e8a17a15c0a72664da9eca"
+    },
+    "tavus-replica-video": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/avatar-video/tavus-replica-video/SKILL.md",
+      "computedHash": "19807380510dd3c79279f77eb4e077412b6895b967839f41ff2b6fed0490bcb0"
+    },
+    "technical-blog-writing": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/writing/technical-blog-writing/SKILL.md",
+      "computedHash": "0b361da4b0681b3f2918544a63e12f9a35b9d9e189d86ec277180ffea3f25d57"
+    },
+    "technical-constraints": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/12-by-problem-type/technical-constraints/SKILL.md",
+      "computedHash": "d8ed06feb6a9c98a10495f5f8f11e05510495e1f8b4b3f6b8e8a13fc5cb8da6e"
+    },
+    "tencent-hunyuan3d": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/3d-generation/tencent-hunyuan3d/SKILL.md",
+      "computedHash": "4e6e9cfd1c515a71de1f7ef5bdb474aea9bcf65c7180d37385d3126d2ac33016"
+    },
+    "tencent-hunyuanvideo": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/video-generation/tencent-hunyuanvideo/SKILL.md",
+      "computedHash": "3c6320a04253d2d3ee1a2800d727cb410db8f4f563831a10fbb8db1a0a68771d"
+    },
+    "text-to-speech": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/audio/text-to-speech/SKILL.md",
+      "computedHash": "04735e05d966d2fe23f21c55009d588be683eca77c3a7c9bbf27cb657270abaf"
+    },
+    "threejs-scene-composition": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/runtime-assembly/threejs-scene-composition/SKILL.md",
+      "computedHash": "e8fb13a26ffa58664c45bf2a6f88661876b7358be3aa44db768463b5722a29cd"
+    },
+    "timing-calibration": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/12-by-problem-type/timing-calibration/SKILL.md",
+      "computedHash": "f91df52885106bd81396b30897ccc0eee00519b3f975ed0b8b1052ae6df4b402"
+    },
+    "timing-mastery": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/02-by-thinking-style/timing-mastery/SKILL.md",
+      "computedHash": "0f3382079499b9793eef1012a07d51600fd121539a6f671ae0a2a6665169fc39"
+    },
+    "timing-principle-mastery": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/11-by-principle-focus/timing-principle-mastery/SKILL.md",
+      "computedHash": "dc5feaf9dc39f90c54314824607a4171406fb918b0ec9fdc1e5eb79794c478ec"
+    },
+    "title-kinetic-typography": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/post-production/title-kinetic-typography/SKILL.md",
+      "computedHash": "062ecc6cb4df6a8d3352cf49524e27c4f912a921d47f988f41d9809c5d80c8da"
+    },
+    "tools-ui": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "ui/tools-ui/SKILL.md",
+      "computedHash": "4d99474dc0ade4bc349151b1ae48cafb724fc87203d4bf62fe77d1bd007be9e6"
+    },
+    "topaz-video-enhancement": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/video-enhancement/topaz-video-enhancement/SKILL.md",
+      "computedHash": "56cd0f22a32809f0a555584f53148d90308ad0860e6fc8b5d9f9633123739650"
+    },
+    "transition-sequences": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/05-by-animation-type/transition-sequences/SKILL.md",
+      "computedHash": "68db4a9e096dd152c865eccfac97a8e9a26ec4d599baa5e6c9cef8c1809e883e"
+    },
+    "travel-hospitality": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/08-by-industry/travel-hospitality/SKILL.md",
+      "computedHash": "90b8426aaf9404cdfe4490318778ee18be3e1fb65dfc5e3b6037fbe67cea9508"
+    },
+    "tripo-3d": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/3d-generation/tripo-3d/SKILL.md",
+      "computedHash": "2d1c8211986201fb3781913e9a26a93b1191c6dc1dfe24d260db89110586365b"
+    },
+    "trust-reliability": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/06-by-emotional-outcome/trust-reliability/SKILL.md",
+      "computedHash": "d07e3bbf7e290563585e5baa1eb00a57bbee1eda9ee0bff3db8bd9b674ef3fba"
+    },
+    "twelvelabs-video-understanding": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/video-understanding/twelvelabs-video-understanding/SKILL.md",
+      "computedHash": "ada127ac64f53722257c6f7401cfaa016fe32ff4ab35e90bbb9fae54e27ae3c9"
+    },
+    "twitter-automation": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/social/twitter-automation/SKILL.md",
+      "computedHash": "5ff34a47686831f4ce2e3cbafbe1c031c46ea210126d827476c4c096150fe548"
+    },
+    "twitter-thread-creation": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/social/twitter-thread-creation/SKILL.md",
+      "computedHash": "a3d0d58f2b2d51798b2fd0e22b1627d50ffe7e884987d493c042b42f10af39b9"
+    },
+    "ugc-ad-production": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/content-formats/ugc-ad-production/SKILL.md",
+      "computedHash": "668dff4d8342d4e4d566b94cd29baa209a44cf6586a10aab721c5694a21d988d"
+    },
+    "universal-elements": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/07-by-ui-element/universal-elements/SKILL.md",
+      "computedHash": "cac6514b40740062d176ddd452461daed9bfe91b1a73d301ef6a22ba488a10aa"
+    },
+    "universal-emotion": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/06-by-emotional-outcome/universal-emotion/SKILL.md",
+      "computedHash": "3cce18c7cc43545a6edf9f176cdad58f1d866d8b6ebf6a46aa5b069216cb3701"
+    },
+    "universal-fallback": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/01-by-domain/universal-fallback/SKILL.md",
+      "computedHash": "28c94bc66e4feae821c529d8232a23c01ff3bad4cb10b8aae3087d6af1750436"
+    },
+    "universal-industry": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/08-by-industry/universal-industry/SKILL.md",
+      "computedHash": "d3b28832b4d27c28d629755a8b53854016bc51a41e4c7388b651dcb737653797"
+    },
+    "universal-mindset": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/02-by-thinking-style/universal-mindset/SKILL.md",
+      "computedHash": "ee6dfa4f8eb807b27dda513fd555c87f6c6b1acac3c0d9b804dc1d0743e2b77d"
+    },
+    "universal-patterns": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/05-by-animation-type/universal-patterns/SKILL.md",
+      "computedHash": "1fb8f0047191c52cafb0068df54b7266c101c2551133a316e7bfc172e9b6f492"
+    },
+    "universal-practitioner": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/03-by-role-persona/universal-practitioner/SKILL.md",
+      "computedHash": "21e85896faa3fc9f80d179b63b4f3fe7c384fc68a606a3b18ed8cbbb8e2b6cb8"
+    },
+    "universal-solutions": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/12-by-problem-type/universal-solutions/SKILL.md",
+      "computedHash": "00284131fa5e7e28347399fb3b4a1d0f83199069c6af5b6e09850938ed71581f"
+    },
+    "universal-timing": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/10-by-time-scale/universal-timing/SKILL.md",
+      "computedHash": "950f8d5cc4e4e3f491860f4a360e2628e3a34a5a74f0f5188f031fad1dbc86df"
+    },
+    "universal-tool": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/09-by-tool-framework/universal-tool/SKILL.md",
+      "computedHash": "6c642de946273aa95f3cdfc226a4820d7fb359dab557e66ebfd1f622f50dc0bd"
+    },
+    "urgency-action": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/06-by-emotional-outcome/urgency-action/SKILL.md",
+      "computedHash": "db4cdbfba59fd3c56ac06890747dea36c61d432a74e358fc48837f033edb9bde"
+    },
+    "user-feedback-clarity": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/12-by-problem-type/user-feedback-clarity/SKILL.md",
+      "computedHash": "35805b8499e1c0e48552abf0eded3441414005388ee1ed561206361365e25587"
+    },
+    "ux-friction": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/12-by-problem-type/ux-friction/SKILL.md",
+      "computedHash": "0a43fa02de5bc405dd48c2829730dc56c179e18a62e5a2ea192b3fe3e6cbafaf"
+    },
+    "ux-researcher": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/03-by-role-persona/ux-researcher/SKILL.md",
+      "computedHash": "3976bd599a7fe8c154a89c3d6b4823e870a0bd32999ebc193e9243121b41a5f3"
+    },
+    "vfx-compositing": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/post-production/vfx-compositing/SKILL.md",
+      "computedHash": "e49dd19f4c938031866d4ab84768a8948472d30133a5247ce10a002a762abb58"
+    },
+    "video-ad-specs": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/video/video-ad-specs/SKILL.md",
+      "computedHash": "ca5bec9f5b90f2d7caab06b7a30a6b3497c25d585412b3aeb1ab981488f828ab"
+    },
+    "video-description-oversight": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/governance-delivery/video-description-oversight/SKILL.md",
+      "computedHash": "ccf430bfef80962ce72f924aa912d6516477bf01ab6accaaf64175214ffe6f5d"
+    },
+    "video-generation-gateways": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/video-generation/video-generation-gateways/SKILL.md",
+      "computedHash": "b0ef3cf8d2d99373a5dae2fc62940ba05c664afee9932de56f01049695a02441"
+    },
+    "video-motion-graphics": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/01-by-domain/video-motion-graphics/SKILL.md",
+      "computedHash": "6b82db9dbef273739ac97bd34657fcd2d92420905dad40823e676671c0c85c01"
+    },
+    "video-prompting-guide": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/prompting/video-prompting-guide/SKILL.md",
+      "computedHash": "335c7367bfc1c8c9af721005a8e5c42b6e6b984fcad6379a5e79736e101afc2c"
+    },
+    "video-to-audio-foley": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/audio-craft/video-to-audio-foley/SKILL.md",
+      "computedHash": "a51cb8cb7c10b2e92494d90d783154f652e82265b84f3aa24bc67e5f3f798521"
+    },
+    "vidu-video": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/video-generation/vidu-video/SKILL.md",
+      "computedHash": "11f62df7b00b18eecc31c43c0b3d3746485dde3a36124abad8835dbc877ff083"
+    },
+    "virtual-production-icvfx": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/runtime-assembly/virtual-production-icvfx/SKILL.md",
+      "computedHash": "5dacc8f2d3a623bb405d97c8310d748de497709e4a2d2c72fb64d33f97f6d297"
+    },
+    "visual-style-direction": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/production/creative-direction/visual-style-direction/SKILL.md",
+      "computedHash": "3e129c33dd5d548941737bc2dfe641392554e18883fd32e7f58f761f5e5e597c"
+    },
+    "volcengine-doubao-speech-tts": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/text-to-speech/volcengine-doubao-speech-tts/SKILL.md",
+      "computedHash": "458b106feb162561e92be0d7a54b8f2b1ac031b7acdd131a502f461713488d54"
+    },
+    "web-motion-design": {
+      "source": "dylantarre/animation-principles",
+      "sourceType": "github",
+      "skillPath": "skills/01-by-domain/web-motion-design/SKILL.md",
+      "computedHash": "ec2e6a89573cb273bf12667ccbc2bde8cfd500271a1e7d888b05aba0ae7cc159"
+    },
+    "web-search": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "tools/llm/web-search/SKILL.md",
+      "computedHash": "3eef0d8ed249bc1ac663edc3d3b3b821b4eb35cae5b53cd943747f0d8dd9550b"
+    },
+    "widgets-ui": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "ui/widgets-ui/SKILL.md",
+      "computedHash": "358255ebb3811867ae54f3dcfc884d89bc5c3bb3506a9214d686b1c7b09e8c58"
+    },
+    "world-labs-marble": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/world-models/world-labs-marble/SKILL.md",
+      "computedHash": "bd40ee603a324fcab7c361f7a1c5108429bd13569e3bc40a897f4dd6d8a96628"
+    },
+    "xai-grok-imagine-image": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/image-generation/xai-grok-imagine-image/SKILL.md",
+      "computedHash": "432423df81c486b89d713bad89706731a5bea7a80fcc2a7609478d017549e486"
+    },
+    "xai-grok-imagine-video": {
+      "source": "calesthio/generative-media-skills",
+      "sourceType": "github",
+      "skillPath": "skills/providers/video-generation/xai-grok-imagine-video/SKILL.md",
+      "computedHash": "9fc18b1bf4c10b88db9adf3510b56cedd9bf68f0d151cb49bb0216f9597bd07a"
+    },
+    "youtube-thumbnail-design": {
+      "source": "skills-101/superpowers",
+      "sourceType": "github",
+      "skillPath": "guides/design/youtube-thumbnail-design/SKILL.md",
+      "computedHash": "281aff200fd5b4f0cea0afa3b3547097173f45730774309287e605c2370b4d21"
     }
   }
 }
