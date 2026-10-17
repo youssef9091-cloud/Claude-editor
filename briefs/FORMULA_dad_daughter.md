@@ -39,3 +39,8 @@ Distilled from `reference/GENGHIS_VIDEO_BRIEF.md`. Every new episode brief follo
 5. Art direction, beat by beat
 6. Assets table (file, beat, resolution/upscale note, replace-before-final flags)
 7. Numbers, locked (with source)
+
+## Standing rules from the user (apply to every script)
+- **Audit before sending.** Before any script goes out, check and fix directly: facts against sources, story gaps (every claim and every turning point needs its cause), dialect (no MSA), numbers spelled out, tag density, the energy map (no two neighbouring blocks at the same level), one look to the lens, balance on contested topics, callbacks, and timing at the measured pace (≈2.62 words/s incl. pauses). List what was fixed at the top of the script.
+- **No advert-sounding CTAs mid-story.** Calls to action must grow out of the story. Default: one sign-off at the end that follows from an open question. Never interrupt the story early with a subscribe aside.
+- **Direct every block like the sample:** `N · Speaker — emotion · energy X`, then the tagged line, pitch movement (↗ ↘ → ⤴ ⤵), pace, delivery note, and the visual cue.
