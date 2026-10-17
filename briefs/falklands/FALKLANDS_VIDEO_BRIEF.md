@@ -23,6 +23,8 @@ After Argentina beat England in the 2026 World Cup semi-final, the players held 
 First step, same as every build: probe the VO, run word-level alignment (whisperx, language ar), snap every cue word below to the real timestamps, write `timing.json`, build from that. Do it separately for each master.
 
 ## 3. VO script, wide (16:9) — ElevenLabs v4, dialogue mode
+> **Superseded by `FALKLANDS_SCRIPT_v2.md`** (channel CTAs, recap, brand beats). Use v2 for recording; the table below is kept for reference.
+
 Tamer = بابا · Fatima = البنت · Stability 0.40 / 0.45 · Similarity 0.78. One box per speaker turn, speaker on the pill. In rows with more than one speaker, the turns are listed in order and each is a separate box.
 
 | # | Speaker | Target | Line (paste with tags) |
