@@ -7,6 +7,15 @@ sheets one message at a time. Download each result as PNG and upload them here.
 If the background comes out checkered or grey instead of transparent, reply:
 "Same image, but on a flat pure green #00FF00 background."
 
+**Works for both formats.** Everything here is built for **horizontal YouTube (16:9, 1920×1080)**
+and **vertical Shorts (9:16, 1080×1920)**:
+- **Character sheets** are cut-out parts, so they don't depend on the frame shape. The same parts
+  are posed in either format. They are drawn large so they stay sharp in both.
+- **Room images** (S1, S2, S3, S7, S8, S9) are made twice: an **H** version (landscape 1536×1024,
+  cropped by me to 16:9) and a **V** version (portrait 1024×1536, cropped to 9:16). Same camera,
+  same light, so the two cut together.
+- **Room pieces** (S4–S6) are cut-outs and are used in both formats.
+
 ---
 
 ## STYLE LOCK (paste first, in every chat)
@@ -18,8 +27,9 @@ clean flat 2D cartoon illustration, flat cel shading with one soft shadow tone, 
 brown outlines (#33241b), no texture, no gradients, no painterly brushwork. Every image I ask for
 is a production sheet for 2D cut-out animation: parts must be fully drawn (no hidden overlaps
 missing), evenly lit from the front-left, isolated, on a transparent background, no text labels,
-no logos, no cast shadows on the ground. Keep the same scale for every part in a sheet.
-Reply with images only.
+no logos, no cast shadows on the ground. Keep the same scale for every part in a sheet, and draw
+the parts as large as the canvas allows (they will be used in both 16:9 YouTube videos and 9:16
+Shorts, up to 1920 px). Reply with images only.
 ```
 
 ---
@@ -169,32 +179,48 @@ Camera for every full-room image: straight-on, one-point perspective, lens at th
 a SEATED person (about 1.1 m), vanishing point in the horizontal centre, verticals perfectly
 vertical. This is a background set for a 2D animation: NO people, NO text, NO logos, NO
 watermarks. Same room, same colours, same light in every image I ask for.
+Formats: most shots are needed twice. "H" = landscape 1536x1024 for a 16:9 YouTube video,
+"V" = portrait 1024x1536 for a 9:16 YouTube Short. In BOTH, keep the important things (sofa,
+artwork, coffee table) inside the centre, and leave about 8% extra ceiling at the top and 8%
+extra floor at the bottom so each can be cropped cleanly. H and V must look like the same room
+from the same camera, just framed wider or taller.
 ```
 
 ### Shots and layers
 
 **S1 — Wide establishing shot, empty**
 ```
-Image S1. The full room as in the reference, wide establishing shot, sofa centred, all furniture
-in place, sofa EMPTY. Portrait 1024x1536. Leave extra ceiling at the top and extra floor at the
-bottom (about 10% each) so the image can be cropped to 9:16.
+Image S1-H. The full room as in the reference, wide establishing shot, sofa centred, all
+furniture in place, sofa EMPTY. Landscape 1536x1024: show the whole room width, from the orange
+armchair on the left to the right sofa and window.
+```
+```
+Image S1-V. Same room, same camera, same light, framed tall: portrait 1024x1536, sofa centred,
+ceiling light channel at the top, rug and coffee table at the bottom, the armchair and right
+sofa cut by the edges. Sofa EMPTY.
 ```
 
 **S2 — Medium two-shot plate: the main shot the presenters sit in**
 ```
-Image S2. Closer framing on the centre sofa: sofa fills about 80% of the width, the artwork and
-the pendant light above it, the edge of the plant on the right, the side table with pampas on
-the left, the round coffee table in the foreground cut by the bottom edge. Sofa EMPTY, cushions
-pushed to the arms so the two middle seats are clear. Portrait 1024x1536 with extra wall above
-and extra floor below for a 9:16 crop.
+Image S2-H. Closer framing on the centre sofa for a 16:9 two-shot: landscape 1536x1024, the whole
+sofa about 60% of the width and centred, the artwork above it, the pendant light and side table
+with pampas on the left, the plant on the right, the round coffee table in the foreground cut by
+the bottom edge. Sofa EMPTY, cushions pushed to the arms so the two middle seats are clear.
+```
+```
+Image S2-V. The same two-shot framed tall for 9:16: portrait 1024x1536, sofa fills about 85% of
+the width, artwork and pendant above, coffee table cut by the bottom edge. Sofa EMPTY, middle
+seats clear. Same camera height and light as S2-H.
 ```
 
 **S3 — Back wall only (deepest layer)**
 ```
-Image S3. Same camera as S1, but remove ALL furniture, the rug, the plant and the pendant: only
-ceiling with the light channel and cove glow, back wall with the artwork, the left slat panel,
-the right curtains and window, and the empty oak floor. Portrait 1024x1536 with extra ceiling
-and floor.
+Image S3-H. Same camera and framing as S1-H, but remove ALL furniture, the rug, the plant and
+the pendant: only ceiling with the light channel and cove glow, back wall with the artwork, the
+left slat panel, the right curtains and window, and the empty oak floor. Landscape 1536x1024.
+```
+```
+Image S3-V. The same empty room framed exactly like S1-V. Portrait 1024x1536.
 ```
 
 **S4 — The main sofa alone, in parts**
@@ -223,25 +249,40 @@ the white globe pendant light on its cord (lit, soft glow). Landscape 1536x1024.
 
 **S7 — Single close-up background A (behind the daughter)**
 ```
-Image S7. Background plate for a medium close-up of a person sitting on the LEFT seat of the
-sofa: camera at seated eye height, looking slightly left. Shows the sofa back and a dark-brown
-cushion close behind, the slat panel and side table with pampas, the pendant light glowing,
-warm cove light. Shallow depth of field: the background softly out of focus. NO person, sofa
-seat empty. Portrait 1024x1536.
+Image S7-V. Background plate for a vertical medium close-up of a person sitting on the LEFT seat
+of the sofa: camera at seated eye height, looking slightly left. Shows the sofa back and a
+dark-brown cushion close behind, the slat panel and side table with pampas, the pendant light
+glowing, warm cove light. Shallow depth of field: background softly out of focus. NO person,
+sofa seat empty, the person will stand in the centre. Portrait 1024x1536.
+```
+```
+Image S7-H. The same background for a horizontal medium close-up: landscape 1536x1024, same
+camera and blur. The person will sit on the LEFT third of the frame, so keep that area plain
+(sofa back, cushion) and put the pendant, slat panel and pampas in the right two-thirds.
 ```
 
 **S8 — Single close-up background B (behind the dad)**
 ```
-Image S8. Background plate for a medium close-up of a person sitting on the RIGHT seat of the
-sofa: camera at seated eye height, looking slightly right. Shows the sofa back and a rust-orange
-cushion close behind, the banana-leaf plant, the sheer curtains with warm window light. Shallow
-depth of field, background softly out of focus. NO person, sofa seat empty. Portrait 1024x1536.
+Image S8-V. Background plate for a vertical medium close-up of a person sitting on the RIGHT seat
+of the sofa: camera at seated eye height, looking slightly right. Shows the sofa back and a
+rust-orange cushion close behind, the banana-leaf plant, the sheer curtains with warm window
+light. Shallow depth of field, background softly out of focus. NO person, sofa seat empty, the
+person will stand in the centre. Portrait 1024x1536.
+```
+```
+Image S8-H. The same background for a horizontal medium close-up: landscape 1536x1024, same
+camera and blur. The person will sit on the RIGHT third of the frame, so keep that area plain
+(sofa back, cushion) and put the plant and curtains in the left two-thirds.
 ```
 
 **S9 — Close-up of the artwork wall (for cutaways and the end card push-back)**
 ```
-Image S9. The back wall straight-on, tight on the abstract artwork with the pendant light at
+Image S9-H. The back wall straight-on, tight on the abstract artwork with the pendant light at
 the left edge and the cove glow above, no furniture. Landscape 1536x1024.
+```
+```
+Image S9-V. The same wall framed tall: portrait 1024x1536, the artwork centred, the pendant
+light hanging into the top-left, the cove glow at the top, the sofa back just visible at the bottom.
 ```
 
 ### If an image comes out wrong (fix it in the same chat)
@@ -256,10 +297,10 @@ the left edge and the cove glow above, no furniture. Landscape 1536x1024.
 
 - Dad: D1–D7 (7 images)
 - Daughter: G1–G7 (7 images)
-- Set: S1–S9 (9 images)
+- Set: S1–S9 as H + V where marked (S1, S2, S3, S7, S8, S9 × 2 = 12) + S4, S5, S6 = 15 images
 
-That is the complete list: 23 images. With them I have everything the rig and the study
-scenes need. I extend the 2:3 images to 9:16 myself, cut out the parts, set the pivots (neck,
+That is the complete list: 29 images, covering both 16:9 YouTube and 9:16 Shorts. With them I have everything the rig and the study
+scenes need. I crop the H images to 16:9 and the V images to 9:16 myself, cut out the parts, set the pivots (neck,
 shoulders, elbows, wrists, hips), match scale and light between the characters and the room,
 map the voice to the 9 mouths for real lip-sync, and re-render the study scenes. If any single
 image misses the brief, I'll name the exact prompt to re-run and the fix line from the list
