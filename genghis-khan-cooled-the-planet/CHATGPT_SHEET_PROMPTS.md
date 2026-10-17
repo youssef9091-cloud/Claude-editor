@@ -144,71 +144,123 @@ on), surprised (mouth "O"), explaining (open smile, talking), thinking (eyes up)
 
 ---
 
-## 3) THE LOCATION SET (attach the "Historical Study" location sheet)
+## 3) THE LOCATION SET: modern living room (attach the room photo, `assets/ref_location_modern.jpg`)
 
-Paste this STYLE LOCK instead of the character one:
+Open a **new chat**, attach the room photo, paste the SET STYLE LOCK, then send S1–S9 one at a time.
+
+### SET STYLE LOCK (paste first)
 
 ```
-Use the attached location sheet as the exact reference for this room: pale grey-blue panelled
-walls with white mouldings, tall arched windows with white sheer curtains and olive-green swag
-drapes, gilded painted ceiling, crystal chandelier, gilded framed painting of a rider on a
-white horse, ornate dark-wood furniture with grey damask upholstery, cream-and-red Persian rug,
-dark wood floor. Same flat 2D illustrated style as the reference, warm evening light from the
-windows and a table lamp. These are background layers for a 2D animation: NO people, no text,
-no logos. Vertical 9:16 unless I say otherwise.
-```
-
-**S1 — Empty wall plate (back layer)**
-```
-Layer 1 of 6. Straight-on view of the back wall only: centre the horse painting, one arched
-window with drapes on each side, chandelier hanging at the top, wainscot and dark wood floor at
-the bottom. NO furniture at all. Vertical 9:16.
-```
-
-**S2 — The sofa alone**
-```
-Layer 2 of 6. Only the ornate camelback sofa from the reference, straight-on front view,
-grey damask upholstery, carved dark wood frame with gold crest, patterned and striped
-cushions, fringe skirt. Empty seat. Transparent background. Landscape 3:2.
-```
-
-**S3 — Foreground coffee table + rug**
-```
-Layer 3 of 6. Only the carved dark-wood coffee table and the Persian rug under it, seen from
-slightly above, as a foreground element: on the table a small antique globe, two tea cups on
-saucers, a stack of old books, a rolled map. Transparent background. Landscape 3:2.
+Use the attached room photo as the exact reference for this set, but redraw it as a clean flat
+2D cartoon illustration that matches a cel-shaded character style: flat colours with one soft
+shadow tone, thin dark-brown outlines (#33241b), no photo texture, no noise, no painterly
+brushwork. Keep the room exactly: warm off-white walls; vertical wooden slat panel on the left
+wall; recessed ceiling with a dark linear light channel; warm LED cove glow along the ceiling
+edge and behind the slat panel; large abstract artwork centred on the back wall (cream canvas,
+rust-orange circle, beige oval, black brush stroke) in a thin black frame; white globe pendant
+light on a long cord, left of centre; tall sheer white curtains and a window on the right wall;
+large banana-leaf plant in a pot right of the sofa; cream boucle three-seat sofa centred with
+dark-brown and rust-orange cushions; round dark-wood pedestal coffee table with a ceramic vase of
+dried flowers, a small bowl and two books; cream textured rug; rust-orange velvet curved
+armchair front-left; cream sofa with a dark grey throw on the right; small black side table with
+a vase of dried pampas flowers left of the sofa; light oak plank floor.
+Lighting: warm late-afternoon light from the right window plus the cove lights on, soft and calm.
+Camera for every full-room image: straight-on, one-point perspective, lens at the eye height of
+a SEATED person (about 1.1 m), vanishing point in the horizontal centre, verticals perfectly
+vertical. This is a background set for a 2D animation: NO people, NO text, NO logos, NO
+watermarks. Same room, same colours, same light in every image I ask for.
 ```
 
-**S4 — Side pieces**
+### Shots and layers
+
+**S1 — Wide establishing shot, empty**
 ```
-Layer 4 of 6. Separately, on transparent background: the two ornate wingback armchairs, the
-side table with the tasselled table lamp (lamp lit), and one tall window with drapes as a
-stand-alone piece. Landscape 3:2.
+Image S1. The full room as in the reference, wide establishing shot, sofa centred, all furniture
+in place, sofa EMPTY. Portrait 1024x1536. Leave extra ceiling at the top and extra floor at the
+bottom (about 10% each) so the image can be cropped to 9:16.
 ```
 
-**S5 — Wide establishing shot, empty**
+**S2 — Medium two-shot plate: the main shot the presenters sit in**
 ```
-Layer 5 of 6. The full room as a wide establishing shot, camera at seated eye level: sofa
-centred, coffee table in front, painting above the sofa, chandelier top, windows both sides,
-armchairs at the edges. Leave the sofa EMPTY. Vertical 9:16.
-```
-
-**S6 — Close-up backgrounds (behind each presenter)**
-```
-Layer 6 of 6. Two vertical 9:16 background plates for medium close-ups, camera at seated eye
-level, shallow depth of field (background softly out of focus): A) looking toward the left
-window with the drapes and an armchair; B) looking toward the right side with the lit table
-lamp and window. No people, no sofa in the foreground. Two separate images.
+Image S2. Closer framing on the centre sofa: sofa fills about 80% of the width, the artwork and
+the pendant light above it, the edge of the plant on the right, the side table with pampas on
+the left, the round coffee table in the foreground cut by the bottom edge. Sofa EMPTY, cushions
+pushed to the arms so the two middle seats are clear. Portrait 1024x1536 with extra wall above
+and extra floor below for a 9:16 crop.
 ```
 
----
+**S3 — Back wall only (deepest layer)**
+```
+Image S3. Same camera as S1, but remove ALL furniture, the rug, the plant and the pendant: only
+ceiling with the light channel and cove glow, back wall with the artwork, the left slat panel,
+the right curtains and window, and the empty oak floor. Portrait 1024x1536 with extra ceiling
+and floor.
+```
+
+**S4 — The main sofa alone, in parts**
+```
+Image S4. The cream boucle centre sofa alone, straight-on front view, empty, on a transparent
+background, drawn three times side by side: (a) the complete sofa with its four cushions;
+(b) the sofa WITHOUT the cushions; (c) the sofa split into separate pieces with small gaps:
+back rest, seat base, left arm, right arm, and the four cushions as separate pieces.
+Landscape 1536x1024.
+```
+
+**S5 — Foreground coffee table and rug**
+```
+Image S5. On a transparent background: (a) the round dark-wood pedestal coffee table with its
+ceramic vase of dried flowers, small bowl and two books, seen from seated eye height; (b) the
+same table empty; (c) the cream textured rug alone, in perspective as in S1. Landscape 1536x1024.
+```
+
+**S6 — Side pieces**
+```
+Image S6. On a transparent background, each piece separate with space between them, all in the
+S1 camera angle and scale: the rust-orange velvet curved armchair; the right cream sofa with the
+grey throw; the banana-leaf plant in its pot; the black side table with the vase of dried pampas;
+the white globe pendant light on its cord (lit, soft glow). Landscape 1536x1024.
+```
+
+**S7 — Single close-up background A (behind the daughter)**
+```
+Image S7. Background plate for a medium close-up of a person sitting on the LEFT seat of the
+sofa: camera at seated eye height, looking slightly left. Shows the sofa back and a dark-brown
+cushion close behind, the slat panel and side table with pampas, the pendant light glowing,
+warm cove light. Shallow depth of field: the background softly out of focus. NO person, sofa
+seat empty. Portrait 1024x1536.
+```
+
+**S8 — Single close-up background B (behind the dad)**
+```
+Image S8. Background plate for a medium close-up of a person sitting on the RIGHT seat of the
+sofa: camera at seated eye height, looking slightly right. Shows the sofa back and a rust-orange
+cushion close behind, the banana-leaf plant, the sheer curtains with warm window light. Shallow
+depth of field, background softly out of focus. NO person, sofa seat empty. Portrait 1024x1536.
+```
+
+**S9 — Close-up of the artwork wall (for cutaways and the end card push-back)**
+```
+Image S9. The back wall straight-on, tight on the abstract artwork with the pendant light at
+the left edge and the cove glow above, no furniture. Landscape 1536x1024.
+```
+
+### If an image comes out wrong (fix it in the same chat)
+
+- Looks like a photo, not flat cartoon → *"Redraw S__ in flat 2D cel-shaded cartoon style with thin dark-brown outlines, no photo texture."*
+- Camera angle changed → *"Redraw S__ with the exact S1 camera: straight-on, seated eye height, vanishing point centred."*
+- A person appeared → *"Same image with no people."*
+- Background not transparent (S4–S6) → *"Same image on a flat pure magenta #FF00FF background."* Use magenta, not green, because the plant is green.
+- Colours drifted → *"Match the colours of S1 exactly."*
 
 ## What to send back
 
 - Dad: D1–D7 (7 images)
 - Daughter: G1–G7 (7 images)
-- Set: S1–S6 (7 images, since S6 is two plates)
+- Set: S1–S9 (9 images)
 
-As soon as they're uploaded here, I cut out each part, set the pivots (neck, shoulders, elbows,
-wrists, hips), build the rigs, map the voice to the 9 mouths for real lip-sync, and re-render
-the study scenes.
+That is the complete list: 23 images. With them I have everything the rig and the study
+scenes need. I extend the 2:3 images to 9:16 myself, cut out the parts, set the pivots (neck,
+shoulders, elbows, wrists, hips), match scale and light between the characters and the room,
+map the voice to the 9 mouths for real lip-sync, and re-render the study scenes. If any single
+image misses the brief, I'll name the exact prompt to re-run and the fix line from the list
+above. You won't be asked for new material.
