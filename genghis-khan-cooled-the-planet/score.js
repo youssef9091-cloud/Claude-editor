@@ -1,7 +1,9 @@
 // score.js — the timing layer. Every time below is derived from timing.json.
 (function (root) {
   const TIMING = (typeof require !== 'undefined') ? require('./timing.json') : root.TIMING;
-  const FPS = 30, W = 1080, H = 1920, HOLD = 4;
+  // FMT 'v' = 9:16 Short (1080x1920), 'h' = 16:9 YouTube (1920x1080)
+  const FMT = (typeof process !== 'undefined' && process.env && process.env.FMT) || root.FMT || 'v';
+  const FPS = 30, W = FMT === 'h' ? 1920 : 1080, H = FMT === 'h' ? 1080 : 1920, HOLD = 4;
   const P = i => TIMING.phrases.find(p => p.i === i);
   const words = p => p.text.split(/\s+/);
   const clean = w => w.replace(/[.,،…:؟?]/g, '');
@@ -75,7 +77,7 @@
   };
   const DURATION = +(TIMING.duration + HOLD).toFixed(3);
 
-  const SCORE = { cue, FPS, W, H, STYLE: 'paper', DURATION, VO: TIMING.vo, vo, subtitles, markers, mk, anchors,
-    SAFE: { x: 60, y: 230, w: 960, h: 1340 } /* top 230, bottom 350 kept clear for platform UI */ };
+  const SCORE = { FMT, cue, FPS, W, H, STYLE: 'paper', DURATION, VO: TIMING.vo, vo, subtitles, markers, mk, anchors,
+    SAFE: FMT === 'h' ? { x: 96, y: 54, w: 1728, h: 972 } /* 5% title-safe */ : { x: 60, y: 230, w: 960, h: 1340 } /* top 230, bottom 350 kept clear for platform UI */ };
   if (typeof module !== 'undefined') module.exports = SCORE; else root.SCORE = SCORE;
 })(typeof window !== 'undefined' ? window : globalThis);

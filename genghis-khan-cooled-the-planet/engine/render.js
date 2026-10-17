@@ -3,7 +3,7 @@
 const fs = require('fs'), path = require('path'), http = require('http'), { spawn, execFileSync } = require('child_process');
 const ROOT = path.resolve(__dirname, '..'); process.chdir(ROOT);
 const S = require('../score.js');
-const NAME = 'genghis-khan-cooled-the-planet', OUT = 'out', BUILD = 'build';
+const FMT = process.env.FMT || 'v', SUF = FMT === 'h' ? '-16x9' : '', NAME = 'genghis-khan-cooled-the-planet' + (FMT === 'h' ? '-16x9' : ''), OUT = 'out', BUILD = 'build' + (FMT === 'h' ? '/hrender' : '');
 const CHROME = process.env.CHROME || '/opt/pw-browsers/chromium-1194/chrome-linux/chrome';
 fs.mkdirSync(OUT, { recursive: true }); fs.mkdirSync(BUILD, { recursive: true });
 const sh = (cmd, args, o = {}) => execFileSync(cmd, args, { stdio: o.capture ? 'pipe' : 'inherit', maxBuffer: 1 << 28 })?.toString();
@@ -21,7 +21,7 @@ async function browser(scale = 1, n = 1) {
   const pages = [];
   for (let i = 0; i < n; i++) { const p = await b.newPage({ viewport: { width: Math.round(S.W * scale), height: Math.round(S.H * scale) } });
     p.on('pageerror', e => console.error('page error:', e.message));
-    await p.goto(`http://127.0.0.1:${port}/engine/page.html?scale=${scale}`);
+    await p.goto(`http://127.0.0.1:${port}/engine/page.html?scale=${scale}&fmt=${FMT}`);
     await p.waitForFunction(() => window.READY || window.ERR, null, { timeout: 60000 });
     const err = await p.evaluate(() => window.ERR); if (err) throw new Error(err); pages.push(p); }
   return { pages, close: async () => { await b.close(); srv.close(); } };
@@ -41,7 +41,7 @@ function loudness(file) { const p = require('child_process').spawnSync('ffmpeg',
 C.audio = () => {
   sh('node', ['engine/audio.js']);
   // VO is the lead; music bed already ducked (MIX.duck equivalent) in audio.js
-  sh('ffmpeg', ['-y', '-v', 'error', '-i', S.VO, '-i', `${BUILD}/music.wav`, '-filter_complex',
+  sh('ffmpeg', ['-y', '-v', 'error', '-i', S.VO, '-i', `build/music.wav`, '-filter_complex',
     `[0:a]aresample=48000,aformat=channel_layouts=stereo,apad=whole_dur=${S.DURATION}[v];[1:a]volume=1.4[m];[v][m]amix=inputs=2:normalize=0:duration=first[mix]`,
     '-map', '[mix]', '-t', String(S.DURATION), '-c:a', 'pcm_s16le', `${BUILD}/premix.wav`]);
   const p = require('child_process').spawnSync('ffmpeg', ['-hide_banner', '-i', `${BUILD}/premix.wav`, '-af', 'loudnorm=I=-14:TP=-1.5:LRA=11:print_format=json', '-f', 'null', '-'], { encoding: 'utf8' });
@@ -53,16 +53,16 @@ C.audio = () => {
 C.stills = async (which) => {
   const pts = which ? which.split(',').map(x => S.mk[x] ?? +x) : S.markers.map(m => m.t + 0.12);
   const names = which ? which.split(',') : S.markers.map(m => m.name);
-  fs.mkdirSync(`${OUT}/stills`, { recursive: true }); const br = await browser(1);
-  for (let i = 0; i < pts.length; i++) { const f = `${OUT}/stills/${String(i + 1).padStart(2, '0')}_${names[i]}.jpg`; fs.writeFileSync(f, await frameJPEG(br.pages[0], pts[i], .9)); }
+  fs.mkdirSync(`${OUT}/stills${SUF}`, { recursive: true }); const br = await browser(1);
+  for (let i = 0; i < pts.length; i++) { const f = `${OUT}/stills${SUF}/${String(i + 1).padStart(2, '0')}_${names[i]}.jpg`; fs.writeFileSync(f, await frameJPEG(br.pages[0], pts[i], .9)); }
   await br.close(); console.log(`${pts.length} stills → ${OUT}/stills/`);
 };
 C.board = async () => {
-  if (!fs.existsSync(`${OUT}/stills`)) await C.stills();
-  const files = fs.readdirSync(`${OUT}/stills`).filter(f => f.endsWith('.jpg')).sort(), cols = 7, rows = Math.ceil(files.length / cols);
-  const list = files.map(f => `file '${path.resolve(OUT, 'stills', f)}'`).join('\n'); fs.writeFileSync(`${BUILD}/board.txt`, list);
+  if (!fs.existsSync(`${OUT}/stills${SUF}`)) await C.stills();
+  const files = fs.readdirSync(`${OUT}/stills${SUF}`).filter(f => f.endsWith('.jpg')).sort(), cols = 7, rows = Math.ceil(files.length / cols);
+  const list = files.map(f => `file '${path.resolve(OUT, 'stills' + SUF, f)}'`).join('\n'); fs.writeFileSync(`${BUILD}/board.txt`, list);
   sh('ffmpeg', ['-y', '-v', 'error', '-f', 'concat', '-safe', '0', '-i', `${BUILD}/board.txt`, '-vf',
-    `scale=270:480,drawtext=text='%{n}':x=8:y=8:fontsize=22:fontcolor=white:box=1:boxcolor=black@0.5,tile=${cols}x${rows}:padding=6:color=0x222222`, '-frames:v', '1', `${OUT}/board.jpg`]);
+    `scale=${S.W > S.H ? '480:270' : '270:480'},drawtext=text='%{n}':x=8:y=8:fontsize=22:fontcolor=white:box=1:boxcolor=black@0.5,tile=${cols}x${rows}:padding=6:color=0x222222`, '-frames:v', '1', `${OUT}/board${SUF}.jpg`]);
   console.log(`board → ${OUT}/board.jpg (${files.length} markers)`);
 };
 async function encode(scale, fps, outFile, workers = 4) {
@@ -80,8 +80,8 @@ async function encode(scale, fps, outFile, workers = 4) {
 C.preview = async () => {
   if (!fs.existsSync(`${BUILD}/mix.wav`)) C.audio();
   await encode(0.5, 15, `${BUILD}/preview_video.mp4`);
-  sh('ffmpeg', ['-y', '-v', 'error', '-i', `${BUILD}/preview_video.mp4`, '-i', `${BUILD}/mix.wav`, '-c:v', 'copy', '-c:a', 'aac', '-b:a', '128k', '-shortest', '-movflags', '+faststart', `${OUT}/preview.mp4`]);
-  console.log(`preview → ${OUT}/preview.mp4`);
+  sh('ffmpeg', ['-y', '-v', 'error', '-i', `${BUILD}/preview_video.mp4`, '-i', `${BUILD}/mix.wav`, '-c:v', 'copy', '-c:a', 'aac', '-b:a', '128k', '-shortest', '-movflags', '+faststart', `${OUT}/preview${SUF}.mp4`]);
+  console.log(`preview → ${OUT}/preview${SUF}.mp4`);
 };
 C.render = async () => { await encode(1, S.FPS, `${BUILD}/video.mp4`); console.log(`video → ${BUILD}/video.mp4`); };
 C.mux = () => { if (!fs.existsSync(`${BUILD}/mix.wav`)) C.audio();
@@ -89,7 +89,7 @@ C.mux = () => { if (!fs.existsSync(`${BUILD}/mix.wav`)) C.audio();
     '-t', String(S.DURATION), '-movflags', '+faststart', `${OUT}/${NAME}.mp4`]); console.log(`muxed → ${OUT}/${NAME}.mp4`); };
 C.srt = () => { const s = S.subtitles.map((x, i) => `${i + 1}\n${fmt(x.start)} --> ${fmt(x.end)}\n${x.text}\n`).join('\n'); fs.writeFileSync(`${OUT}/${NAME}.srt`, s); console.log(`srt → ${OUT}/${NAME}.srt (${S.subtitles.length} cues)`); };
 C.poster = async () => { const picks = { portrait: S.mk.portrait + 1.0, forty: S.mk.forty + 1.6, volcano: S.mk.volcano + .4 }, br = await browser(1);
-  for (const [k, t] of Object.entries(picks)) fs.writeFileSync(`${OUT}/poster_${k}.jpg`, await frameJPEG(br.pages[0], t, .95)); await br.close(); console.log(`posters → ${OUT}/poster_*.jpg`); };
+  for (const [k, t] of Object.entries(picks)) fs.writeFileSync(`${OUT}/poster${SUF}_${k}.jpg`, await frameJPEG(br.pages[0], t, .95)); await br.close(); console.log(`posters → ${OUT}/poster${SUF}_*.jpg`); };
 
 // ── checks ──
 const OK = [], BAD = []; const chk = (c, msg) => { (c ? OK : BAD).push(msg); console.log(`${c ? '✓' : '✗'} ${msg}`); };
@@ -128,13 +128,13 @@ C.check = () => {
   OK.length = BAD.length = 0; const f = `${OUT}/${NAME}.mp4`;
   const j = JSON.parse(sh('ffprobe', ['-v', 'error', '-show_streams', '-show_format', '-of', 'json', f], { capture: true }));
   const v = j.streams.find(s => s.codec_type === 'video'), a = j.streams.find(s => s.codec_type === 'audio');
-  chk(v.width === 1080 && v.height === 1920, `1080×1920 (${v.width}×${v.height})`);
+  chk(v.width === S.W && v.height === S.H, `${S.W}×${S.H} (${v.width}×${v.height})`);
   chk(v.r_frame_rate === '30/1', `30 fps (${v.r_frame_rate})`); chk(v.codec_name === 'h264' && v.pix_fmt === 'yuv420p', `h264 yuv420p`);
   chk(Math.abs(+j.format.duration - S.DURATION) < .1, `duration ${(+j.format.duration).toFixed(2)} s ≈ ${S.DURATION} s`);
   chk(a && a.codec_name === 'aac' && +a.sample_rate === 48000, 'aac 48 kHz');
   const L = loudness(f); chk(Math.abs(L.I + 14) <= 1, `loudness ${L.I} LUFS (target -14)`); chk(L.TP <= -0.9, `true peak ${L.TP} dBTP ≤ -1`);
   // voice is the loudest thing: the music bed must sit well under the VO
-  const M = loudness(`${BUILD}/music.wav`), V = loudness(S.VO); chk(V.I - M.I > 8, `voice ${V.I} LUFS vs bed ${M.I} LUFS (bed ${(V.I - M.I).toFixed(1)} dB under)`);
+  const M = loudness(`build/music.wav`), V = loudness(S.VO); chk(V.I - M.I > 8, `voice ${V.I} LUFS vs bed ${M.I} LUFS (bed ${(V.I - M.I).toFixed(1)} dB under)`);
   console.log(`\ncheck: ${OK.length} ✓  ${BAD.length} ✗`); return BAD.length;
 };
 C.verify = async () => {   // final file frames at markers must match the renderer's own frames (sync)
