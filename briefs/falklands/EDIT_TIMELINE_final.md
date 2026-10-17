@@ -1,6 +1,6 @@
 # يافطة المالفيناس — final edit timeline (locked to VO take 1)
-**Master:** 16:9, 1920×1080, 25 fps · **Total 2:41.5** (VO 2:39.2 incl. the added pause + end card)
-**VO:** `vo/falklands_vo_raw_tamer.mp3`, used at 1.00× speed, with **one edit**: insert **0.6s of silence at 1:42.7** (after «والأرجنتين استسلمت»). Every time below 1:42.7 is unchanged; every time after it already includes the +0.6s.
+**Master:** 16:9, 1920×1080, 25 fps · **Total 2:41.0** (VO 2:38.75, as delivered, + end card)
+**VO:** `vo/falklands_vo_raw_tamer.mp3`, used **exactly as delivered**: no speed change, no inserted silence, no re-takes.
 **Timing source:** `vo/timing.json` (word level). Snap each cue to the exact word there.
 **Set and cast:** `../characters/CAST.md` · **Brand:** `../brand/` · **Script and direction:** `FALKLANDS_SCRIPT_120s.md`
 
@@ -9,7 +9,7 @@
 0:00 اليافطة
 0:15 البداية
 0:49 الحرب
-1:43 اللي بعدها
+1:42 اللي بعدها
 ```
 
 ## Beat-by-beat
@@ -28,19 +28,13 @@
 | 10 | 1:12.0–1:19.2 | بابا | On «الجنرالات» F13 Galtieri bust, cold grade. On «سفينة الحراسة» F24 HMS Endurance inset sails off-frame, «١٩٨١». Desaturate on «رسالة» | F13, F24 |
 | 11 | 1:19.2–1:30.4 | بابا | «٢ أبريل ١٩٨٢» writes on (there's a natural 1.1s pause at 1:21.2, so let the date breathe). On «من غير إعلان حرب» the label writes on beneath, and arrows land on Stanley. On «بويرتو أرخنتينو» F25 notice, push in on "Puerto Argentino (ex-Stanley)". On «اليمين» a road arrow flips from left to right | F25, map |
 | 12 | 1:30.4–1:42.7 | بابا | On «تاتشر» F14 bust + fleet arrow down the Atlantic, «١٣,٠٠٠ كم». On «يوم حرب» (1:34) the music drops to a single pad. Split screen F15 \| F16 at the same exposure, both desaturated. Plain white «٧٤ يوم» · «+٩٠٠ عسكري» · «٣ من أهل الجزر». «١٤ يونيو ١٩٨٢» on «استسلمت». **No characters** | F14, F15, F16 |
-| — | 1:42.7–1:43.3 | — | **Inserted 0.6s of silence.** Hold the split, fade to black at 50% | — |
-| 13 | 1:43.3–1:51.6 | البنت → بابا | **Chapter card «٣ · اللي بعدها»**. Daughter Thinking. On «الجنرالات وقعوا» F13 fades out and a ballot-box doodle appears, «١٩٨٣». On «تاتشر كسبت» F14 + ✓ | G7, F13, F14 |
-| 14 | 1:51.6–1:58.4 | بابا | F26 Stanley (crop the tree on the left). On «سبيط» F27 night squid boat. On «أغنيا» a money counter ticks up | F26, F27 |
-| 15 | 1:58.4–2:06.7 | بابا | The pile glows on «الجرح». On «جون بإيده» F18, circle the hand. On «جون القرن» F19, trace the run. On «اتنين واحد» (2:05.6) scoreboard «الأرجنتين ٢ – ١ إنجلترا · ١٩٨٦». Music lifts | F18, F19 |
-| 16 | 2:06.7–2:14.2 | البنت → بابا | Split: «٢–١ · ١٩٨٦» \| F01 + «٢–١ · ٢٠٢٦». Both glow on «اتنين واحد!» (≈2:09). Cut to the father, Chuckling, for «ماتش كورة وبس» | F01, D7 |
-| 17 | 2:14.2–2:29.7 | بابا | F20 referendum. On «تلات أصوات» a «٣ أصوات» tally. On «الناس» the ❤️ cracks. On «الأرض أرضنا» an even split «الناس قالت كلمتها» \| «الأرض أرضنا» | F20 |
-| 18 | 2:29.7–2:39.2 | البنت → بابا | Two-shot. On «قولولنا» (≈2:32.3) the father turns to the lens, Wry to camera (**the only look into the lens**). Poll «🌍 الأرض \| 👥 الناس». On «لايك» a thumbs-up pulses. On «اشترك» (≈2:37.7) F01 drops onto the top of the pile and **G08 starts sliding in from the right** | S2-H, D7, F01 |
-| End | 2:39.2–2:41.5 | — | G08 fully landed. «لايك» pulses at 2:39.5, «اشترك» at 2:40.0 (100→108→100%, 0.4s). Hold to 2:41.5. No YouTube end-screen elements (the card fills the frame) | brand/G08 |
-
-## Re-take before final (listen first; only re-take if it's wrong)
-- **0:40 «ألف تمنمية تلاتة وتلاتين»:** must be heard clearly as 1833.
-- **1:56 «أغنيا»:** check the غ.
-- **2:37 «كورس عالسريع»:** the channel name, must be exact. If it drifts, re-take only block 18's last line with «كورس عَالسريع», and splice it from 2:36.9.
+| 13 | 1:42.7–1:51.0 | البنت → بابا | **Chapter card «٣ · اللي بعدها»**. Daughter Thinking. On «الجنرالات وقعوا» F13 fades out and a ballot-box doodle appears, «١٩٨٣». On «تاتشر كسبت» F14 + ✓ | G7, F13, F14 |
+| 14 | 1:51.0–1:57.8 | بابا | F26 Stanley (crop the tree on the left). On «سبيط» F27 night squid boat. On «أغنيا» a money counter ticks up | F26, F27 |
+| 15 | 1:57.8–2:06.1 | بابا | The pile glows on «الجرح». On «جون بإيده» F18, circle the hand. On «جون القرن» F19, trace the run. On «اتنين واحد» (2:05.0) scoreboard «الأرجنتين ٢ – ١ إنجلترا · ١٩٨٦». Music lifts | F18, F19 |
+| 16 | 2:06.1–2:13.6 | البنت → بابا | Split: «٢–١ · ١٩٨٦» \| F01 + «٢–١ · ٢٠٢٦». Both glow on «اتنين واحد!» (≈2:09). Cut to the father, Chuckling, for «ماتش كورة وبس» | F01, D7 |
+| 17 | 2:13.6–2:29.1 | بابا | F20 referendum. On «تلات أصوات» a «٣ أصوات» tally. On «الناس» the ❤️ cracks. On «الأرض أرضنا» an even split «الناس قالت كلمتها» \| «الأرض أرضنا» | F20 |
+| 18 | 2:29.1–2:38.6 | البنت → بابا | Two-shot. On «قولولنا» (≈2:31.7) the father turns to the lens, Wry to camera (**the only look into the lens**). Poll «🌍 الأرض \| 👥 الناس». On «لايك» a thumbs-up pulses. On «اشترك» (≈2:37.1) F01 drops onto the top of the pile and **G08 starts sliding in from the right** | S2-H, D7, F01 |
+| End | 2:38.6–2:40.9 | — | G08 fully landed. «لايك» pulses at 2:38.9, «اشترك» at 2:39.4 (100→108→100%, 0.4s). Hold to 2:40.9. No YouTube end-screen elements (the card fills the frame) | brand/G08 |
 
 ## Captions
 Single line, bottom-centre, max 7 words, timed from `timing.json`, text from `FALKLANDS_SCRIPT_120s.md` (no tags), numbers as numerals.
