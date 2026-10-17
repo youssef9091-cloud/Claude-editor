@@ -44,3 +44,7 @@ Distilled from `reference/GENGHIS_VIDEO_BRIEF.md`. Every new episode brief follo
 - **Audit before sending.** Before any script goes out, check and fix directly: facts against sources, story gaps (every claim and every turning point needs its cause), dialect (no MSA), numbers spelled out, tag density, the energy map (no two neighbouring blocks at the same level), one look to the lens, balance on contested topics, callbacks, and timing at the measured pace (≈2.62 words/s incl. pauses). List what was fixed at the top of the script.
 - **No advert-sounding CTAs mid-story.** Calls to action must grow out of the story. Default: one sign-off at the end that follows from an open question. Never interrupt the story early with a subscribe aside.
 - **Direct every block like the sample:** `N · Speaker — emotion · energy X`, then the tagged line, pitch movement (↗ ↘ → ⤴ ⤵), pace, delivery note, and the visual cue.
+
+## Locked brand assets (every video)
+- **End card:** `brand/G08_channel_endcard.jpg` (1920×1080), locked for every video and never redesigned. It has the logo on the left, «كورس عالسريع / COURSE 3AL SAREE3» on the right, and the «اشترك 🔔» and «لايك 👍» buttons. It slides in from the right during the last VO line. «لايك» pulses first, then «اشترك» (100→108→100%, 0.4s each), then the card holds. For vertical videos, centre the card panel on a 1080×1920 canvas with the same blurred black/yellow background.
+- **Logo:** `brand/channel_logo.webp`, used for the 0.8s logo sting and the brand elements (CTAs, chapter cards).
