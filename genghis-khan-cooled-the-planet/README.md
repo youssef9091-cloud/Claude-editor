@@ -24,8 +24,13 @@ Rig-ready sheets → `assets/sheet2_{dad,daughter,set}.webp`.
 pip install --index-url https://download.pytorch.org/whl/cpu torch torchvision && pip install spandrel scipy
 curl -L -o build/models/anime6B.pth https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.2.4/RealESRGAN_x4plus_anime_6B.pth
 for n in dad daughter set; do python3 -I engine/upscale.py assets/sheet2_$n.webp build/sheet2_${n}_x4.png; done
-python3 -I engine/prep_h.py                         # bodies, 9 mouths, blinks, room plates → build/h/
+python3 -I engine/prep_h.py                         # bodies + room plates → build/h/
+python3 -I engine/prep_face.py                      # jaw pieces + lid colours from face_h.json → build/h/
 # Rhubarb 1.13 (phonetic) → build/lipsync.json
 build/tools/Rhubarb-Lip-Sync-1.13.0-Linux/rhubarb -r phonetic --extendedShapes GHX -f json -o build/lipsync.json build/vo16k.wav
 FMT=h node engine/render.js all                     # → out/genghis-khan-cooled-the-planet-16x9.mp4
 ```
+Faces are rigged in the drawings' own style (`face_h.json`, measured on the x4 bodies): the lower lip drops along
+the drawn lip line over a painted interior, driven by a smoothed jaw track from the Rhubarb cues (no shape swapping);
+irises are repainted so every shot sets the eye-line (the two look at each other; he turns to the lens at the end),
+with small saccades and lid blinks. Shot-to-shot cuts in the room are straight cuts.

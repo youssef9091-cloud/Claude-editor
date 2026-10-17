@@ -62,9 +62,9 @@
 
   // ───────────── the presenters (study_h.js) ─────────────
   const energy = (who, t) => { let s = 0; for (let i = 0; i < 8; i++) s += mouthFor(who, t - i / S.FPS); return s / 8; };
-  const alive = (who, t, base = {}) => ({ t, energy: energy(who, t), lean: base.lean || 0, forceMouth: base.forceMouth });
+  const alive = (who, t, base = {}) => ({ t, energy: energy(who, t), lean: base.lean || 0, gaze: base.gaze || (who === 'daughter' ? [.8, -.15] : [-.85, .15]) });
   // her close-up: 3/4 toward him, left third; his close-up: right third
-  const DAU_SINGLE = ['dau_34', 622, 1550, 1.05, 1], DAD_SINGLE_34 = ['dad_34', 1482, 1334, 1.05], DAD_SINGLE_FRONT = ['dad_front', 1317, 1334, 1.05];
+  const DAU_SINGLE = ['dau_34', 600, 1610, 1.05, 1], DAD_SINGLE_34 = ['dad_34', 1440, 1440, 1.2], DAD_SINGLE_FRONT = ['dad_front', 1284, 1440, 1.2];
   function studyTwoOpen(ctx, t) {
     STUDY_H.two(ctx, t, alive('daughter', t, { lean: .01 }), alive('father', t), { z: lerp(1.0, 1.07, easeInOut(prog(t, 0, 1.6))), cx: 940, cy: 560 });
   }
@@ -77,7 +77,7 @@
     arrow(ctx, 1110, 300, 880, 330, prog(t, mk.hook + .1, mk.hook + .35), { alpha: a });
   }
   function studyDaughter(ctx, t) {   // «يعني إيه؟» — tighter, front, to him and to us
-    STUDY_H.single(ctx, t, 'daughter', [['dau_front', 773, 1926, 1.35, 1]], alive('daughter', t), { z: lerp(1, 1.04, prog(t, 31.94, 34.5)), fx: 780, fy: 420 });
+    STUDY_H.single(ctx, t, 'daughter', [['dau_front', 773, 1926, 1.35, 1]], alive('daughter', t, { gaze: [.35, -.05] }), { z: lerp(1, 1.04, prog(t, 31.94, 34.5)), fx: 780, fy: 420 });
     const p = backOut(prog(t, mk.whatmeans + .15, mk.whatmeans + .5)); if (p > 0) { ctx.save(); ctx.translate(1380, 250); ctx.scale(p, p);
       ctx.fillStyle = '#fbf7ef'; shadowed(ctx, 40); ctx.beginPath(); ctx.ellipse(0, 0, 220, 120, 0, 0, 7); ctx.fill(); ctx.beginPath(); ctx.moveTo(-150, 60); ctx.lineTo(-300, 150); ctx.lineTo(-60, 100); ctx.fill();
       ctx.shadowColor = 'transparent'; ctx.font = '700 88px Hand'; ctx.direction = 'rtl'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#222'; ctx.fillText('يعني إيه؟', 0, 8); ctx.restore(); }
@@ -90,7 +90,7 @@
   }
   function studyFather(ctx, t) {   // he chuckles toward her, then turns to the lens on «بس دي حكاية»
     const ec = easeInOut(prog(t, mk.endcard, mk.endcard + .6)), chuck = t >= A.chuckle && t < mk.tocamera, turn = easeInOut(prog(t, mk.tocamera - .12, mk.tocamera + .08));
-    const f = alive('father', t); if (chuck) { f.forceMouth = Math.sin(t * 22) > 0 ? 'e' : 'i'; f.energy = .8; }
+    const f = alive('father', t, { gaze: [lerp(-.85, 0, turn), lerp(.15, 0, turn)] }); if (chuck) { f.mouth = { open: .3 + .2 * Math.abs(Math.sin(t * 13)), wide: 1 }; f.energy = .8; }
     STUDY_H.single(ctx, t, 'father', [[...DAD_SINGLE_34, 1 - turn], [...DAD_SINGLE_FRONT, turn]], f,
       { z: lerp(1, 1.05, prog(t, 60.95, mk.endcard)) * lerp(1, .95, ec), par: lerp(-12, 12, prog(t, 60.95, 64)), fx: 1240, fy: 440 });
     if (ec > 0) { ctx.fillStyle = `rgba(0,0,0,${.4 * ec})`; ctx.fillRect(0, 0, W, H); }
@@ -374,7 +374,9 @@
   function draw(ctx, t) {
     const base = ctx.getTransform();
     if (!layer || layer.width !== ctx.canvas.width) layer = mkCanvas(ctx.canvas.width, ctx.canvas.height);
-    const act = SCENES.filter(s => t >= s.a && t < s.b);
+    let act = SCENES.filter(s => t >= s.a && t < s.b);
+    // shot-to-shot inside the room is a straight cut (a dissolve would ghost two faces), at the middle of the overlap
+    if (act[1] && act[0].kind === 'study' && act[1].kind === 'study') act = [t < (act[1].a + act[0].b) / 2 ? act[0] : act[1]];
     ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H); act[0].draw(ctx, t);
     if (act[1]) { const lc = layer.getContext('2d'); lc.setTransform(base); lc.clearRect(0, 0, W, H); act[1].draw(lc, t);
       ctx.save(); ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = easeInOut(prog(t, act[1].a, act[0].b)); ctx.drawImage(layer, 0, 0); ctx.restore(); }
