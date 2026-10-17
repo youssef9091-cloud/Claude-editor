@@ -64,6 +64,8 @@
   function eye(ctx, e, who, gaze, lid, lidCol) {
     const girl = who === 'daughter', a = e.a, b = e.b;
     const almond = () => { ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.quadraticCurveTo(e.up[0], e.up[1], b[0], b[1]); ctx.quadraticCurveTo(e.lo[0], e.lo[1], a[0], a[1]); ctx.closePath(); };
+    // his drawn eyes (narrow, shadowed behind the glasses) already look where the pose looks; only hers are repainted
+    if (girl) {
     ctx.save(); almond(); ctx.clip();
     // sclera with the lid's soft shadow
     const top = q(a, e.up, b, .5)[1], bot = q(a, e.lo, b, .5)[1];
@@ -80,6 +82,8 @@
     ctx.fillStyle = 'rgba(255,255,255,.95)'; ctx.beginPath(); ctx.ellipse(ix + r * .28, iy - r * .38, r * (girl ? .22 : .26), r * (girl ? .3 : .26), .3, 0, 7); ctx.fill();
     if (girl) { ctx.fillStyle = 'rgba(255,255,255,.75)'; ctx.beginPath(); ctx.arc(ix - r * .38, iy + r * .32, r * .11, 0, 7); ctx.fill(); }
     ctx.restore();
+    }
+    if (!girl && lid <= .01) return;
     ctx.save(); ctx.lineCap = 'round'; ctx.strokeStyle = girl ? '#140b09' : 'rgba(45,25,18,.85)';
     if (lid > .01) {
       // the lid slides down over the eye *and* the drawn upper lash; its edge becomes the lash line
