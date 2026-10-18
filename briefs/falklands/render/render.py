@@ -12,7 +12,15 @@ A = '/home/user/Claude-editor/briefs/falklands/assets/'
 B = '/home/user/Claude-editor/briefs/brand/'
 T_END = 161.0
 # breathing holds (VO time, seconds): the picture rests on the reveal while the voice pauses
-HOLDS = [(15.8, 0.6), (17.7, 0.8), (18.4, 0.8), (19.4, 0.6)]   # opening only: map, penguins, moorland get room to breathe
+# audio pauses sit inside the VO's own silences (15.71-16.28 and 19.37-19.84) so no word is ever cut
+HOLDS = [(16.0, 1.2), (19.55, 1.0)]
+# opening pictures are stretched across that extra time (new time -> picture time), anchored to the words
+VIS_KEYS = [(15.8, 15.8), (19.0, 17.7), (20.0, 18.4), (22.0, 19.4)]
+def vis_time(tn):
+    if VIS_KEYS[0][0] <= tn < VIS_KEYS[-1][0]:
+        for (a0, b0), (a1, b1) in zip(VIS_KEYS, VIS_KEYS[1:]):
+            if a0 <= tn < a1: return b0 + (b1 - b0) * (tn - a0) / (a1 - a0)
+    return new2vo(tn)[0]
 T_NEW = T_END + sum(d for _, d in HOLDS)
 NF = int(round(T_NEW * FPS))
 def new2vo(tn):
@@ -219,7 +227,7 @@ def control_badge(c, t, nats, name):
 # ---------------------------------------------------------------- placards
 STRIPE = {'UK': [0xFF012169, 0xFFFFFFFF, 0xFFC8102E], 'FR': [0xFF0055A4, 0xFFFFFFFF, 0xFFEF4135], 'ES': [0xFFAA151B, 0xFFF1BF00, 0xFFAA151B],
           'AR': [0xFF74ACDF, 0xFFFFFFFF, 0xFF74ACDF]}
-def placard(c, x, y, text, nat, t, t0, rot=0.0, latin=False, size=40, morph=None):
+def placard(c, x, y, text, nat, t, t0, rot=0.0, latin=False, size=40, morph=None, stick=120):
     if t < t0: return
     k = eback(prog(t, t0, 0.4), 1.3)
     yy = y - (1 - k) * 260
@@ -233,7 +241,7 @@ def placard(c, x, y, text, nat, t, t0, rot=0.0, latin=False, size=40, morph=None
     w = tim.width() * 0.9 + 100; h = size * 1.6
     c.save(); c.translate(x, yy); c.rotate(rot)
     sp = skia.Paint(AntiAlias=True, Color=0xFF5B3A1E, StrokeWidth=10, StrokeCap=skia.Paint.kRound_Cap); sp.setAlphaf(a)
-    c.drawLine(0, 0, 0, 120, sp)
+    c.drawLine(0, 0, 0, stick, sp)
     sh = skia.Paint(AntiAlias=True, Color=0x77000000, MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 10)); sh.setAlphaf(a * 0.7)
     c.drawRRect(skia.RRect.MakeRectXY(skia.Rect.MakeXYWH(-w / 2 + 6, -h + 10, w, h), 10, 10), sh)
     rrect(c, -w / 2, -h, w, h, 10, 0xFFFFFBF2, a)
@@ -250,10 +258,11 @@ def placard(c, x, y, text, nat, t, t0, rot=0.0, latin=False, size=40, morph=None
         q = skia.Paint(AntiAlias=True, Color=0xFFE8DCC0); q.setAlphaf(0.5 * (1 - pr))
         for i in range(6):
             ang = math.pi * (0.1 + 0.16 * i); r = 30 + 60 * pr
-            c.drawCircle(x + r * math.cos(ang) * (1 if i % 2 else -1), y + 120 - 10 * pr, 8 + 10 * pr, q)
+            c.drawCircle(x + r * math.cos(ang) * (1 if i % 2 else -1), y + stick - 10 * pr, 8 + 10 * pr, q)
 
 # island-map placard positions (screen coords on VIEWS['isl'])
-PILE = [(1200, 300, -3), (1650, 300, 3), (1200, 520, 2), (1650, 520, -2), (1200, 740, -3), (1650, 740, 3), (1430, 160, 0)]
+# (stick base x, y on land in the islands view, stick length, tilt)
+PILE = [(651, 429, 230, -3), (1234, 401, 230, 3), (719, 623, 110, 2), (1131, 567, 120, -2), (1028, 706, 90, -3), (1457, 523, 170, 3)]
 def pile(c, t, upto=None, glow=0.0, extra=None):
     items = [
         ('FALKLAND', 'UK', 21.2, True, None),
@@ -266,8 +275,8 @@ def pile(c, t, upto=None, glow=0.0, extra=None):
     if extra: items += extra
     for i, (txt, nat, t0, lat, morph) in enumerate(items):
         if upto is not None and i >= upto: break
-        x, y, r = PILE[i % len(PILE)]
-        placard(c, x, y, txt, nat, t, t0, r, lat, 50 if not lat else 46, morph)
+        bx, by, L, r = PILE[i % len(PILE)]
+        placard(c, bx, by - L, txt, nat, t, t0, r, lat, 50 if not lat else 46, morph, stick=L)
     if glow > 0:
         q = skia.Paint(AntiAlias=True, Color=0xFFFFE9A8, MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 60)); q.setAlphaf(0.35 * glow)
         c.drawCircle(1420, 500, 260, q)
@@ -410,7 +419,7 @@ def logo_sting(c, t, t0):
 CAPS = [
  (0.0, 'بابا… ليه لاعيبة الأرجنتين'), (2.5, 'رفعوا يافطة «المالفيناس أرجنتينية»…'), (5.0, 'بعد ما كسبوا إنجلترا في كاس العالم؟'),
  (7.6, 'عشان تفهمي اليافطة دي…'), (9.4, 'لازم نرجع تلتمية سنة لورا.'), (12.3, 'البداية… والحرب… واللي حصل بعدها.'),
- (15.8, 'جزر صغيرة في آخر الدنيا…'), (18.4, 'ولا فيها شجرة.'), (19.4, 'بحّار إنجليزي سمّاها فوكلاند…'),
+ (15.8, 'جزر صغيرة في آخر الدنيا…'), (18.4, 'ولا فيها شجرة.'), (19.84, 'بحّار إنجليزي سمّاها فوكلاند…'),
  (21.8, 'والفرنساويين سمّوها «مالوين»…'), (24.2, 'والإسبان ترجموها «مالفيناس».'),
  (26.5, 'يعني الاسم الأرجنتيني أصله فرنساوي؟!'), (29.4, 'والإنجليز والإسبان…'), (30.8, 'كل واحد لما مشي، ساب لوحة:'), (33.5, '«دي أرضنا».'),
  (34.3, 'وبعدين الأرجنتين استقلت عن إسبانيا'), (36.9, 'وقالت: اللي كان بتاعها… بقى بتاعي.'), (39.8, 'بس سنة ١٨٣٣، الإنجليز رجعوا…'), (43.2, 'وما مشيوش.'),
@@ -473,12 +482,12 @@ def scene(c, t, f):
         sx, sy = mapr.to_screen(v, -59.2, -51.75)
         q = skia.Paint(AntiAlias=True, Color=0xFFFFC414); q.setAlphaf(0.5 + 0.5 * math.sin(t * 8))
         c.drawCircle(sx, sy, 16, q); c.drawCircle(sx, sy, 30 + 10 * math.sin(t * 8), WPEN(3, 0xFFFFC414))
-        label(c, 'جزر فوكلاند / المالفيناس', sx + 40, sy - 110, t, 16.4, 54)
+        label(c, 'جزر فوكلاند / المالفيناس', sx + 40, sy - 110, t, 16.9, 54)
     elif t < 18.4:
         cover(c, I(A + 'F02_islands_penguins.jpg', 'F02'), (t - 17.7) / 0.7, 1.0, 1.05, 0.5, 0.6, 0.52, 0.62)
     elif t < 19.4:
         cover(c, I(A + 'F02b_moorland.jpg', 'F02b'), (t - 18.4) / 1.0, 1.0, 1.04, 0.5, 0.5, 0.55, 0.5)
-        label(c, 'ولا شجرة', 960, 330, t, 18.9, 96)
+        label(c, 'ولا شجرة', 960, 330, t, 18.5, 96)
     elif t < 24.2:
         im = I(A + 'F04_old_chart_malouines_falkland.webp', 'F04')
         # pan: FALKLAND (right) first, then MALOUINES (left)
@@ -493,8 +502,8 @@ def scene(c, t, f):
             c.save(); c.translate(cx, cy); c.rotate(33); circle_draw(c, 0, 0, 330, 95, t, 20.9, 0.6, 8, 0xFFC8102E); c.restore()
             label(c, 'فوكلاند (إنجليزي)', cx - 120, cy + 260, t, 21.3, 58)
         if t >= 23.4:   # circle MALOUINES (image coords ~ 300..870 x, 20..130 y)
-            cx, cy = to_s(590, 85)
-            c.save(); c.translate(cx, cy); c.rotate(-4); circle_draw(c, 0, 0, 330, 80, t, 23.4, 0.6, 8, 0xFF0055A4); c.restore()
+            cx, cy = to_s(605, 64)
+            c.save(); c.translate(cx, cy); c.rotate(-6); circle_draw(c, 0, 0, 345 * sc, 72 * sc, t, 23.4, 0.6, 8, 0xFF0055A4); c.restore()
             label(c, 'مالوين (فرنساوي)', cx, cy + 190, t, 23.7, 58)
         bust(c, I(A + 'F05_bougainville.jpg', 'F05'), 1560, 600, 600, t, 23.2, 'right')
         if t >= 23.5: label(c, 'بوجانفيل – فرنسا ١٧٦٤', 1560, 230, t, 23.5, 46)
@@ -701,7 +710,7 @@ def scene(c, t, f):
     elif t < 121.2:
         mapr.draw_map(c, V['isl'], dim=0.35); pile(c, t, upto=6, glow=ease(prog(t, 117.9, 0.8)))
         control_badge(c, t, ['UK'], 'بريطانيا')
-        if t >= 119.8: label(c, 'كاس العالم ١٩٨٦ في المكسيك', 960, 180, t, 119.8, 62)
+        if t >= 119.8: label(c, 'كاس العالم ١٩٨٦ في المكسيك', 470, 880, t, 119.8, 62)
     elif t < 123.9:
         im = I(P + 'F18.png', 'pF18'); cover(c, im, (t - 121.2) / 2.7, 1.0, 1.12, 0.45, 0.4, 0.43, 0.38)
         circle_draw(c, 1140, 150, 160, 140, t, 122.9, 0.5, 8, 0xFFFFC414)
@@ -780,11 +789,10 @@ def scene(c, t, f):
                 if pp > 0: draw_image(c, end_btn(key), cx, cy, 1 + pp)
         c.restore()
     # ---------------- overlays
-    caption(c, t)
 
 def overlays(c, tn):
     logo_sting(c, tn, vo2new(7.45))
-    chapter_card(c, tn, hold_start(15.8) - 0.1, '١', 'البداية')
+    chapter_card(c, tn, 15.7, '١', 'البداية')
     chapter_card(c, tn, hold_start(49.4) - 0.1, '٢', 'الحرب')
     chapter_card(c, tn, hold_start(102.7) + 0.1, '٣', 'اللي بعدها')
 
@@ -798,7 +806,7 @@ def sfx_list():
           (139.3, 'pop'), (143.2, 'slam'), (144.3, 'pop'), (145.9, 'pop'), (153.1, 'pop'), (154.3, 'pop'), (156.6, 'pop'), (157.0, 'pop'), (157.1, 'whoosh'),
           (158.9, 'tick'), (159.4, 'tick'), (2.5, 'whoosh'), (5.0, 'whoosh'), (17.7, 'whoosh'), (24.2, 'whoosh'), (61.0, 'whoosh'), (111.0, 'whoosh'), (121.2, 'whoosh'), (133.6, 'whoosh')]
     ev = [(round(vo2new(t), 3), k) for t, k in ev]
-    ev += [(vo2new(7.45), 'sting'), (hold_start(15.8) - 0.1, 'whoosh'), (hold_start(49.4) - 0.1, 'whoosh'), (hold_start(102.7) + 0.1, 'whoosh')]
+    ev += [(vo2new(7.45), 'sting'), (15.7, 'whoosh'), (hold_start(49.4) - 0.1, 'whoosh'), (hold_start(102.7) + 0.1, 'whoosh')]
     return ev
 
 def render(f0, f1, out):
@@ -807,14 +815,12 @@ def render(f0, f1, out):
                            '-c:v', 'libx264', '-preset', 'slow', '-crf', '15', '-pix_fmt', 'yuv420p', '-tune', 'animation', out], stdin=subprocess.PIPE)
     for f in range(f0, f1):
         tn = f / FPS
-        t, hp = new2vo(tn); HOLD[0] = hp is not None
+        ta, hp = new2vo(tn); HOLD[0] = hp is not None
+        t = vis_time(tn)
         with surf as c:
             c.clear(0xFF000000)
-            c.save()
-            if hp is not None:
-                z = 1 + 0.012 * ease(hp); c.translate(W / 2, H / 2); c.scale(z, z); c.translate(-W / 2, -H / 2)
             scene(c, t, f)
-            c.restore()
+            caption(c, ta)
             overlays(c, tn)
             vignette(c); grain(c, f)
         ff.stdin.write(surf.makeImageSnapshot().tobytes())
