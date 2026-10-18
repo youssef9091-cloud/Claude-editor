@@ -36,38 +36,44 @@ def pluck(m,d=0.6,vol=0.12,cut=2500):
 def kick(vol=0.35):
     d=0.35; t=np.arange(int(d*SR))/SR; f=55+60*np.exp(-t*30)
     return np.sin(2*np.pi*np.cumsum(f)/SR)*np.exp(-t*9)*vol
-def place(buf,x,t):
+MAP=[lambda t:t]
+def place(buf,x,t,mapped=False):
+    t=t if mapped else t
     i=int(t*SR); j=min(len(buf),i+len(x))
     if i<len(buf) and j>i: buf[i:j]+=x[:j-i]
 def music(T):
     L=np.zeros(int(T*SR)+SR)
+    m=MAP[0]
+    _place=place
+    def place2(buf,x,t): _place(buf,x,m(t))
+    globals()['_P2']=place2
     prog_dm=[[50,57,62,65],[46,53,58,62],[41,53,57,60],[48,55,60,64]]   # Dm Bb F C
     prog_warm=[[41,53,57,60],[48,55,60,64],[50,57,62,65],[46,53,58,62]] # F C Dm Bb
     def chords(t0,t1,prog,cl=4.0,cut=1100,vol=0.17):
         t=t0;i=0
         while t<t1-0.5:
-            d=min(cl+1.4,t1-t+1.0); place(L,pad(prog[i%4],d,cut,vol),t); t+=cl;i+=1
+            d=min(cl+1.4,t1-t+1.0)+(m(t+cl)-m(t)-cl); place2(L,pad(prog[i%4],d,cut,vol),t); t+=cl;i+=1
     # 0-49 intro / origin: soft pad + sparse plucks
     chords(0,49.4,prog_dm,cut=900)
     for k,t in enumerate(np.arange(15.8,49.4,1.0)):
-        place(L,pluck([62,65,69,72][k%4],vol=0.05),t)
+        place2(L,pluck([62,65,69,72][k%4],vol=0.05),t)
     # 49-94 road to war: pad + low heartbeat, plucks tighten
     chords(49.4,94.0,prog_dm,cut=800,vol=0.15)
-    for t in np.arange(49.4,93.6,0.75): place(L,kick(0.22 if t<79 else 0.30),t)
-    for k,t in enumerate(np.arange(61.0,79.2,0.375)): place(L,pluck([50,53,57,53][k%4],0.4,0.04,1500),t)
+    for t in np.arange(49.4,93.6,0.75): place2(L,kick(0.22 if t<79 else 0.30),t)
+    for k,t in enumerate(np.arange(61.0,79.2,0.375)): place2(L,pluck([50,53,57,53][k%4],0.4,0.04,1500),t)
     # 94-102.7 war: single low drone
     n=int(9.5*SR); drone=(tone(N(38),9.5,'sin')+0.5*tone(N(45),9.5,'sin'))*env(n,0.6,2.5)*0.045
-    place(L,lp(drone,400),93.8)
+    place2(L,lp(drone,400),93.8)
     # 102.7-117.8 aftermath warm
     chords(103.0,118.0,prog_warm,cut=1300,vol=0.15)
-    for k,t in enumerate(np.arange(104.0,117.6,0.5)): place(L,pluck([65,69,72,76][k%4],0.5,0.045,3000),t)
+    for k,t in enumerate(np.arange(104.0,117.6,0.5)): place2(L,pluck([65,69,72,76][k%4],0.5,0.045,3000),t)
     # 117.8-133.6 lift: brighter, driving
     chords(117.8,133.6,prog_warm,cl=2.0,cut=2200,vol=0.15)
-    for t in np.arange(119.7,133.4,0.5): place(L,kick(0.24),t)
-    for k,t in enumerate(np.arange(119.7,133.4,0.25)): place(L,pluck([69,72,76,81,76,72,69,74][k%8],0.3,0.045,4000),t)
+    for t in np.arange(119.7,133.4,0.5): place2(L,kick(0.24),t)
+    for k,t in enumerate(np.arange(119.7,133.4,0.25)): place2(L,pluck([69,72,76,81,76,72,69,74][k%8],0.3,0.045,4000),t)
     # 133.6-161 calm resolve
     chords(133.8,158.0,prog_dm,cl=4.0,cut=1000,vol=0.14)
-    place(L,pad([50,57,62,66],5.0,1200,0.15),158.0)  # D major lift into end card
+    place2(L,pad([50,57,62,66],5.0,1200,0.15),158.0)  # D major lift into end card
     L=reverb(hp(L,40),2.6,0.35)
     return L[:int(T*SR)]
 def sfx(kind):
@@ -99,8 +105,16 @@ def sfx(kind):
     raise ValueError(kind)
 if __name__=='__main__':
     vo,events,T,out=sys.argv[1],sys.argv[2],float(sys.argv[3]),sys.argv[4]
+    holds=json.load(open(sys.argv[5]))['holds'] if len(sys.argv)>5 else []
+    MAP[0]=lambda t: t+sum(d for H_,d in holds if H_<=t)
     raw=subprocess.run(['ffmpeg','-v','error','-i',vo,'-ar',str(SR),'-ac','1','-f','f32le','-'],capture_output=True).stdout
-    v=np.frombuffer(raw,np.float32).astype(np.float64); V=np.zeros(int(T*SR)); V[:len(v)]=v[:len(V)]
+    v=np.frombuffer(raw,np.float32).astype(np.float64); V=np.zeros(int(T*SR))
+    # insert silence at each hold
+    src=0; dst=0
+    for H_,d in holds+[(len(v)/SR,0)]:
+        n=int(H_*SR)-src
+        if n>0: V[dst:dst+n]=v[src:src+n][:max(0,len(V)-dst)]
+        src+=max(n,0); dst+=max(n,0)+int(d*SR)
     M=music(T)
     # sidechain duck
     e=np.abs(V); e=signal.lfilter([1-0.999],[1,-0.999],e); e=e/ (e.max()+1e-9)

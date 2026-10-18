@@ -11,7 +11,22 @@ P = SCR + 'prep/'
 A = '/home/user/Claude-editor/briefs/falklands/assets/'
 B = '/home/user/Claude-editor/briefs/brand/'
 T_END = 161.0
-NF = int(T_END * FPS)
+# breathing holds (VO time, seconds): the picture rests on the reveal while the voice pauses
+HOLDS = [(15.8, 0.6), (17.7, 0.8), (18.4, 0.8), (19.4, 0.6)]   # opening only: map, penguins, moorland get room to breathe
+T_NEW = T_END + sum(d for _, d in HOLDS)
+NF = int(round(T_NEW * FPS))
+def new2vo(tn):
+    off = 0.0
+    for T, d in HOLDS:
+        if tn < T + off: return tn - off, None
+        if tn < T + off + d: return T - 0.001, (tn - T - off) / d
+        off += d
+    return tn - off, None
+def vo2new(tv):
+    return tv + sum(d for T, d in HOLDS if T <= tv)
+def hold_start(T):
+    return T + sum(d for T2, d in HOLDS if T2 < T)
+HOLD = [False]
 
 # ---------------------------------------------------------------- assets
 def I(path, key=None): return img(path, key)
@@ -36,7 +51,7 @@ def speaker(t):
         if a <= t < b: return s
     return None
 def mouth(t, who):
-    if speaker(t) != who: return 'neutral'
+    if HOLD[0] or speaker(t) != who: return 'neutral'
     i = int(t * FPS)
     if i >= len(RMS): return 'neutral'
     r = (RMS[i] + RMS[max(i - 1, 0)]) / 2
@@ -158,6 +173,49 @@ def bust(c, im, cx, cy, h, t, t0, side='left', alpha=1.0, filt=None, t_out=None)
     dx = -(1 - k) * (cx + w) if side == 'left' else (1 - k) * (W - cx + w)
     framed_photo(c, im, cx + dx, cy, h, t, -1, rot=-2 if side == 'left' else 2, alpha=a, filt=filt)
 
+# ---------------------------------------------------------------- flags
+def flag(c, nat, x, y, w=72, h=48):
+    """draw a small national flag with top-left at (x, y)"""
+    c.save(); c.clipRect(skia.Rect.MakeXYWH(x, y, w, h), doAntiAlias=True)
+    P_ = lambda col: skia.Paint(AntiAlias=True, Color=col)
+    if nat == 'UK':
+        c.drawRect(skia.Rect.MakeXYWH(x, y, w, h), P_(0xFF012169))
+        for wd, col in ((h * 0.22, 0xFFFFFFFF), (h * 0.08, 0xFFC8102E)):
+            q = P_(col); q.setStrokeWidth(wd)
+            c.drawLine(x, y, x + w, y + h, q); c.drawLine(x + w, y, x, y + h, q)
+        c.drawRect(skia.Rect.MakeXYWH(x + w / 2 - h * 0.17, y, h * 0.34, h), P_(0xFFFFFFFF))
+        c.drawRect(skia.Rect.MakeXYWH(x, y + h / 2 - h * 0.17, w, h * 0.34), P_(0xFFFFFFFF))
+        c.drawRect(skia.Rect.MakeXYWH(x + w / 2 - h * 0.1, y, h * 0.2, h), P_(0xFFC8102E))
+        c.drawRect(skia.Rect.MakeXYWH(x, y + h / 2 - h * 0.1, w, h * 0.2), P_(0xFFC8102E))
+    elif nat == 'EN':
+        c.drawRect(skia.Rect.MakeXYWH(x, y, w, h), P_(0xFFFFFFFF))
+        c.drawRect(skia.Rect.MakeXYWH(x + w / 2 - h * 0.1, y, h * 0.2, h), P_(0xFFC8102E))
+        c.drawRect(skia.Rect.MakeXYWH(x, y + h / 2 - h * 0.1, w, h * 0.2), P_(0xFFC8102E))
+    elif nat == 'FR':
+        for i, col in enumerate((0xFF0055A4, 0xFFFFFFFF, 0xFFEF4135)): c.drawRect(skia.Rect.MakeXYWH(x + i * w / 3, y, w / 3 + 1, h), P_(col))
+    elif nat == 'ES':
+        c.drawRect(skia.Rect.MakeXYWH(x, y, w, h), P_(0xFFAA151B)); c.drawRect(skia.Rect.MakeXYWH(x, y + h / 4, w, h / 2), P_(0xFFF1BF00))
+    elif nat == 'AR':
+        for i, col in enumerate((0xFF74ACDF, 0xFFFFFFFF, 0xFF74ACDF)): c.drawRect(skia.Rect.MakeXYWH(x, y + i * h / 3, w, h / 3 + 1), P_(col))
+        c.drawCircle(x + w / 2, y + h / 2, h * 0.11, P_(0xFFF6B40E))
+    c.restore()
+    c.drawRect(skia.Rect.MakeXYWH(x, y, w, h), WPEN(2, 0x55000000))
+NAT_AR = {'UK': 'بريطانيا', 'FR': 'فرنسا', 'ES': 'إسبانيا', 'AR': 'الأرجنتين'}
+def control_badge(c, t, nats, name):
+    """top-right badge: who controls the islands right now in the story"""
+    title = text_img('مين ماسك الجزر؟', 'cap', 30, (255, 255, 255, 220), 0, (0, 0, 0, 255), False, False)
+    nm = text_img(name, 'brand', 46, (255, 196, 20, 255), 0, (0, 0, 0, 255), False, False)
+    fw = 64 * len(nats) + 10 * (len(nats) - 1) if nats else 0
+    w = max(title.width(), nm.width() + fw + 20) + 20; x = W - 40 - w; y = 36
+    rrect(c, x, y, w, 128, 18, 0xE60B1B2B, 1, 0xFFFFC414, 3)
+    draw_image(c, title, x + w / 2, y + 30)
+    if nats:
+        fx = x + 22
+        for n in nats: flag(c, n, fx, y + 62, 64, 42); fx += 74
+        draw_image(c, nm, fx + (x + w - 12 - fx) / 2, y + 84)
+    else:
+        draw_image(c, nm, x + w / 2, y + 84)
+
 # ---------------------------------------------------------------- placards
 STRIPE = {'UK': [0xFF012169, 0xFFFFFFFF, 0xFFC8102E], 'FR': [0xFF0055A4, 0xFFFFFFFF, 0xFFEF4135], 'ES': [0xFFAA151B, 0xFFF1BF00, 0xFFAA151B],
           'AR': [0xFF74ACDF, 0xFFFFFFFF, 0xFF74ACDF]}
@@ -172,23 +230,20 @@ def placard(c, x, y, text, nat, t, t0, rot=0.0, latin=False, size=40, morph=None
         if u >= 1: txt = morph[1]; nat = morph[3]
         else: xf = u
     tim = text_img(txt, 'hand' if not latin else 'latb', size, (25, 25, 25, 255), 0, (0, 0, 0, 255), latin, False)
-    w = tim.width() * 0.9 + 30; h = size * 1.6
+    w = tim.width() * 0.9 + 100; h = size * 1.6
     c.save(); c.translate(x, yy); c.rotate(rot)
     sp = skia.Paint(AntiAlias=True, Color=0xFF5B3A1E, StrokeWidth=10, StrokeCap=skia.Paint.kRound_Cap); sp.setAlphaf(a)
     c.drawLine(0, 0, 0, 120, sp)
     sh = skia.Paint(AntiAlias=True, Color=0x77000000, MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 10)); sh.setAlphaf(a * 0.7)
     c.drawRRect(skia.RRect.MakeRectXY(skia.Rect.MakeXYWH(-w / 2 + 6, -h + 10, w, h), 10, 10), sh)
     rrect(c, -w / 2, -h, w, h, 10, 0xFFFFFBF2, a)
-    cols = STRIPE[nat]; sw = w / 3
-    for i, col in enumerate(cols):
-        q = skia.Paint(AntiAlias=True, Color=col); q.setAlphaf(a)
-        c.drawRect(skia.Rect.MakeXYWH(-w / 2 + i * sw, -h, sw, 9), q)
+    if a > 0.5: flag(c, nat, -w / 2 + 12, -h + (h - 40) / 2, 60, 40)
     if xf is None:
-        draw_image(c, tim, 0, -h / 2 + 4, 0.9, a)
+        draw_image(c, tim, 40, -h / 2 + 4, 0.9, a)
     else:
         nim = text_img(morph[1], 'latb', size, (25, 25, 25, 255), 0, (0, 0, 0, 255), True, False)
-        draw_image(c, tim, 0, -h / 2 + 4, 0.9 * (1 - 0.3 * xf), a * (1 - xf))
-        draw_image(c, nim, 0, -h / 2 + 4, 0.9 * (0.7 + 0.3 * eback(xf)), a * xf)
+        draw_image(c, tim, 40, -h / 2 + 4, 0.9 * (1 - 0.3 * xf), a * (1 - xf))
+        draw_image(c, nim, 40, -h / 2 + 4, 0.9 * (0.7 + 0.3 * eback(xf)), a * xf)
     c.restore()
     if prog(t, t0 + 0.28, 0.25) > 0 and prog(t, t0 + 0.28, 0.25) < 1:  # dust puff
         pr = prog(t, t0 + 0.28, 0.25)
@@ -198,21 +253,20 @@ def placard(c, x, y, text, nat, t, t0, rot=0.0, latin=False, size=40, morph=None
             c.drawCircle(x + r * math.cos(ang) * (1 if i % 2 else -1), y + 120 - 10 * pr, 8 + 10 * pr, q)
 
 # island-map placard positions (screen coords on VIEWS['isl'])
-PILE = [(1240, 520, -5), (1480, 450, 6), (1700, 560, -4), (1330, 720, 7), (1600, 760, -6), (1480, 330, 3), (1680, 360, 9)]
+PILE = [(1200, 300, -3), (1650, 300, 3), (1200, 520, 2), (1650, 520, -2), (1200, 740, -3), (1650, 740, 3), (1430, 160, 0)]
 def pile(c, t, upto=None, glow=0.0, extra=None):
     items = [
         ('FALKLAND', 'UK', 21.2, True, None),
         ('LES MALOUINES', 'FR', 23.6, True, (25.8, 'MALVINAS', 0.9, 'ES')),
-        ('دي أرضنا · ١٧٧٤', 'UK', 32.6, False, None),
-        ('دي أرضنا · ١٨١١', 'ES', 33.5, False, None),
-        ('الأرجنتين · ١٨١٦', 'AR', 39.1, False, None),
-        ('١٨٣٣', 'UK', 42.9, False, None),
+        ('دي أرضنا ١٧٧٤', 'UK', 32.6, False, None),
+        ('دي أرضنا ١٨١١', 'ES', 33.5, False, None),
+        ('الأرجنتين ١٨١٦', 'AR', 39.1, False, None),
+        ('بريطانيا ١٨٣٣', 'UK', 42.9, False, None),
     ]
     if extra: items += extra
     for i, (txt, nat, t0, lat, morph) in enumerate(items):
         if upto is not None and i >= upto: break
         x, y, r = PILE[i % len(PILE)]
-        if i == 6: x, y, r = (1410, 330, -6)
         placard(c, x, y, txt, nat, t, t0, r, lat, 50 if not lat else 46, morph)
     if glow > 0:
         q = skia.Paint(AntiAlias=True, Color=0xFFFFE9A8, MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 60)); q.setAlphaf(0.35 * glow)
@@ -289,18 +343,22 @@ def heart(c, x, y, s, t, t0, crack_t=None):
     else:
         c.drawPath(p, skia.Paint(AntiAlias=True, Color=0xFFE53950))
     c.restore()
-def scoreboard(c, x, y, line1, line2, t, t0, glow_t=None, s=1.0):
+def scoreboard(c, x, y, sub, t, t0, glow_t=None, s=1.0):
     if t < t0: return
     k = eback(prog(t, t0, 0.35)); c.save(); c.translate(x, y); c.scale(s * k, s * k)
-    rrect(c, -330, -110, 660, 220, 26, 0xF0101010, 1.0, 0xFFFFC414, 6)
+    rrect(c, -420, -130, 840, 260, 26, 0xF0101010, 1.0, 0xFFFFC414, 6)
     g = 0
     if glow_t and t >= glow_t: g = 1 - prog(t, glow_t + 0.4, 1.2)
-    sc = text_img(line1, 'brand', 110, (255, 196, 20, 255), 0, (0, 0, 0, 255), False, False)
     if g > 0:
         q = skia.Paint(AntiAlias=True, Color=0xFFFFC414, MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 40)); q.setAlphaf(0.6 * g)
-        c.drawRRect(skia.RRect.MakeRectXY(skia.Rect.MakeXYWH(-200, -90, 400, 120), 30, 30), q)
-    draw_image(c, sc, 0, -28, 1.0 + 0.08 * g)
-    draw_image(c, text_img(line2, 'cap', 44, (246, 238, 220, 255), 0, (0, 0, 0, 255), False, False), 0, 62, 1.0)
+        c.drawRRect(skia.RRect.MakeRectXY(skia.Rect.MakeXYWH(-130, -110, 260, 130), 30, 30), q)
+    sc = text_img('٢ – ١', 'brand', 120, (255, 196, 20, 255), 0, (0, 0, 0, 255), False, False)
+    draw_image(c, sc, 0, -40, 1.0 + 0.08 * g)
+    # Argentina on the right (Arabic reads right-to-left), England on the left
+    flag(c, 'AR', 250, -95, 84, 56); draw_image(c, text_img('الأرجنتين', 'brand', 50, (246, 238, 220, 255), 0, (0, 0, 0, 255), False, False), 292, 0)
+    flag(c, 'EN', -334, -95, 84, 56); draw_image(c, text_img('إنجلترا', 'brand', 50, (246, 238, 220, 255), 0, (0, 0, 0, 255), False, False), -292, 0)
+    c.drawLine(-380, 40, 380, 40, WPEN(2, 0x55FFFFFF))
+    draw_image(c, text_img(sub, 'cap', 44, (246, 238, 220, 255), 0, (0, 0, 0, 255), False, False), 0, 82)
     c.restore()
 def plain_num(c, text, x, y, t, t0, size=88):
     if t < t0: return
@@ -328,14 +386,14 @@ def chapter_card(c, t, t0, num, title):
         if a > 0:
             fill(c, 0xFF111111, a * 0.55)
             k = eback(prog(t, t0 + 0.15, 0.35))
-            pill = text_img(f'{num} · {title}', 'brand', 120, (17, 17, 17, 255), 0, (0, 0, 0, 255), False, False)
+            pill = text_img(f'{num} – {title}', 'brand', 120, (17, 17, 17, 255), 0, (0, 0, 0, 255), False, False)
             c.save(); c.translate(W / 2, H / 2); c.scale(k, k)
             rrect(c, -pill.width() / 2 + 30, -95, pill.width() - 60, 190, 95, CREAM, a, BLK, 8)
             draw_image(c, pill, 0, 6, 1.0, a); c.restore()
     # small tag top-left for 2s
     ta = clamp(prog(t, t0 + d * 0.6, 0.3)) * (1 - prog(t, t0 + d + 1.6, 0.5))
     if ta > 0:
-        tag = text_img(f'{num} · {title}', 'brand', 46, (17, 17, 17, 255), 0, (0, 0, 0, 255), False, False)
+        tag = text_img(f'{num} – {title}', 'brand', 46, (17, 17, 17, 255), 0, (0, 0, 0, 255), False, False)
         rrect(c, 60, 50, tag.width() - 10, 76, 38, YEL, ta, BLK, 4)
         draw_image(c, tag, 60 + (tag.width() - 10) / 2, 92, 1.0, ta)
 def logo_sting(c, t, t0):
@@ -423,16 +481,26 @@ def scene(c, t, f):
         label(c, 'ولا شجرة', 960, 330, t, 18.9, 96)
     elif t < 24.2:
         im = I(A + 'F04_old_chart_malouines_falkland.webp', 'F04')
-        u = (t - 19.4) / 4.8
-        cover(c, im, u, 1.25, 1.25, 0.25, 0.22, 0.75, 0.25)
-        if t >= 21.2:  # underline FALKLAND
-            pr = ease(prog(t, 21.2, 0.5)); c.drawLine(1180, 300, 1180 + 640 * pr, 300 + 60 * pr, WPEN(7, 0xFFC8102E))
-        if t >= 23.6:
-            pr = ease(prog(t, 23.6, 0.5)); c.drawLine(260, 255, 260 + 560 * pr, 205 * (1 - pr) + 140 * pr + 0, WPEN(7, 0xFF0055A4))
-        bust(c, I(A + 'F05_bougainville.jpg', 'F05'), 330, 560, 640, t, 21.8, 'left')
-        if t >= 22.3: label(c, 'بوجانفيل · فرنسا ١٧٦٤', 330, 170, t, 22.3, 46)
+        # pan: FALKLAND (right) first, then MALOUINES (left)
+        pan = ease(prog(t, 22.8, 0.8)); z = 1.25
+        fx = 0.72 + (0.30 - 0.72) * pan; fy = 0.24 - 0.2 * pan
+        sc = max(W / im.width(), H / im.height()) * z; vw, vh = W / sc, H / sc
+        x0 = clamp(fx * im.width() - vw / 2, 0, im.width() - vw); y0 = clamp(fy * im.height() - vh / 2, 0, im.height() - vh)
+        c.drawImageRect(im, skia.Rect.MakeXYWH(x0, y0, vw, vh), skia.Rect.MakeWH(W, H), SAMP)
+        to_s = lambda ix, iy: ((ix - x0) * sc, (iy - y0) * sc)
+        if 20.9 <= t < 23.0:   # circle the word FALKLAND (image coords ~ 1110..1600 x, 95..380 y)
+            cx, cy = to_s(1365, 245)
+            c.save(); c.translate(cx, cy); c.rotate(33); circle_draw(c, 0, 0, 330, 95, t, 20.9, 0.6, 8, 0xFFC8102E); c.restore()
+            label(c, 'فوكلاند (إنجليزي)', cx - 120, cy + 260, t, 21.3, 58)
+        if t >= 23.4:   # circle MALOUINES (image coords ~ 300..870 x, 20..130 y)
+            cx, cy = to_s(590, 85)
+            c.save(); c.translate(cx, cy); c.rotate(-4); circle_draw(c, 0, 0, 330, 80, t, 23.4, 0.6, 8, 0xFF0055A4); c.restore()
+            label(c, 'مالوين (فرنساوي)', cx, cy + 190, t, 23.7, 58)
+        bust(c, I(A + 'F05_bougainville.jpg', 'F05'), 1560, 600, 600, t, 23.2, 'right')
+        if t >= 23.5: label(c, 'بوجانفيل – فرنسا ١٧٦٤', 1560, 230, t, 23.5, 46)
     elif t < 26.5:
         mapr.draw_map(c, V['isl']); pile(c, t, upto=2)
+        control_badge(c, t, ['FR', 'UK'], 'فرنسا وبريطانيا')
         label(c, 'فوكلاند', 1380, 760, t, 24.3, 56)
         if t >= 25.8: label(c, '«مالوين» بقت «مالفيناس»', 960, 180, t, 25.8, 62)
     # ---------------- 4 · daughter surprised
@@ -442,21 +510,32 @@ def scene(c, t, f):
     # ---------------- plaques
     elif t < 34.3:
         mapr.draw_map(c, V['isl']); pile(c, t, upto=4)
+        if t < 33.5: control_badge(c, t, ['ES'], 'إسبانيا')
+        else: control_badge(c, t, [], 'ولا حد!')
     # ---------------- 5 · Argentina's claim, 1833
     elif t < 39.8:
-        mapr.draw_map(c, V['samer'], highlight={'032': 0xFF74ACDF}, hl_alpha=ease(prog(t, 35.7, 0.8)) * 0.75)
-        if t >= 35.7: label(c, 'استقلال الأرجنتين · ١٨١٦', 700, 260, t, 35.9, 60)
+        v = V['arg']
+        mapr.draw_map(c, v, highlight={'032': 0xFF74ACDF}, hl_alpha=ease(prog(t, 35.7, 0.8)) * 0.75)
+        if t >= 35.7: label(c, 'استقلال الأرجنتين ١٨١٦', 560, 330, t, 35.9, 60)
+        isl = mapr.to_screen(v, -59.3, -51.75)
+        q = skia.Paint(AntiAlias=True, Color=0xFFFFC414); q.setAlphaf(0.6 + 0.4 * math.sin(t * 7))
+        c.drawCircle(isl[0], isl[1], 70 + 6 * math.sin(t * 7), WPEN(5, 0xFFFFC414))
+        label(c, 'جزر المالفيناس / فوكلاند', isl[0] + 420, isl[1] - 10, t, 34.6, 52)
+        if t >= 38.6: control_badge(c, t, ['AR'], 'الأرجنتين')
+        else: control_badge(c, t, [], 'ولا حد')
         if t >= 38.4:
-            v = V['samer']; a0 = mapr.to_screen(v, -58.4, -34.6); a1 = mapr.to_screen(v, -59.2, -51.7)
+            a0 = mapr.to_screen(v, -58.4, -34.6); a1 = (isl[0], isl[1] - 60)
             pr = ease(prog(t, 38.4, 0.9)); ex, ey = a0[0] + (a1[0] - a0[0]) * pr, a0[1] + (a1[1] - a0[1]) * pr
             pth = skia.Path(); pth.moveTo(*a0); pth.quadTo(a0[0] + 220, (a0[1] + ey) / 2, ex, ey); c.drawPath(pth, WPEN(8, 0xFF74ACDF))
             c.drawCircle(ex, ey, 10, skia.Paint(AntiAlias=True, Color=0xFFFFFFFF))
-            label(c, 'اللي كان بتاع إسبانيا… بقى بتاعي', 1300, 820, t, 38.6, 52)
+            label(c, 'اللي كان بتاع إسبانيا… بقى بتاعي', 1340, 560, t, 38.6, 52)
     elif t < 44.4:
-        u = prog(t, 39.8, 0.9); v = mapr.lerp_view(V['samer'], V['isl'], u)
+        u = prog(t, 39.8, 0.9); v = mapr.lerp_view(V['arg'], V['isl'], u)
         mapr.draw_map(c, v)
         if u >= 1: pile(c, t, upto=6)
-        if t >= 43.2: label(c, 'من ١٨٣٣… لحد النهارده', 760, 860, t, 43.3, 60)
+        if t < 42.9: control_badge(c, t, ['AR'], 'الأرجنتين')
+        else: control_badge(c, t, ['UK'], 'بريطانيا')
+        if t >= 43.2: label(c, 'من ١٨٣٣ لحد النهارده', 640, 860, t, 43.3, 60)
     # ---------------- 6 · two-shot
     elif t < 49.4:
         two_shot(c, t, 44.4, 49.4)
@@ -473,13 +552,13 @@ def scene(c, t, f):
         if t >= 56.9:
             pr = eout(prog(t, 56.9, 1.6)); x = -300 + 1950 * pr; y = 100 + 820 * pr
             plane_icon(c, x, y, 3.0, 25 * (1 - pr), big=True)
-            label(c, '١٩٦٦ · طيارة مخطوفة', 960, 140, t, 57.3, 64)
+            label(c, 'طيارة مخطوفة ١٩٦٦', 960, 140, t, 57.3, 64)
         if t >= 60.3: label(c, 'ما فيش مطار!', 960, 330, t, 60.3, 80)
     # ---------------- 8 · 1970s lifeline
     elif t < 68.8:
         if t < 65.3:
             im = I(P + 'F23.png', 'pF23'); cover(c, im, (t - 61.0) / 4.3, 1.0, 1.15, 0.35, 0.6, 0.3, 0.62)
-            label(c, '١٩٧١ · طيارات الأرجنتين', 1400, 150, t, 61.6, 60)
+            label(c, 'طيارات الأرجنتين ١٩٧١', 1400, 150, t, 61.6, 60)
         else:
             cover(c, blurred(A + 'F23b_argentine_F27_stanley.webp', 'bF23b', 22, 0.45), 0, 1.0, 1.0)
             framed_photo(c, I(P + 'F23b.png', 'pF23b'), W / 2, 400, 560, t, 65.3, rot=-1.5)
@@ -492,27 +571,39 @@ def scene(c, t, f):
     elif t < 79.2:
         dark = ease(prog(t, 78.3, 0.8))
         mapr.draw_map(c, V['isl'], dim=0.25 + 0.3 * dark)
+        control_badge(c, t, ['UK'], 'بريطانيا')
         bust(c, I(A + 'F13_galtieri.jpg', 'F13'), 420, 540, 760, t, 72.3, 'left', filt=grey_filter(0.6))
-        if t >= 72.6: label(c, 'حكم الجنرالات · ١٩٧٦', 420, 105, t, 72.6, 52)
+        if t >= 72.6: label(c, 'حكم الجنرالات ١٩٧٦', 420, 105, t, 72.6, 52)
         if t >= 75.6:
             pr = ease(prog(t, 75.6, 2.6))
             framed_photo(c, I(P + 'F24.png', 'pF24'), 1300 + 700 * pr, 470 - 120 * pr, 420, t, 75.6, rot=3)
-            label(c, 'سفينة الحراسة بتمشي · ١٩٨١', 1300, 830, t, 76.0, 54)
+            label(c, 'سفينة الحراسة بتمشي ١٩٨١', 1300, 830, t, 76.0, 54)
     # ---------------- 11 · invasion, Puerto Argentino, right side of road
     elif t < 86.4:
         mapr.draw_map(c, V['isl'], dim=0.45)
-        if t >= 79.3: plain_num(c, '٢ أبريل ١٩٨٢', 640, 300, t, 79.3, 100)
-        if t >= 81.9: label(c, 'من غير إعلان حرب', 640, 430, t, 81.9, 64)
+        if t >= 79.3: plain_num(c, '٢ أبريل ١٩٨٢', 600, 300, t, 79.3, 100)
+        if t >= 81.9: label(c, 'من غير إعلان حرب', 600, 430, t, 81.9, 64)
+        v = V['isl']; st = mapr.to_screen(v, -57.85, -51.69)
+        landed = t >= 84.1
+        # flag pole at Stanley: British before the landing, Argentine after
+        c.drawLine(st[0], st[1], st[0], st[1] - 110, WPEN(5, 0xFFEEEEEE))
+        if landed:
+            k2 = eback(prog(t, 84.1, 0.4)); c.save(); c.translate(st[0] + 3, st[1] - 110); c.scale(k2, k2); flag(c, 'AR', 0, 0, 84, 56); c.restore()
+        else:
+            flag(c, 'UK', st[0] + 3, st[1] - 110, 84, 56)
+        label(c, 'ستانلي', st[0] - 10, st[1] + 60, t, 79.5, 50)
         if t >= 83.2:
-            v = V['isl']; st = mapr.to_screen(v, -57.85, -51.69)
-            for i, (lx, ly) in enumerate(((st[0] + 600, st[1] - 420), (st[0] + 650, st[1] + 220), (st[0] - 200, st[1] - 520))):
-                pr = ease(prog(t, 83.2 + i * 0.18, 0.7))
-                ex, ey = lx + (st[0] - lx) * pr, ly + (st[1] - ly) * pr
-                c.drawLine(lx, ly, ex, ey, WPEN(10, 0xFF74ACDF))
-                if pr >= 1:
-                    ang = math.atan2(st[1] - ly, st[0] - lx)
-                    for d in (2.5, -2.5): c.drawLine(ex, ey, ex + 30 * math.cos(ang + d), ey + 30 * math.sin(ang + d), WPEN(10, 0xFF74ACDF))
-            label(c, 'ستانلي', st[0] - 30, st[1] + 80, t, 83.6, 50)
+            starts = ((st[0] + 560, st[1] - 400), (st[0] + 620, st[1] + 230), (st[0] - 260, st[1] - 470))
+            for i, (lx, ly) in enumerate(starts):
+                pr = ease(prog(t, 83.2 + i * 0.18, 0.8))
+                ex, ey = lx + (st[0] - 40 - lx) * pr, ly + (st[1] - 20 - ly) * pr
+                c.drawLine(lx, ly, ex, ey, WPEN(14, 0xFF74ACDF)); c.drawLine(lx, ly, ex, ey, WPEN(5, 0xFFFFFFFF))
+                ang = math.atan2(ey - ly, ex - lx)
+                for d in (2.5, -2.5): c.drawLine(ex, ey, ex + 34 * math.cos(ang + d), ey + 34 * math.sin(ang + d), WPEN(12, 0xFF74ACDF))
+                if i == 0: flag(c, 'AR', lx - 30, ly - 60, 60, 40)
+            label(c, 'القوات الأرجنتينية', st[0] + 200, st[1] + 330, t, 83.5, 54)
+        if t < 84.1: control_badge(c, t, ['UK'], 'بريطانيا')
+        else: control_badge(c, t, ['AR'], 'الأرجنتين')
     elif t < 90.4:
         im = I(P + 'F25.png', 'pF25')
         c.save(); cover(c, blurred(A + 'F25_puerto_argentino_notice.jpg', 'bF25'), 0, 1.0, 1.0); c.restore()
@@ -538,10 +629,12 @@ def scene(c, t, f):
             pts = [((1 - s) ** 2 * uk[0] + 2 * (1 - s) * s * mid[0] + s * s * fk[0], (1 - s) ** 2 * uk[1] + 2 * (1 - s) * s * mid[1] + s * s * fk[1]) for s in np.linspace(0, pr, 40)]
             for p_ in pts[1:]: pth.lineTo(*p_)
             dp = WPEN(7, 0xFFFFFFFF); dp.setPathEffect(skia.DashPathEffect.Make([22, 16], 0)); c.drawPath(pth, dp)
-            ship_icon(c, pts[-1][0], pts[-1][1], 0.6)
-            label(c, '١٣,٠٠٠ كم', mid[0] - 200, mid[1], t, 92.2, 70)
+            ship_icon(c, pts[-1][0], pts[-1][1], 0.7); flag(c, 'UK', pts[-1][0] - 30, pts[-1][1] - 95, 60, 40)
+            label(c, 'الأسطول البريطاني', mid[0] - 230, mid[1] - 70, t, 91.6, 56)
+            label(c, '١٣,٠٠٠ كم', mid[0] - 230, mid[1] + 20, t, 92.2, 64)
+        control_badge(c, t, ['AR'], 'الأرجنتين')
         bust(c, I(A + 'F14_thatcher.webp', 'F14'), 1530, 520, 700, t, 90.4, 'right')
-        if t >= 90.8: label(c, 'تاتشر', 1530, 120, t, 90.8, 56)
+        if t >= 90.8: label(c, 'تاتشر', 1530, 915, t, 90.8, 56)
     elif t < 102.9:
         # split: British memorial | Argentine cemetery — equal weight, desaturated
         g = grey_filter(0.85)
@@ -564,6 +657,7 @@ def scene(c, t, f):
         close_up(c, t, 102.9, 103.8, 'F', 'S8H')
     elif t < 111.0:
         mapr.draw_map(c, V['atl'], dim=0.5)
+        control_badge(c, t, ['UK'], 'بريطانيا')
         fa = 1 - prog(t, 106.1, 0.8)
         bust(c, I(A + 'F13_galtieri.jpg', 'F13'), 520, 500, 640, t, 103.9, 'left', filt=grey_filter(1.0), alpha=max(fa, 0.0))
         if t >= 106.4:
@@ -575,7 +669,7 @@ def scene(c, t, f):
             rrect(c, -130, -50, 260, 170, 12, 0xFF74ACDF, 1, 0xFF333333, 4)
             rrect(c, -70, -58, 140, 16, 6, 0xFF333333)
             draw_image(c, text_img('انتخابات', 'brand', 46, (255, 255, 255, 255), 0, (0, 0, 0, 255), False, False), 0, 40)
-            c.restore(); label(c, 'الديمقراطية رجعت · ١٩٨٣', 520, 760, t, 106.6, 52)
+            c.restore(); label(c, 'الديمقراطية رجعت ١٩٨٣', 520, 760, t, 106.6, 52)
         bust(c, I(A + 'F14_thatcher.webp', 'F14'), 1400, 500, 640, t, 108.0, 'right')
         if t >= 109.8:
             k = eback(prog(t, 109.8, 0.4)); c.save(); c.translate(1640, 760); c.scale(k, k)
@@ -583,7 +677,6 @@ def scene(c, t, f):
             pth = skia.Path(); pth.moveTo(-28, 2); pth.lineTo(-8, 24); pth.lineTo(30, -22); c.drawPath(pth, WPEN(12)); c.restore()
             label(c, 'كسبت الانتخابات', 1400, 880, t, 110.0, 50)
         if t < 103.9 + 0.1: pass
-        chapter_card(c, t, 103.0, '٣', 'اللي بعدها')
     # ---------------- 14 · islands get rich
     elif t < 117.8:
         if t < 114.4:
@@ -607,7 +700,8 @@ def scene(c, t, f):
     # ---------------- 15 · Maradona 1986
     elif t < 121.2:
         mapr.draw_map(c, V['isl'], dim=0.35); pile(c, t, upto=6, glow=ease(prog(t, 117.9, 0.8)))
-        if t >= 119.8: label(c, 'كاس العالم ١٩٨٦ · المكسيك', 960, 180, t, 119.8, 62)
+        control_badge(c, t, ['UK'], 'بريطانيا')
+        if t >= 119.8: label(c, 'كاس العالم ١٩٨٦ في المكسيك', 960, 180, t, 119.8, 62)
     elif t < 123.9:
         im = I(P + 'F18.png', 'pF18'); cover(c, im, (t - 121.2) / 2.7, 1.0, 1.12, 0.45, 0.4, 0.43, 0.38)
         circle_draw(c, 1140, 150, 160, 140, t, 122.9, 0.5, 8, 0xFFFFC414)
@@ -621,31 +715,38 @@ def scene(c, t, f):
             for p_ in pts[1:n + 1]: pth.lineTo(*p_)
             dp = WPEN(7, 0xFFFFC414); dp.setPathEffect(skia.DashPathEffect.Make([18, 14], 0)); c.drawPath(pth, dp)
             label(c, 'جون القرن', 1450, 200, t, 124.3, 72)
-        scoreboard(c, W / 2, 470, '٢ – ١', 'الأرجنتين – إنجلترا · ١٩٨٦', t, 125.0, None, 0.95)
+        scoreboard(c, W / 2, 470, 'كاس العالم ١٩٨٦ – المكسيك', t, 125.0, None, 1.0)
     # ---------------- 16 · 1986 = 2026
     elif t < 129.4:
         im = I(A + 'F01_banner_atlanta_2026.jpg', 'F01'); cover(c, im, (t - 126.1) / 3.3, 1.0, 1.05, 0.5, 0.55, 0.5, 0.55)
         fill(c, 0xFF000000, 0.5)
-        scoreboard(c, 520, 520, '٢ – ١', 'المكسيك ١٩٨٦', t, 126.2, 128.6, 0.85)
-        scoreboard(c, 1400, 520, '٢ – ١', 'أتلانتا ٢٠٢٦', t, 127.4, 128.6, 0.85)
+        label(c, 'نفس النتيجة!', W / 2, 200, t, 126.3, 92)
+        scoreboard(c, 1440, 560, 'كاس العالم ١٩٨٦ – المكسيك', t, 126.2, 128.6, 0.98)
+        scoreboard(c, 480, 560, 'كاس العالم ٢٠٢٦ – أتلانتا', t, 127.4, 128.6, 0.98)
     elif t < 133.6:
         two_shot(c, t, 129.4, 133.6)
         label(c, 'مش ماتش كورة وبس', 960, 170, t, 132.7, 70)
     # ---------------- 17 · referendum
     elif t < 144.1:
         im = I(P + 'F20.png', 'pF20'); cover(c, im, (t - 133.6) / 10.5, 1.0, 1.15, 0.4, 0.45, 0.5, 0.4)
-        if t >= 134.0: label(c, 'استفتاء ٢٠١٣', 1500, 140, t, 134.0, 60)
+        if t >= 133.8:
+            a_ = ease(prog(t, 133.8, 0.4))
+            rrect(c, 360, 40, 1200, 170, 22, 0xE60B1B2B, a_, 0xFFFFC414, 3)
+            if a_ > 0:
+                draw_image(c, text_img('استفتاء ٢٠١٣ – ستانلي، جزر فوكلاند', 'brand', 60, (255, 196, 20, 255), 0, (0, 0, 0, 255), False, False), W / 2, 92, 1, a_)
+                draw_image(c, text_img('أهل الجزر بيصوّتوا: يفضلوا تبع بريطانيا ولا لأ؟', 'cap', 44, (255, 255, 255, 255), 0, (0, 0, 0, 255), False, False), W / 2, 160, 1, a_)
         if t >= 136.6:
-            rrect(c, 1360, 650, 440, 200, 22, 0xEE10263A, 1, 0xFFFFFFFF, 4)
-            for i in range(3):
-                if t >= 136.7 + i * 0.25: c.drawLine(1400 + i * 40, 690, 1400 + i * 40, 800, WPEN(10))
-            label(c, '٣ أصوات بس', 1640, 750, t, 137.4, 50)
+            k_ = eback(prog(t, 136.6, 0.35)); c.save(); c.translate(1500, 700); c.scale(k_, k_)
+            rrect(c, -330, -120, 660, 240, 22, 0xEE0B1B2B, 1, 0xFFFFFFFF, 3)
+            draw_image(c, text_img('٩٩٫٨٪ قالوا آه', 'brand', 72, (120, 220, 120, 255), 0, (0, 0, 0, 255), False, False), 0, -45)
+            draw_image(c, text_img('٣ أصوات بس قالوا لأ', 'brand', 56, (255, 140, 140, 255), 0, (0, 0, 0, 255), False, False), 0, 55)
+            c.restore()
         if t >= 139.1:
             fill(c, 0xFF000000, 0.35 * ease(prog(t, 139.1, 0.5)))
             heart(c, 960, 520, 3.0, t, 139.3, crack_t=143.2)
             if t >= 143.3: label(c, 'الناس', 960, 760, t, 143.3, 90)
     elif t < 149.1:
-        mapr.draw_map(c, V['isl'], dim=0.2); pile(c, t, upto=6)
+        mapr.draw_map(c, V['isl'], dim=0.2)
         u = ease(prog(t, 144.2, 0.6))
         q = skia.Paint(Color=0xFF012169); q.setAlphaf(0.45 * u); c.drawRect(skia.Rect.MakeXYWH(0, 0, W / 2, H), q)
         q = skia.Paint(Color=0xFF74ACDF); q.setAlphaf(0.45 * u); c.drawRect(skia.Rect.MakeXYWH(W / 2, 0, W / 2, H), q)
@@ -656,7 +757,7 @@ def scene(c, t, f):
     elif t < 151.6:
         two_shot(c, t, 149.1, 151.6)
     elif t < 158.6:
-        two_shot_cta(c, t, 151.6, 158.6)
+        two_shot(c, t, 151.6, 158.6)
         for i, (tt, txt, x) in enumerate(((153.1, 'الأرض', 560), (154.3, 'الناس', 960))):
             if t >= tt and t < 156.3:
                 k = eback(prog(t, tt, 0.3)); tim = text_img(txt, 'brand', 70, (17, 17, 17, 255), 0, (0, 0, 0, 255), False, False)
@@ -679,13 +780,16 @@ def scene(c, t, f):
                 if pp > 0: draw_image(c, end_btn(key), cx, cy, 1 + pp)
         c.restore()
     # ---------------- overlays
-    logo_sting(c, t, 7.45)
-    chapter_card(c, t, 15.35, '١', 'البداية')
-    chapter_card(c, t, 49.0, '٢', 'الحرب')
     caption(c, t)
 
+def overlays(c, tn):
+    logo_sting(c, tn, vo2new(7.45))
+    chapter_card(c, tn, hold_start(15.8) - 0.1, '١', 'البداية')
+    chapter_card(c, tn, hold_start(49.4) - 0.1, '٢', 'الحرب')
+    chapter_card(c, tn, hold_start(102.7) + 0.1, '٣', 'اللي بعدها')
+
 def sfx_list():
-    ev = [(7.45, 'sting'), (15.35, 'whoosh'), (49.0, 'whoosh'), (103.0, 'whoosh'), (12.3, 'tick'), (13.5, 'tick'), (14.6, 'tick'),
+    ev = [(12.3, 'tick'), (13.5, 'tick'), (14.6, 'tick'),
           (3.0, 'scribble'), (21.2, 'scribble'), (23.6, 'scribble'), (21.2, 'slam'), (23.6, 'slam'), (32.6, 'slam'), (33.5, 'slam'), (39.1, 'slam'), (42.9, 'slam'),
           (25.8, 'pop'), (6.8, 'pop'), (16.4, 'pop'), (18.9, 'pop'), (28.5, 'pop'), (51.0, 'pop'), (52.9, 'pop'), (54.4, 'pop'), (57.3, 'pop'), (60.3, 'pop'),
           (64.3, 'pop'), (65.3, 'pop'), (65.9, 'pop'), (67.7, 'pop'), (72.6, 'pop'), (76.0, 'pop'), (81.9, 'pop'), (86.9, 'scribble'), (89.4, 'pop'),
@@ -693,6 +797,8 @@ def sfx_list():
           (125.0, 'slam'), (126.2, 'slam'), (127.4, 'slam'), (128.6, 'ding'), (132.7, 'pop'), (134.0, 'pop'), (136.7, 'tick'), (136.95, 'tick'), (137.2, 'tick'),
           (139.3, 'pop'), (143.2, 'slam'), (144.3, 'pop'), (145.9, 'pop'), (153.1, 'pop'), (154.3, 'pop'), (156.6, 'pop'), (157.0, 'pop'), (157.1, 'whoosh'),
           (158.9, 'tick'), (159.4, 'tick'), (2.5, 'whoosh'), (5.0, 'whoosh'), (17.7, 'whoosh'), (24.2, 'whoosh'), (61.0, 'whoosh'), (111.0, 'whoosh'), (121.2, 'whoosh'), (133.6, 'whoosh')]
+    ev = [(round(vo2new(t), 3), k) for t, k in ev]
+    ev += [(vo2new(7.45), 'sting'), (hold_start(15.8) - 0.1, 'whoosh'), (hold_start(49.4) - 0.1, 'whoosh'), (hold_start(102.7) + 0.1, 'whoosh')]
     return ev
 
 def render(f0, f1, out):
@@ -700,10 +806,16 @@ def render(f0, f1, out):
     ff = subprocess.Popen(['ffmpeg', '-v', 'error', '-y', '-f', 'rawvideo', '-pix_fmt', 'bgra', '-s', f'{W}x{H}', '-r', str(FPS), '-i', '-',
                            '-c:v', 'libx264', '-preset', 'slow', '-crf', '15', '-pix_fmt', 'yuv420p', '-tune', 'animation', out], stdin=subprocess.PIPE)
     for f in range(f0, f1):
-        t = f / FPS
+        tn = f / FPS
+        t, hp = new2vo(tn); HOLD[0] = hp is not None
         with surf as c:
             c.clear(0xFF000000)
+            c.save()
+            if hp is not None:
+                z = 1 + 0.012 * ease(hp); c.translate(W / 2, H / 2); c.scale(z, z); c.translate(-W / 2, -H / 2)
             scene(c, t, f)
+            c.restore()
+            overlays(c, tn)
             vignette(c); grain(c, f)
         ff.stdin.write(surf.makeImageSnapshot().tobytes())
         if f % 100 == 0: print(out, f, flush=True)
@@ -712,7 +824,7 @@ def render(f0, f1, out):
 def still(t, out):
     surf = skia.Surface(W, H)
     with surf as c:
-        c.clear(0xFF000000); scene(c, t, int(t * FPS)); vignette(c); grain(c, int(t * FPS))
+        c.clear(0xFF000000); scene(c, t, int(t * FPS)); overlays(c, vo2new(t)); vignette(c); grain(c, int(t * FPS))
     surf.makeImageSnapshot().save(out)
 
 if __name__ == '__main__':
@@ -721,5 +833,6 @@ if __name__ == '__main__':
         for t in sys.argv[2:]: still(float(t), SCR + os.environ.get('STILLS','stills') + f'/s_{float(t):06.1f}.png')
     elif mode == 'sfx':
         json.dump(sfx_list(), open(SCR + 'sfx.json', 'w'))
+        json.dump({'holds': HOLDS, 'T_new': T_NEW}, open(SCR + 'holds.json', 'w'))
     else:
         render(int(sys.argv[2]), int(sys.argv[3]), sys.argv[4])

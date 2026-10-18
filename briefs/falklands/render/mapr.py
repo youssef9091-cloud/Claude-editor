@@ -59,4 +59,4 @@ def draw_map(c,v,tint=None,dim=0.0,highlight=None,hl_alpha=1.0):
         c.drawPath(path,st)
     c.restore()
     if dim>0: fill(c,0xFF000000,dim)
-VIEWS={'satl':view(-55,-44,60),'isl':view(-59.4,-51.75,5.6),'atl':view(-30,0,262),'samer':view(-60,-38,48)}
+VIEWS={'satl':view(-55,-44,60),'isl':view(-59.4,-51.75,5.6),'atl':view(-30,0,262),'samer':view(-60,-38,48),'arg':view(-60,-45,56)}
