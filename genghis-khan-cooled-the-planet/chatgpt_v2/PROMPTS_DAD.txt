@@ -1,0 +1,58 @@
+DAD: 5 images. Start a NEW ChatGPT chat (not the girl's) and do them all there, in this order.
+Save each result as PNG with the exact name given.
+If pieces touch or overlap, or the style goes soft or shiny, say "regenerate" and paste the same prompt again.
+
+====================================================================
+1) Upload REF_dad.png, then paste:           → save as  dad_1_turnaround.png
+====================================================================
+Use the uploaded image ONLY as likeness reference (face, hair, glasses, beard, outfit). Redraw him in a new style.
+
+STYLE: flat 2D vector cartoon made for cut-out animation, like a modern YouTube explainer. Clean dark-brown outlines of the same thickness everywhere, flat fill colours, at most ONE flat shadow tone per colour, no gradients, no textures, no airbrush, no glow, no realistic lighting. Simple readable shapes, head slightly large. Solid pure-white background, no floor, no cast shadows, no text, no labels, no borders.
+
+CHARACTER: Egyptian man, about 55, warm tan skin, short swept-back grey hair, black rectangular glasses, short grey moustache and a neatly trimmed grey beard, light-blue button-up shirt with sleeves rolled to the forearms, navy trousers, brown leather shoes, silver wristwatch on his left wrist. Calm, kind expression.
+
+Character model sheet: five full-body standing views side by side, exactly the same height and scale, evenly spaced: front, three-quarter facing left, side profile facing left, three-quarter facing right, side profile facing right. Relaxed neutral pose, arms down, mouth closed, eyes open looking where the head faces. Landscape 1536x1024.
+
+====================================================================
+2) Paste (no upload):                        → save as  dad_2_kit_34left.png
+====================================================================
+Cut-out animation puppet kit of the SAME man in the SAME flat style as the model sheet above, THREE-QUARTER VIEW FACING LEFT. Solid pure-white background, no text, no labels, no shadows.
+
+LEFT third of the image: the fully assembled man SEATED (as if on a sofa, but do NOT draw the sofa), one leg crossed over the other, both hands resting on his knee, looking to the left.
+
+RIGHT two-thirds: the same man taken apart into separate pieces at the SAME scale as the assembled one. Every piece is separated by clear white space: pieces must NOT touch or overlap. Arrange them in a neat grid in this exact order:
+Row 1: head with hair, ears, nose, moustache and beard, but NO eyes, NO eyebrows, NO mouth, and NO glasses | the glasses alone | torso with neck and collar (no head, no arms)
+Row 2: right upper arm (rolled sleeve) | right forearm | right hand relaxed | left upper arm | left forearm with wristwatch | left hand relaxed
+Row 3: seated lower body (hips, crossed legs and shoes as ONE piece) | right hand open palm (explaining gesture) | right hand index finger raised (making a point) | left hand open palm
+Draw every limb piece with a rounded, slightly extended end at each joint (neck, shoulder, elbow, wrist) so the pieces overlap when rotated. Landscape 1536x1024.
+
+====================================================================
+3) Paste (no upload):                        → save as  dad_3_face_34left.png
+====================================================================
+Facial animation kit for the SAME man, THREE-QUARTER VIEW FACING LEFT, same flat style, drawn LARGE. Solid pure-white background, no text, no labels.
+Top-left: his head again without eyes, brows, mouth or glasses, for reference. Then ONLY the facial features themselves (no skin or face around them), each one separated by white space, in a grid:
+Row 1, EYES (both eyes together as ONE piece, spaced exactly as on his face, drawn WITHOUT the glasses): open looking left | open looking straight ahead | open looking right | half-closed | fully closed | smiling squint
+Row 2, EYEBROWS (the pair as one piece, grey-dark): neutral | raised | lowered (thinking) | one raised (amused)
+Row 3, MOUTHS (lips and teeth only, drawn to sit UNDER his grey moustache, this three-quarter angle, at the size they sit on the face): closed neutral | closed smile | M-B-P lips pressed | A-I open | E wide with teeth | O round | U-OO small round | F-V lower lip under top teeth | L-TH open with tongue tip | warm chuckle (open smile)
+Landscape 1536x1024.
+
+====================================================================
+4) Paste (no upload):                        → save as  dad_4_kit_front.png
+====================================================================
+Same as the puppet kit before, but FRONT VIEW (facing the camera). Same flat style, same scale, solid pure-white background, no text.
+LEFT third: assembled man SEATED facing the camera, legs crossed, hands resting on his knee.
+RIGHT two-thirds, separated pieces that do NOT touch, in a grid:
+Row 1: head with hair, moustache and beard but NO eyes, NO brows, NO mouth, NO glasses | the glasses alone | torso with neck and collar
+Row 2: right upper arm | right forearm | right hand relaxed | left upper arm | left forearm with watch | left hand relaxed
+Row 3: seated lower body with crossed legs (one piece) | right hand open palm | right hand index finger raised | left hand open palm
+Rounded, extended ends at every joint. Landscape 1536x1024.
+
+====================================================================
+5) Paste (no upload):                        → save as  dad_5_face_front.png
+====================================================================
+Facial animation kit for the SAME man, FRONT VIEW, same flat style, drawn LARGE, solid pure-white background, no text.
+Top-left: his blank front head (no eyes, brows, mouth or glasses) for reference. Then ONLY the features, separated by white space:
+Row 1, EYES (pair as one piece, without glasses): open looking left | open looking at camera | open looking right | half-closed | fully closed | smiling squint
+Row 2, EYEBROWS (pair): neutral | raised | lowered | one raised
+Row 3, MOUTHS (front view, to sit under the moustache): closed neutral | closed smile | M-B-P | A-I | E | O | U-OO | F-V | L-TH | warm chuckle
+Landscape 1536x1024.

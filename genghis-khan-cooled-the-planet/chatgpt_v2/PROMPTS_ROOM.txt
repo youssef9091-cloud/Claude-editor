@@ -1,0 +1,33 @@
+ROOM: 6 images. Start a THIRD ChatGPT chat, upload one of the finished girl or dad turnarounds first so the style matches, and do them all there.
+Save each result as PNG with the exact name given.
+
+====================================================================
+1) Upload girl_1_turnaround.png AND REF_room.png, then paste:   → save as  room_1_wide_16x9.png
+====================================================================
+Background for a 2D cartoon, drawn in EXACTLY the same flat style as the character sheet: clean dark-brown outlines, flat colours, one flat shadow tone, no gradients, no textures, no realistic lighting. Use the room photo only as the layout and colour reference.
+A modern, warm living room seen straight-on at seated eye level: a long light-beige three-seat sofa in the centre with two dark-brown cushions at the ends, a large abstract art print on the wall behind, a pendant lamp on the left, a tall plant on the right, a low coffee table in front. NO people. Keep the left seat and the right seat of the sofa clear and fully visible (two characters will be placed there). No text. Landscape 16:9, 1536x864 or wider.
+
+====================================================================
+2) Paste:                                    → save as  room_2_closeup_left_16x9.png
+====================================================================
+The SAME room, same style, a closer camera on the LEFT end of the sofa (the girl's seat), as the background for a medium close-up: sofa back and cushion in the lower half, wall and part of the lamp behind. NO people, no text. Landscape 16:9.
+
+====================================================================
+3) Paste:                                    → save as  room_3_closeup_right_16x9.png
+====================================================================
+The SAME room, same style, a closer camera on the RIGHT end of the sofa (the dad's seat), as the background for a medium close-up: sofa back and cushion in the lower half, wall and part of the plant behind. NO people, no text. Landscape 16:9.
+
+====================================================================
+4) Paste:                                    → save as  room_4_wide_9x16.png
+====================================================================
+The SAME room, same style, framed VERTICALLY for a phone video: the sofa across the lower-middle with BOTH seats visible, more wall and art above. NO people, no text. Portrait 9:16, 1024x1536.
+
+====================================================================
+5) Paste:                                    → save as  room_5_closeup_left_9x16.png
+====================================================================
+The SAME room, same style, VERTICAL close-up background on the LEFT end of the sofa. NO people, no text. Portrait 9:16, 1024x1536.
+
+====================================================================
+6) Paste:                                    → save as  room_6_closeup_right_9x16.png
+====================================================================
+The SAME room, same style, VERTICAL close-up background on the RIGHT end of the sofa. NO people, no text. Portrait 9:16, 1024x1536.

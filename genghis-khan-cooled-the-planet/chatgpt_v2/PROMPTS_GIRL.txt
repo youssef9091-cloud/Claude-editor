@@ -1,0 +1,58 @@
+GIRL: 5 images. Do them all in ONE ChatGPT chat, in this order.
+Save each result as PNG with the exact name given.
+If pieces touch or overlap, or the style goes soft or shiny, say "regenerate" and paste the same prompt again.
+
+====================================================================
+1) Upload REF_girl.png, then paste:          → save as  girl_1_turnaround.png
+====================================================================
+Use the uploaded image ONLY as likeness reference (face, hair, outfit). Redraw her in a new style.
+
+STYLE: flat 2D vector cartoon made for cut-out animation, like a modern YouTube explainer. Clean dark-brown outlines of the same thickness everywhere, flat fill colours, at most ONE flat shadow tone per colour, no gradients, no textures, no airbrush, no glow, no realistic lighting. Simple readable shapes, head slightly large. Solid pure-white background, no floor, no cast shadows, no text, no labels, no borders.
+
+CHARACTER: Egyptian teenage girl, about 16, warm light-tan skin, long straight dark-brown hair past the shoulders with a soft side part, big dark-brown eyes, small nose stud, black crew-neck t-shirt, thin necklace with a small blue teardrop pendant, light-blue jeans with rolled cuffs, black-and-white canvas high-top sneakers.
+
+Character model sheet: five full-body standing views side by side, exactly the same height and scale, evenly spaced: front, three-quarter facing left, side profile facing left, three-quarter facing right, side profile facing right. Relaxed neutral pose, arms down, mouth closed, eyes open looking where the head faces. Landscape 1536x1024.
+
+====================================================================
+2) Paste (no upload):                        → save as  girl_2_kit_34right.png
+====================================================================
+Cut-out animation puppet kit of the SAME girl in the SAME flat style as the model sheet above, THREE-QUARTER VIEW FACING RIGHT. Solid pure-white background, no text, no labels, no shadows.
+
+LEFT third of the image: the fully assembled girl SEATED (as if on a sofa, but do NOT draw the sofa), legs crossed, left hand resting on her knee, right hand holding a black smartphone in her lap, looking to the right.
+
+RIGHT two-thirds: the same girl taken apart into separate pieces at the SAME scale as the assembled one. Every piece is separated by clear white space: pieces must NOT touch or overlap. Arrange them in a neat grid in this exact order:
+Row 1: head with hair and ears and nose, but the face is BLANK: NO eyes, NO eyebrows, NO mouth (just skin) | the back hair layer alone (the hair that hangs behind the shoulders) | torso with neck (no head, no arms)
+Row 2: right upper arm | right forearm | right hand holding the phone | left upper arm | left forearm | left hand relaxed
+Row 3: seated lower body (hips, crossed legs and sneakers as ONE piece) | right hand open palm (explaining gesture) | left hand pointing with index finger | left hand open palm
+Draw every limb piece with a rounded, slightly extended end at each joint (neck, shoulder, elbow, wrist) so the pieces overlap when rotated. Landscape 1536x1024.
+
+====================================================================
+3) Paste (no upload):                        → save as  girl_3_face_34right.png
+====================================================================
+Facial animation kit for the SAME girl, THREE-QUARTER VIEW FACING RIGHT, same flat style, drawn LARGE. Solid pure-white background, no text, no labels.
+Top-left: her blank head again (no eyes, no brows, no mouth) for reference. Then ONLY the facial features themselves (no skin or face around them), each one separated by white space, in a grid:
+Row 1, EYES (both eyes together as ONE piece, spaced exactly as on her face): open looking right | open looking straight ahead | open looking left | half-closed | fully closed (curved lash lines) | happy closed (upturned arcs)
+Row 2, EYEBROWS (the pair as one piece): neutral | raised (curious/surprised) | lowered (thinking) | one raised (sceptical)
+Row 3, MOUTHS (drawn for this three-quarter angle, at the size they sit on the face): closed neutral | closed smile | M-B-P lips pressed | A-I open | E wide with teeth | O round | U-OO small round, lips forward | F-V lower lip under top teeth | L-TH open with tongue tip | big laugh
+Landscape 1536x1024.
+
+====================================================================
+4) Paste (no upload):                        → save as  girl_4_kit_front.png
+====================================================================
+Same as the puppet kit before, but FRONT VIEW (facing the camera). Same flat style, same scale, solid pure-white background, no text.
+LEFT third: assembled girl SEATED facing the camera, legs crossed, hands in her lap holding the phone.
+RIGHT two-thirds, separated pieces that do NOT touch, in a grid:
+Row 1: head with BLANK face (no eyes, no brows, no mouth) | back hair layer | torso with neck
+Row 2: right upper arm | right forearm | right hand holding phone | left upper arm | left forearm | left hand relaxed
+Row 3: seated lower body with crossed legs (one piece) | right hand open palm | left hand pointing | left hand open palm
+Rounded, extended ends at every joint. Landscape 1536x1024.
+
+====================================================================
+5) Paste (no upload):                        → save as  girl_5_face_front.png
+====================================================================
+Facial animation kit for the SAME girl, FRONT VIEW, same flat style, drawn LARGE, solid pure-white background, no text.
+Top-left: her blank front head for reference. Then ONLY the features, separated by white space:
+Row 1, EYES (pair as one piece): open looking right | open looking at camera | open looking left | half-closed | fully closed | happy closed
+Row 2, EYEBROWS (pair): neutral | raised | lowered | one raised
+Row 3, MOUTHS (front view): closed neutral | closed smile | M-B-P | A-I | E | O | U-OO | F-V | L-TH | big laugh
+Landscape 1536x1024.
