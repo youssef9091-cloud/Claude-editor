@@ -45,7 +45,7 @@ POSES = {
  'dadfront': dict(src='dadfront', crop0=(46, 9), face='dadfacefront', face0=(0, 220), kit=DADFR_FACE,
                   lens=[((214, 152), (203, 124, 263, 162)), ((306, 147), (267, 116, 320, 157))], erase=[],
                   eye=[(236, 141, .33, 1), (294, 137, .33, 1)], own_face=True,
-                  jaw=dict(line=[(762, 737), (820, 734), (900, 728), (980, 718), (1040, 707)], region=(900, 800, 210, 125, .25), max=58), feather=dict(eye=.6, mouth=.25), hair_pockets=(0, 0, 0, 620)),
+                  jaw=dict(line=[(762, 737), (820, 734), (900, 728), (980, 718), (1040, 707)], region=(900, 800, 210, 125, .25), max=58, mouth=(898, 105)), feather=dict(eye=.6, mouth=.25), hair_pockets=(0, 0, 0, 620)),
 }
 
 def load(p): return np.asarray(Image.open(p).convert('RGB')).astype(np.float32)
@@ -157,7 +157,7 @@ def jaw_piece(P, base, alpha, name, meta):
     y0, y1 = int(ys.min()), int(cy + ry); x0, x1 = int(cx - rx), int(cx + rx)
     out = np.dstack([base[y0:y1, x0:x1], f[y0:y1, x0:x1] * 255]).clip(0, 255).astype(np.uint8)
     Image.fromarray(out, 'RGBA').save(OUT + f'{name}_jaw.png')
-    meta[name]['jaw'] = {'f': f'{name}_jaw.png', 'x': x0, 'y': y0, 'line': L, 'max': J['max']}
+    meta[name]['jaw'] = {'f': f'{name}_jaw.png', 'x': x0, 'y': y0, 'line': L, 'max': J['max'], 'mouth': J['mouth']}
 
 meta = {}
 for name, P in POSES.items():
