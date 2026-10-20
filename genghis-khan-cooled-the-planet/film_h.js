@@ -69,12 +69,23 @@
     ctx.drawImage(img, 0, 0, W, H); ctx.restore();
   }
   function cam(ctx, z, fx, fy, fn) { ctx.save(); ctx.translate(fx, fy); ctx.scale(z, z); ctx.translate(-fx, -fy); fn(); ctx.restore(); }
-  // the two of them on the sofa, turned to each other (she: left seat, facing right; he: right seat, facing left)
+  // the coffee table, lifted off the wide plate as a foreground layer (his crossed leg goes behind it)
+  let TABLE = null;
+  function tableLayer() {
+    if (TABLE) return TABLE; TABLE = mkCanvas(W, H); const g = TABLE.getContext('2d');
+    g.beginPath(); g.ellipse(948, 826, 360, 60, 0, 0, 7); g.rect(588, 826, 720, 30); g.ellipse(948, 856, 360, 46, 0, 0, 7);
+    g.rect(684, 856, 518, 132); g.ellipse(943, 986, 259, 31, 0, 0, 7);
+    g.ellipse(840, 806, 52, 36, 0, 0, 7); g.rect(893, 788, 190, 78); g.ellipse(987, 772, 47, 50, 0, 0, 7);
+    g.clip(); g.drawImage(CAST.IMG.room_wide, 0, 0, W, H); return TABLE;
+  }
+  // the two of them on the sofa, turned to each other (she: left seat, facing right; he: right seat, facing left).
+  // sized by head height (the two kits came out at different scales): his head ~15% larger than hers
   function two(ctx, t, z) {
     cam(ctx, z, 960, 600, () => {
       ctx.drawImage(CAST.IMG.room_wide, 0, 0, W, H);
-      CAST.draw(ctx, 'girl34', 520, 712, .148, st('daughter', t, { gaze: 'r', tilt: .03 }));
-      CAST.draw(ctx, 'dad34', 1395, 712, .14, st('father', t, { gaze: 'l', tilt: -.015 }));
+      CAST.draw(ctx, 'girl34', 515, 730, .148, st('daughter', t, { gaze: 'r', tilt: .03 }));
+      CAST.draw(ctx, 'dad34', 1440, 726, .178, st('father', t, { gaze: 'l', tilt: -.015 }));
+      ctx.drawImage(tableLayer(), 0, 0);
     });
   }
   function girlClose(ctx, t, z, k = .46, sx = 690, sy = 1410) {
