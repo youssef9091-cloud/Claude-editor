@@ -41,10 +41,10 @@ POSES = {
                 mouth=(304, 291, .40, .40), feather=dict(eye=.3, brow=.35, mouth=.3), hair_pockets=(760, 0, 1250, 1900)),
  'dad34': dict(src='dad34', crop0=(29, 25), face='dadface34', face0=(0, 250), kit=DAD34_FACE,
                lens=[((263, 147), (250, 124, 300, 160))], erase=[],
-               eye=[(275, 139, .42, 1)], mouth=(262, 204, .44, .44), feather=dict(eye=.6, mouth=.25), hair_pockets=(0, 0, 0, 760)),
+               eye=[(275, 139, .42, 1)], lips=(253, 199, 36), feather=dict(eye=.6, mouth=.25), hair_pockets=(0, 0, 0, 760)),
  'dadfront': dict(src='dadfront', crop0=(46, 9), face='dadfacefront', face0=(0, 220), kit=DADFR_FACE,
                   lens=[((214, 152), (203, 124, 263, 162)), ((306, 147), (267, 116, 320, 157))], erase=[],
-                  eye=[(236, 141, .36, 1), (294, 137, .36, 1)], mouth=(272, 214, .78, .6), feather=dict(eye=.6, mouth=.25), hair_pockets=(0, 0, 0, 620)),
+                  eye=[(236, 141, .33, 1), (294, 137, .33, 1)], lips=(272, 197, 58), feather=dict(eye=.6, mouth=.25), hair_pockets=(0, 0, 0, 620)),
 }
 
 def load(p): return np.asarray(Image.open(p).convert('RGB')).astype(np.float32)
@@ -97,6 +97,44 @@ def relax(a, m, ok, iters):
 def ellmask(shape, cx, cy, rx, ry):
     yy, xx = np.mgrid[0:shape[0], 0:shape[1]]
     return ((xx - cx) / rx) ** 2 + ((yy - cy) / ry) ** 2 <= 1
+
+def mouth_only(P, K, face, fx0, fy0, tb, base, alpha, name, meta):
+    """The dad's kit draws each mouth inside a whole moustache+beard block in a different hand from his face, so only
+    the mouth itself (lips, teeth, tongue, the dark inside) is lifted and set under HIS drawn moustache, at his drawn
+    lips. Sized so the kit's open 'a' mouth spans his lip width; 'rest' keeps his own drawn lips (no piece)."""
+    cx, cy, lw = P['lips']; bx, by = tb(cx, cy); W4 = lw * S
+    def cutm(box, pad=6):
+        x0, y0, x1, y1 = box
+        p = face[(y0 - fy0 - pad) * S:(y1 - fy0 + pad) * S, (x0 - fx0 - pad) * S:(x1 - fx0 + pad) * S]
+        r, g, b = p[..., 0], p[..., 1], p[..., 2]
+        lips = (r - b > 75) & (r > 150) & (r - g > 35)              # pink/red lips and tongue (beard is grey, skin page is excluded below)
+        inside = (p.mean(-1) < 95) & (r - g > 22) & (r - b > 22)     # dark red mouth interior (beard strands are neutral grey)
+        core = ndimage.binary_opening(lips | inside, iterations=2)
+        teeth = (p.min(-1) > 226) & ndimage.binary_dilation(core, iterations=10)   # whites only where they touch the mouth
+        page = np.abs(p - np.median(face[8:200, face.shape[1] // 3: face.shape[1] * 2 // 3].reshape(-1, 3), 0)).sum(-1) < 60
+        m = (core | teeth) & ~page
+        lab, n = ndimage.label(ndimage.binary_closing(m, iterations=6))
+        if not n: return None, None
+        h = p.shape[0]; best = max(range(1, n + 1), key=lambda i: ndimage.sum(m, lab, i) * (1 - abs(ndimage.center_of_mass(lab == i)[0] / h - .45)))
+        m = ndimage.binary_fill_holes(lab == best)
+        return p, m
+    pa, ma = cutm(K['mouth']['a']); ys, xs = np.nonzero(ma); sc = W4 / (xs.max() - xs.min())
+    for v, box in K['mouth'].items():
+        if v == 'rest': continue
+        p, m = cutm(box)
+        if m is None: continue
+        ys, xs = np.nonzero(m); y0, y1, x0, x1 = ys.min(), ys.max() + 1, xs.min(), xs.max() + 1
+        pad = 10; y0, x0 = max(0, y0 - pad), max(0, x0 - pad); y1, x1 = y1 + pad, x1 + pad
+        p, m = p[y0:y1, x0:x1], m[y0:y1, x0:x1]
+        w, h = max(2, int(p.shape[1] * sc)), max(2, int(p.shape[0] * sc))
+        p = np.asarray(Image.fromarray(p.clip(0, 255).astype(np.uint8)).resize((w, h), Image.LANCZOS)).astype(np.float32)
+        f = np.asarray(Image.fromarray((m * 255).astype(np.uint8)).resize((w, h), Image.LANCZOS)).astype(np.float32) / 255
+        f = ndimage.gaussian_filter(f, 1.5)
+        X, Y = int(bx - w / 2), int(by - h * .42)                    # the top lip tucks under the moustache
+        f = f * alpha[Y:Y + h, X:X + w]
+        out = np.dstack([p, f * 255]).clip(0, 255).astype(np.uint8)
+        fn = f'{name}_mouth_{v}.png'; Image.fromarray(out, 'RGBA').save(OUT + fn)
+        meta[name]['parts'].setdefault('mouth', {})[v] = {'f': fn, 'x': X, 'y': Y}
 
 meta = {}
 for name, P in POSES.items():
@@ -161,8 +199,10 @@ for name, P in POSES.items():
     for v, boxes in K.get('brow', {}).items():
         for i, box in enumerate(boxes):
             x, y, s, fsx = P['brow'][i]; bake(f'brow{i}', v, box, (x, y), s * fsx, s, fe['brow'])
-    mx, my, msx, msy = P['mouth']
-    for v, box in K['mouth'].items(): bake('mouth', v, box, (mx, my), msx, msy, fe['mouth'])
+    if 'lips' in P: mouth_only(P, K, face, fx0, fy0, tb, base, alpha, name, meta)
+    else:
+        mx, my, msx, msy = P['mouth']
+        for v, box in K['mouth'].items(): bake('mouth', v, box, (mx, my), msx, msy, fe['mouth'])
     # pivots (x4 base coords) for the head warp: neck point and head top
     print(name, base.shape, len(meta[name]['parts']))
 json.dump(meta, open(OUT + 'rig.json', 'w'), indent=1)
