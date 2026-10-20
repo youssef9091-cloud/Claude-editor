@@ -34,10 +34,21 @@
   const MAP = { X: 'rest', A: 'mbp', B: 'e', C: 'a', D: 'a', E: 'o', F: 'u', G: 'fv', H: 'l' };
   function cueAt(t) { let lo = 0, hi = CUES.length - 1; while (lo < hi) { const m = (lo + hi + 1) >> 1; if (CUES[m].start <= t) lo = m; else hi = m - 1; } return CUES[lo]; }
   function speaking(who, t) { const p = SCORE.vo.find(v => t >= v.start - .03 && t <= v.end + .05); return p && p.speaker === who ? p : null; }
+  // one shape per frame, every shape held ≥ 3 frames (a 1-2 frame syllable merges into its neighbour: no flashes)
+  let TRACK = null;
+  function buildTrack() {
+    const n = Math.ceil(90 * 30), raw = []; for (let f = 0; f < n; f++) raw.push(MAP[cueAt(f / 30 + .02).value] || 'rest');
+    const runs = []; for (const v of raw) { const r = runs[runs.length - 1]; if (r && r.v === v) r.n++; else runs.push({ v, n: 1 }); }
+    for (let pass = 0; pass < 3; pass++) for (let i = 0; i < runs.length; i++) if (runs[i].n < 3 && runs.length > 1) {
+      const j = i === 0 ? 1 : (i === runs.length - 1 || runs[i - 1].n >= runs[i + 1].n ? i - 1 : i + 1);
+      runs[j].n += runs[i].n; runs.splice(i, 1); i--;
+    }
+    TRACK = []; for (const r of runs) for (let k = 0; k < r.n; k++) TRACK.push(r.v);
+  }
   function mouth(who, t) {
     if (!speaking(who, t)) return null;
-    const c = cueAt(t + .02); if (t - c.start < 2 / 30 && c.start > 0) { const prev = cueAt(c.start - .001); if (c.start - prev.start < 2 / 30) return MAP[prev.value] || 'rest'; }
-    return MAP[c.value] || 'rest';
+    if (!TRACK) buildTrack();
+    return TRACK[Math.min(TRACK.length - 1, Math.max(0, Math.round(t * 30)))];
   }
   // ── blinks + brief glances, deterministic per character ──
   const BL = {}, GL = {};

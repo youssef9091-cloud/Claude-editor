@@ -41,7 +41,7 @@ POSES = {
                 mouth=(304, 291, .40, .40), feather=dict(eye=.3, brow=.35, mouth=.3), hair_pockets=(760, 0, 1250, 1900)),
  'dad34': dict(src='dad34', crop0=(29, 25), face='dadface34', face0=(0, 250), kit=DAD34_FACE,
                lens=[((263, 147), (250, 124, 300, 160))], erase=[],
-               eye=[(275, 139, .42, 1)], lips=(253, 199, 36), feather=dict(eye=.6, mouth=.25), hair_pockets=(0, 0, 0, 760)),
+               eye=[(275, 139, .42, 1)], lips=(253, 199, 36), lips_at=(.32, .38), lips_skip=('smile', 'mbp'), feather=dict(eye=.6, mouth=.25), hair_pockets=(0, 0, 0, 760)),
  'dadfront': dict(src='dadfront', crop0=(46, 9), face='dadfacefront', face0=(0, 220), kit=DADFR_FACE,
                   lens=[((214, 152), (203, 124, 263, 162)), ((306, 147), (267, 116, 320, 157))], erase=[],
                   eye=[(236, 141, .33, 1), (294, 137, .33, 1)], lips=(272, 197, 58), feather=dict(eye=.6, mouth=.25), hair_pockets=(0, 0, 0, 620)),
@@ -102,35 +102,42 @@ def mouth_only(P, K, face, fx0, fy0, tb, base, alpha, name, meta):
     """The dad's kit draws each mouth inside a whole moustache+beard block in a different hand from his face, so only
     the mouth itself (lips, teeth, tongue, the dark inside) is lifted and set under HIS drawn moustache, at his drawn
     lips. Sized so the kit's open 'a' mouth spans his lip width; 'rest' keeps his own drawn lips (no piece)."""
-    cx, cy, lw = P['lips']; bx, by = tb(cx, cy); W4 = lw * S
+    cx, cy, lw = P['lips']; bx, by = tb(cx, cy); W4 = lw * S; MX, MY = P.get('lips_at', (.5, .45))
     def cutm(box, pad=6):
         x0, y0, x1, y1 = box
         p = face[(y0 - fy0 - pad) * S:(y1 - fy0 + pad) * S, (x0 - fx0 - pad) * S:(x1 - fx0 + pad) * S]
         r, g, b = p[..., 0], p[..., 1], p[..., 2]
-        lips = (r - b > 75) & (r > 150) & (r - g > 35)              # pink/red lips and tongue (beard is grey, skin page is excluded below)
-        inside = (p.mean(-1) < 95) & (r - g > 22) & (r - b > 22)     # dark red mouth interior (beard strands are neutral grey)
-        core = ndimage.binary_opening(lips | inside, iterations=2)
-        teeth = (p.min(-1) > 226) & ndimage.binary_dilation(core, iterations=10)   # whites only where they touch the mouth
-        page = np.abs(p - np.median(face[8:200, face.shape[1] // 3: face.shape[1] * 2 // 3].reshape(-1, 3), 0)).sum(-1) < 60
-        m = (core | teeth) & ~page
-        lab, n = ndimage.label(ndimage.binary_closing(m, iterations=6))
+        red = ((r - g > 70) & (r - b > 45) & (np.abs(g - b) < 45)) | ((p.mean(-1) < 75) & (r - g > 28) & (r - b > 22))
+        red = ndimage.binary_opening(red, iterations=3)
+        red |= (p.min(-1) > 225) & ndimage.binary_dilation(red, iterations=14)   # the teeth belong to the mouth's extent too
+        lab, n = ndimage.label(ndimage.binary_closing(red, iterations=8))
         if not n: return None, None
-        h = p.shape[0]; best = max(range(1, n + 1), key=lambda i: ndimage.sum(m, lab, i) * (1 - abs(ndimage.center_of_mass(lab == i)[0] / h - .45)))
-        m = ndimage.binary_fill_holes(lab == best)
+        h, w = p.shape[:2]
+        best = max(range(1, n + 1), key=lambda i: ndimage.sum(red, lab, i) / (1 + 6 * abs(ndimage.center_of_mass(lab == i)[1] / w - MX) + 6 * abs(ndimage.center_of_mass(lab == i)[0] / h - MY)))
+        ys, xs = np.nonzero(lab == best)
+        # a soft oval just around the mouth (lips, teeth, tongue and the dark inside, with only a sliver of the kit's beard)
+        cy, cx, ry, rx = (ys.min() + ys.max()) / 2, (xs.min() + xs.max()) / 2, (ys.max() - ys.min()) / 2 * 1.25 + 6, (xs.max() - xs.min()) / 2 * 1.12 + 6
+        gy, gx = np.mgrid[0:h, 0:w]; d = ((gx - cx) / rx) ** 2 + ((gy - cy) / ry) ** 2
+        m = np.clip((1 - d) / .45, 0, 1)
         return p, m
-    pa, ma = cutm(K['mouth']['a']); ys, xs = np.nonzero(ma); sc = W4 / (xs.max() - xs.min())
+    # every drawn mouth brought to one consistent size, as a fraction of his lip width (the kit drew them at random sizes)
+    RATIO = {'smile': 1.0, 'mbp': .9, 'a': 1.0, 'e': .95, 'o': .62, 'u': .5, 'fv': .9, 'l': .9, 'laugh': 1.08}
     for v, box in K['mouth'].items():
-        if v == 'rest': continue
+        if v == 'rest' or v in P.get('lips_skip', ()): continue      # closed lips: his own drawn mouth reads better
         p, m = cutm(box)
         if m is None: continue
-        ys, xs = np.nonzero(m); y0, y1, x0, x1 = ys.min(), ys.max() + 1, xs.min(), xs.max() + 1
+        ys, xs = np.nonzero(m > .5); y0, y1, x0, x1 = ys.min(), ys.max() + 1, xs.min(), xs.max() + 1
+        sc = W4 * RATIO.get(v, 1) * 1.12 / (x1 - x0)
+        # how far the upper lip sits below the mask top (anchor: the top lip always tucks under the moustache at the same line)
         pad = 10; y0, x0 = max(0, y0 - pad), max(0, x0 - pad); y1, x1 = y1 + pad, x1 + pad
         p, m = p[y0:y1, x0:x1], m[y0:y1, x0:x1]
         w, h = max(2, int(p.shape[1] * sc)), max(2, int(p.shape[0] * sc))
         p = np.asarray(Image.fromarray(p.clip(0, 255).astype(np.uint8)).resize((w, h), Image.LANCZOS)).astype(np.float32)
         f = np.asarray(Image.fromarray((m * 255).astype(np.uint8)).resize((w, h), Image.LANCZOS)).astype(np.float32) / 255
-        f = ndimage.gaussian_filter(f, 1.5)
-        X, Y = int(bx - w / 2), int(by - h * .42)                    # the top lip tucks under the moustache
+        pg = np.abs(p - np.median(face[8:200, face.shape[1] // 3: face.shape[1] * 2 // 3].reshape(-1, 3), 0)).sum(-1, keepdims=True)
+        reg = base[int(by - pad * sc - 3 * S):int(by - pad * sc - 3 * S) + h, int(bx - w / 2):int(bx - w / 2) + w]
+        if reg.shape[:2] == p.shape[:2]: p = p + (reg - np.median(face[8:200, face.shape[1] // 3: face.shape[1] * 2 // 3].reshape(-1, 3), 0)) * np.clip(1 - pg / 70, 0, 1)   # kit skin → his skin
+        X, Y = int(bx - w / 2), int(by - pad * sc - 3 * S)              # mask top on the lip line, same for every shape
         f = f * alpha[Y:Y + h, X:X + w]
         out = np.dstack([p, f * 255]).clip(0, 255).astype(np.uint8)
         fn = f'{name}_mouth_{v}.png'; Image.fromarray(out, 'RGBA').save(OUT + fn)
