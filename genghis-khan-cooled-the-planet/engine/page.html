@@ -17,7 +17,7 @@ html,body{margin:0;background:#000}
 (async () => {
   window.TIMING = await (await fetch('../timing.json')).json();
   window.FMT = new URLSearchParams(location.search).get('fmt') || 'v';
-  const files = window.FMT === 'h' ? ['../score.js', '../study_h.js', '../film_h.js'] : ['../score.js', '../study.js', '../film.js'];
+  const files = window.FMT === 'h' ? ['../score.js', '../cast.js', '../film_h.js'] : ['../score.js', '../study.js', '../film.js'];
   for (const s of files) await new Promise((ok, no) => {
     const e = document.createElement('script'); e.src = s; e.onload = ok; e.onerror = no; document.body.appendChild(e); });
   const q = new URLSearchParams(location.search), scale = +(q.get('scale') || 1);
