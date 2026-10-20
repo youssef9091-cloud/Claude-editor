@@ -22,9 +22,13 @@
     }
     await Promise.all(jobs);
     CUES = (await (await fetch('../build/lipsync.json')).json()).mouthCues;
-    for (const p of Object.keys(RIG)) { const b = IMG[p + '_base'], c = document.createElement('canvas'); c.width = b.width; c.height = POSE[p].band[1]; HEAD[p] = c; }
+    for (const p of Object.keys(RIG)) {
+      const b = IMG[p + '_base'], c = document.createElement('canvas'); c.width = b.width; c.height = POSE[p].band[1]; HEAD[p] = c;
+      const m = document.createElement('canvas'); m.width = c.width; m.height = c.height; const g = m.getContext('2d'), gr = g.createLinearGradient(0, POSE[p].band[0], 0, POSE[p].band[1]);
+      gr.addColorStop(0, 'rgba(0,0,0,1)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = gr; g.fillRect(0, 0, m.width, m.height); MASK[p] = m;
+    }
   }
-  const HEAD = {};
+  const HEAD = {}, MASK = {};
 
   // ── mouths: Rhubarb (Preston Blair) → the kit's drawn mouths; every shape holds ≥ 2 frames ──
   const MAP = { X: 'rest', A: 'mbp', B: 'e', C: 'a', D: 'a', E: 'o', F: 'u', G: 'fv', H: 'l' };
@@ -64,17 +68,12 @@
     // pose the whole figure: breathing, and a slow sway
     const ph = who === 'father' ? 1.3 : 0, e = st.energy || 0;
     ctx.save(); ctx.translate(x, y); ctx.rotate(.003 * Math.sin(t * .6 + ph)); ctx.scale(k, k * (1 + .004 * Math.sin(t * 1.6 + ph))); ctx.translate(-P.seat[0], -P.seat[1]);
-    // body below the band, untouched
-    const yb = P.band[1]; ctx.drawImage(base, 0, yb, base.width, base.height - yb, 0, yb, base.width, base.height - yb);
-    // head + band: strips rotated about the neck, weight 1 above band[0] → 0 at band[1]
+    // body from the top of the band down, untouched; then the head, turned about the neck, fading out across the band
+    const y0 = P.band[0]; ctx.drawImage(base, 0, y0, base.width, base.height - y0, 0, y0, base.width, base.height - y0);
     const nod = (st.tilt || 0) + .022 * e * Math.sin(t * 2.3 + ph) + .008 * Math.sin(t * .9 + ph * 2) + (sp ? .01 * Math.sin(t * 4.1) * e : 0);
-    const N = 6;
-    for (let sy = 0; sy < yb; sy += N) {
-      const w = sy + N <= P.band[0] ? 1 : clamp(1 - (sy - P.band[0]) / (P.band[1] - P.band[0])), a = nod * easeInOut(w);
-      ctx.save(); ctx.translate(P.neck[0], P.neck[1]); ctx.rotate(a); ctx.translate(-P.neck[0], -P.neck[1]);
-      ctx.drawImage(head, 0, sy, head.width, Math.min(N + 1, yb - sy), 0, sy, head.width, Math.min(N + 1, yb - sy));
-      ctx.restore();
-    }
+    hc.globalCompositeOperation = 'destination-in'; hc.drawImage(MASK[pose], 0, 0); hc.globalCompositeOperation = 'source-over';
+    ctx.translate(P.neck[0], P.neck[1]); ctx.rotate(nod); ctx.translate(-P.neck[0], -P.neck[1]);
+    ctx.drawImage(head, 0, 0);
     ctx.restore();
   }
   window.CAST = { load, draw, IMG, POSE, mouth, speaking };

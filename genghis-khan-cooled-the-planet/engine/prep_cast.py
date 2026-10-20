@@ -38,13 +38,13 @@ POSES = {
  'girl34': dict(src='girl34', crop0=(49, 110), face='girlface', face0=(0, 340), kit=GIRL_FACE,
                 erase=[(286, 231, 17, 22), (328, 234, 10, 20), (304, 291, 26, 11)],
                 eye=[(283, 239, .5, 1), (327, 239, .5, .9)], brow=[(284, 217, .36, 1), (328, 219, .36, .9)],
-                mouth=(304, 291, .42, .42), feather=dict(eye=.3, brow=.35, mouth=.3)),
+                mouth=(304, 291, .40, .40), feather=dict(eye=.3, brow=.35, mouth=.3), hair_pockets=(760, 0, 1250, 1900)),
  'dad34': dict(src='dad34', crop0=(29, 25), face='dadface34', face0=(0, 250), kit=DAD34_FACE,
                lens=[((263, 147), (250, 124, 300, 160))], erase=[],
-               eye=[(275, 139, .42, 1)], mouth=(262, 204, .44, .44), feather=dict(eye=.6, mouth=.25)),
+               eye=[(275, 139, .42, 1)], mouth=(262, 204, .44, .44), feather=dict(eye=.6, mouth=.25), hair_pockets=(0, 0, 0, 760)),
  'dadfront': dict(src='dadfront', crop0=(46, 9), face='dadfacefront', face0=(0, 220), kit=DADFR_FACE,
                   lens=[((214, 152), (203, 124, 263, 162)), ((306, 147), (267, 116, 320, 157))], erase=[],
-                  eye=[(236, 141, .36, 1), (294, 137, .36, 1)], mouth=(272, 214, .78, .6), feather=dict(eye=.6, mouth=.25)),
+                  eye=[(236, 141, .36, 1), (294, 137, .36, 1)], mouth=(272, 214, .78, .6), feather=dict(eye=.6, mouth=.25), hair_pockets=(0, 0, 0, 620)),
 }
 
 def load(p): return np.asarray(Image.open(p).convert('RGB')).astype(np.float32)
@@ -58,7 +58,10 @@ def cutout(a):
     alpha = ~bg
     lab2, n2 = ndimage.label(alpha)
     if n2: alpha = lab2 == 1 + int(np.argmax(ndimage.sum(alpha, lab2, range(1, n2 + 1))))
-    alpha = ndimage.binary_erosion(alpha, iterations=2)
+    alpha = ndimage.binary_erosion(alpha, iterations=3)
+    # decontaminate: page-white pixels on the silhouette's rim go transparent (no white sliver along the hair)
+    rim = alpha & ~ndimage.binary_erosion(alpha, iterations=6)
+    alpha &= ~(rim & (a.min(-1) > 200))
     return np.asarray(Image.fromarray((alpha * 255).astype(np.uint8)).filter(__import__('PIL.ImageFilter', fromlist=['x']).GaussianBlur(1.5))).astype(np.float32) / 255
 
 def laplace_fill(img, mask, src_ok, iters=900):
@@ -100,6 +103,14 @@ for name, P in POSES.items():
     fig = load(X4 + P['src'] + '.png'); face = load(X4 + P['face'] + '.png')
     PAGE = np.median(face[8:200, face.shape[1] // 3: face.shape[1] * 2 // 3].reshape(-1, 3), 0)
     alpha = cutout(fig)
+    if 'hair_pockets' in P:   # white paper trapped between hair strands (not the eyes, teeth or shoes): transparent
+        x0, y0, x1, y1 = P['hair_pockets']   # x4 base px: rows y0..y1, except the column x0..x1
+        wh = (fig.min(-1) > 212) & ((fig.max(-1) - fig.min(-1)) < 30)
+        lab, n = ndimage.label(wh); keep = np.zeros_like(wh)
+        for i, sl in enumerate(ndimage.find_objects(lab)):
+            cy, cx = (sl[0].start + sl[0].stop) / 2, (sl[1].start + sl[1].stop) / 2
+            if y0 <= cy <= y1 and (cx < x0 or cx > x1) and (sl[0].stop - sl[0].start) * (sl[1].stop - sl[1].start) < 40000: keep |= lab == i + 1
+        alpha = alpha * ~ndimage.binary_dilation(keep, iterations=2)
     cx0, cy0 = P['crop0']; fx0, fy0 = P['face0']
     tb = lambda x, y: ((x - cx0) * S, (y - cy0) * S)            # kit coords → x4 base coords
     base = fig.copy()
@@ -114,8 +125,10 @@ for name, P in POSES.items():
         frame = base.mean(-1) < 70
         inbox = np.zeros_like(frame); inbox[int(y0):int(y1), int(x0):int(x1)] = True
         lab, n = ndimage.label((~frame) & inbox); sx, sy = tb(*seed)
+        if lab[int(sy), int(sx)] == 0:                                   # seed landed on a line: nearest skin pixel
+            yy, xx = np.nonzero((lab > 0) & (base.mean(-1) > 120)); i = np.argmin((yy - sy) ** 2 + (xx - sx) ** 2); sy, sx = yy[i], xx[i]
         lm = lab == lab[int(sy), int(sx)]
-        assert lab[int(sy), int(sx)] != 0, f'{name}: lens seed on the frame'
+        print('  lens', name, int(lm.sum()), 'px')
         lm = ndimage.binary_erosion(lm, iterations=2); lens_masks.append(lm); mask |= lm
     base = laplace_fill(base, mask, skin & ~mask)
     rgba = np.dstack([base, alpha * 255]).clip(0, 255).astype(np.uint8)
@@ -134,6 +147,7 @@ for name, P in POSES.items():
         gy, gx = np.mgrid[0:h, 0:w]; d = ((gx - w / 2) / (w / 2)) ** 2 + ((gy - h / 2) / (h / 2)) ** 2
         f = np.clip((1 - d) / feather, 0, 1)
         if clip is not None: f = f * clip[Y:Y + h, X:X + w]
+        f = f * alpha[Y:Y + h, X:X + w]                               # never past the silhouette
         out = np.dstack([p, f * 255]).clip(0, 255).astype(np.uint8)
         fn = f'{name}_{kind}_{variant}.png'; Image.fromarray(out, 'RGBA').save(OUT + fn)
         meta[name]['parts'].setdefault(kind, {})[variant] = {'f': fn, 'x': X, 'y': Y}
