@@ -19,6 +19,7 @@
     for (const [p, m] of Object.entries(RIG)) {
       jobs.push(load1(p + '_base', p + '_base.png'));
       for (const kind of Object.values(m.parts)) for (const v of Object.values(kind)) jobs.push(load1(v.f, v.f));
+      if (m.jaw) jobs.push(load1(m.jaw.f, m.jaw.f));
     }
     await Promise.all(jobs);
     CUES = (await (await fetch('../build/lipsync.json')).json()).mouthCues;
@@ -45,6 +46,15 @@
     }
     TRACK = []; for (const r of runs) for (let k = 0; k < r.n; k++) TRACK.push(r.v);
   }
+  const OPEN = { rest: 0, mbp: 0, smile: .06, a: 1, e: .45, o: .75, u: .45, fv: .18, l: .55, laugh: .9 };
+  let JAWT = null;
+  function jawOpen(who, t) {
+    if (!JAWT) { if (!TRACK) buildTrack(); JAWT = {};
+      for (const w of ['father', 'daughter']) { const a = []; let v = 0;
+        for (let f = 0; f < TRACK.length; f++) { const tt = f / 30, on = speaking(w, tt); const tgt = on ? OPEN[TRACK[f]] ?? 0 : 0;
+          v += (tgt - v) * (tgt > v ? .6 : .45); a.push(v); } JAWT[w] = a; } }
+    const a = JAWT[who]; return a[Math.min(a.length - 1, Math.max(0, Math.round(t * 30)))];
+  }
   function mouth(who, t) {
     if (!speaking(who, t)) return null;
     if (!TRACK) buildTrack();
@@ -61,6 +71,23 @@
   const glancing = (who, t) => GL[who].some(([a, b]) => t >= a && t < b);
   const isQuestion = p => p && /[؟?]/.test(p.text || '');
 
+  // his own lower lip + beard drop along the drawn lip line over a mouth interior in the same flat style
+  function jaw(c, J, open, img) {
+    const d = open * J.max; if (d < 1) return;
+    const L = J.line, x0 = L[0][0], x1 = L[L.length - 1][0];
+    const ly = x => { for (let i = 1; i < L.length; i++) if (x <= L[i][0]) { const u = (x - L[i - 1][0]) / (L[i][0] - L[i - 1][0]); return lerp(L[i - 1][1], L[i][1], u); } return L[L.length - 1][1]; };
+    const prof = x => Math.pow(Math.sin(Math.PI * clamp((x - x0) / (x1 - x0))), .7), N = 48, xs = []; for (let i = 0; i <= N; i++) xs.push(lerp(x0 + 12, x1 - 12, i / N));
+    c.save(); c.beginPath(); xs.forEach((x, i) => i ? c.lineTo(x, ly(x) - 2) : c.moveTo(x, ly(x) - 2));
+    for (let i = N; i >= 0; i--) c.lineTo(xs[i], ly(xs[i]) + d * prof(xs[i]) + 6); c.closePath();
+    c.fillStyle = '#4a1a17'; c.fill(); c.clip();
+    const mx = (x0 + x1) / 2, my = ly(mx);
+    c.fillStyle = '#ece4da'; c.fillRect(x0, my - 8, x1 - x0, Math.min(d * .24, 12) + 8);
+    if (d > 16) { c.fillStyle = '#b5525a'; c.beginPath(); c.ellipse(mx, my + d * prof(mx) + 4, (x1 - x0) * .2, d * .35, 0, 0, 7); c.fill(); }
+    c.restore();
+    const M = Math.ceil(img.width / 3), cw = img.width / M;   // the jaw piece drops in 3-px columns (most in the middle, none at the corners)
+    for (let i = 0; i < M; i++) { const sx = i * cw, x = J.x + sx + cw / 2; c.drawImage(img, sx, 0, cw + .8, img.height, J.x + sx, J.y + d * prof(clamp(x, x0, x1)), cw + .8, img.height); }
+  }
+
   // draw one pose. (x, y): where the seat point lands; k: screen px per x4 px.
   // st: { t, gaze: 'l'|'c'|'r', energy, tilt (rad), mouth (override), brow (override), listen }
   function draw(ctx, pose, x, y, k, st) {
@@ -75,7 +102,8 @@
     let eye = lid(who, t) || (glancing(who, t) && !sp ? 'c' : st.gaze || 'c');
     if (!R.parts.eye0[eye]) eye = eye === 'half' ? 'half' : 'c';
     part('eye0', eye); part('eye1', eye);
-    part('mouth', st.mouth || mouth(who, t) || (st.listen ? 'smile' : 'rest'));
+    if (R.jaw) jaw(hc, R.jaw, st.mouth === 'laugh' ? .8 : st.mouth === 'smile' ? .1 : jawOpen(who, t), IMG[R.jaw.f]);
+    else part('mouth', st.mouth || mouth(who, t) || (st.listen ? 'smile' : 'rest'));
     // pose the whole figure: breathing, and a slow sway
     const ph = who === 'father' ? 1.3 : 0, e = st.energy || 0;
     ctx.save(); ctx.translate(x, y); ctx.rotate(.003 * Math.sin(t * .6 + ph)); ctx.scale(k, k * (1 + .004 * Math.sin(t * 1.6 + ph))); ctx.translate(-P.seat[0], -P.seat[1]);

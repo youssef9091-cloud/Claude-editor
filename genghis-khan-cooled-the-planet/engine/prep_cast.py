@@ -44,7 +44,8 @@ POSES = {
                eye=[(275, 139, .42, 1)], lips=(253, 199, 36), lips_at=(.32, .38), lips_skip=('smile', 'mbp'), feather=dict(eye=.6, mouth=.25), hair_pockets=(0, 0, 0, 760)),
  'dadfront': dict(src='dadfront', crop0=(46, 9), face='dadfacefront', face0=(0, 220), kit=DADFR_FACE,
                   lens=[((214, 152), (203, 124, 263, 162)), ((306, 147), (267, 116, 320, 157))], erase=[],
-                  eye=[(236, 141, .33, 1), (294, 137, .33, 1)], lips=(272, 197, 58), feather=dict(eye=.6, mouth=.25), hair_pockets=(0, 0, 0, 620)),
+                  eye=[(236, 141, .33, 1), (294, 137, .33, 1)], own_face=True,
+                  jaw=dict(line=[(762, 737), (820, 734), (900, 728), (980, 718), (1040, 707)], region=(900, 800, 210, 125, .25), max=58), feather=dict(eye=.6, mouth=.25), hair_pockets=(0, 0, 0, 620)),
 }
 
 def load(p): return np.asarray(Image.open(p).convert('RGB')).astype(np.float32)
@@ -143,6 +144,21 @@ def mouth_only(P, K, face, fx0, fy0, tb, base, alpha, name, meta):
         fn = f'{name}_mouth_{v}.png'; Image.fromarray(out, 'RGBA').save(OUT + fn)
         meta[name]['parts'].setdefault('mouth', {})[v] = {'f': fn, 'x': X, 'y': Y}
 
+def jaw_piece(P, base, alpha, name, meta):
+    """His own lower lip + chin beard, cut along the drawn lip line under the moustache (hard top edge, feathered
+    sides/bottom). In the film it drops a few px over a mouth interior drawn in the same flat style."""
+    J = P['jaw']; L = J['line']; cx, cy, rx, ry, fe = J['region']
+    xs = np.array([p[0] for p in L], float); ys = np.array([p[1] for p in L], float)
+    H, W = base.shape[:2]; yy, xx = np.mgrid[0:H, 0:W]
+    below = yy > np.interp(xx, xs, ys) + 2
+    d = np.sqrt(((xx - cx) / rx) ** 2 + ((yy - cy) / ry) ** 2)
+    f = np.clip((1 - d) / fe + 1, 0, 1) * below * (xx >= xs[0] - 40) * (xx <= xs[-1] + 40)
+    f = ndimage.gaussian_filter(f.astype(np.float32), 2) * below * alpha
+    y0, y1 = int(ys.min()), int(cy + ry); x0, x1 = int(cx - rx), int(cx + rx)
+    out = np.dstack([base[y0:y1, x0:x1], f[y0:y1, x0:x1] * 255]).clip(0, 255).astype(np.uint8)
+    Image.fromarray(out, 'RGBA').save(OUT + f'{name}_jaw.png')
+    meta[name]['jaw'] = {'f': f'{name}_jaw.png', 'x': x0, 'y': y0, 'line': L, 'max': J['max']}
+
 meta = {}
 for name, P in POSES.items():
     fig = load(X4 + P['src'] + '.png'); face = load(X4 + P['face'] + '.png')
@@ -174,8 +190,15 @@ for name, P in POSES.items():
             yy, xx = np.nonzero((lab > 0) & (base.mean(-1) > 120)); i = np.argmin((yy - sy) ** 2 + (xx - sx) ** 2); sy, sx = yy[i], xx[i]
         lm = lab == lab[int(sy), int(sx)]
         print('  lens', name, int(lm.sum()), 'px')
-        lm = ndimage.binary_erosion(lm, iterations=2); lens_masks.append(lm); mask |= lm
+        lm = ndimage.binary_erosion(lm, iterations=2); lens_masks.append(lm)
+        if not P.get('own_face'): mask |= lm
+    REG = None
+    if P.get('own_face'):   # blinks are baked against a copy with the eyes filled in (so a lid never picks up the iris)
+        lmask = np.zeros_like(mask)
+        for lm in lens_masks: lmask |= lm
+        REG = laplace_fill(base.copy(), lmask, skin & ~lmask)
     base = laplace_fill(base, mask, skin & ~mask)
+    if REG is None: REG = base
     rgba = np.dstack([base, alpha * 255]).clip(0, 255).astype(np.uint8)
     Image.fromarray(rgba, 'RGBA').save(OUT + f'{name}_base.png')
     meta[name] = {'w': base.shape[1], 'h': base.shape[0], 'parts': {}}
@@ -186,7 +209,7 @@ for name, P in POSES.items():
         w, h = max(2, int(p.shape[1] * sx)), max(2, int(p.shape[0] * sy))
         p = np.asarray(Image.fromarray(p.clip(0, 255).astype(np.uint8)).resize((w, h), Image.LANCZOS)).astype(np.float32)
         bx, by = tb(*at); X, Y = int(bx - w / 2), int(by - h / 2)
-        reg = base[Y:Y + h, X:X + w]
+        reg = REG[Y:Y + h, X:X + w]
         page = np.clip(1 - np.abs(p - PAGE).sum(-1, keepdims=True) / 70, 0, 1)
         p = p + (reg - PAGE) * page
         gy, gx = np.mgrid[0:h, 0:w]; d = ((gx - w / 2) / (w / 2)) ** 2 + ((gy - h / 2) / (h / 2)) ** 2
@@ -199,6 +222,7 @@ for name, P in POSES.items():
 
     K, fe = P['kit'], P['feather']
     for v, boxes in K['eye'].items():
+        if P.get('own_face') and v not in ('half', 'closed'): continue   # his own drawn eyes stay; the kit only blinks them
         for i, box in enumerate(boxes[:len(P['eye'])]):
             x, y, s, fsx = P['eye'][i]
             clip = ndimage.gaussian_filter(lens_masks[i].astype(np.float32), 2) if lens_masks else None
@@ -206,7 +230,8 @@ for name, P in POSES.items():
     for v, boxes in K.get('brow', {}).items():
         for i, box in enumerate(boxes):
             x, y, s, fsx = P['brow'][i]; bake(f'brow{i}', v, box, (x, y), s * fsx, s, fe['brow'])
-    if 'lips' in P: mouth_only(P, K, face, fx0, fy0, tb, base, alpha, name, meta)
+    if 'jaw' in P: jaw_piece(P, base, alpha, name, meta)
+    elif 'lips' in P: mouth_only(P, K, face, fx0, fy0, tb, base, alpha, name, meta)
     else:
         mx, my, msx, msy = P['mouth']
         for v, box in K['mouth'].items(): bake('mouth', v, box, (mx, my), msx, msy, fe['mouth'])
