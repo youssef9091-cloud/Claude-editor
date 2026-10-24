@@ -41,7 +41,7 @@ POSES = {
                 mouth=(304, 291, .40, .40), feather=dict(eye=.3, brow=.35, mouth=.3), hair_pockets=(760, 0, 1250, 1900)),
  'dad34': dict(src='dad34', crop0=(29, 25), face='dadface34', face0=(0, 250), kit=DAD34_FACE,
                lens=[((263, 147), (250, 124, 300, 160))], erase=[],
-               eye=[(275, 139, .42, 1)], lips=(253, 199, 36), lips_at=(.32, .38), lips_skip=('smile', 'mbp'), feather=dict(eye=.6, mouth=.25), hair_pockets=(0, 0, 0, 760)),
+               eye=[(275, 139, .42, 1)], jaw=dict(line=[(872, 679), (900, 678), (930, 676), (960, 673), (990, 670)], region=(935, 760, 115, 95, .25), max=36, mouth=(931, 59), profile=True), feather=dict(eye=.6, mouth=.25), hair_pockets=(0, 0, 0, 760)),
  'dadfront': dict(src='dadfront', crop0=(46, 9), face='dadfacefront', face0=(0, 220), kit=DADFR_FACE,
                   lens=[((214, 152), (203, 124, 263, 162)), ((306, 147), (267, 116, 320, 157))], erase=[],
                   eye=[(236, 141, .33, 1), (294, 137, .33, 1)], own_face=True, own_eyes=[((716, 527), (766, 501), (823, 526), (770, 545)), ((933, 501), (980, 477), (1030, 498), (981, 509))],
@@ -179,7 +179,7 @@ def jaw_piece(P, base, alpha, name, meta):
     y0, y1 = int(ys.min()), int(cy + ry); x0, x1 = int(cx - rx), int(cx + rx)
     out = np.dstack([base[y0:y1, x0:x1], f[y0:y1, x0:x1] * 255]).clip(0, 255).astype(np.uint8)
     Image.fromarray(out, 'RGBA').save(OUT + f'{name}_jaw.png')
-    meta[name]['jaw'] = {'f': f'{name}_jaw.png', 'x': x0, 'y': y0, 'line': L, 'max': J['max'], 'mouth': J['mouth']}
+    meta[name]['jaw'] = {'f': f'{name}_jaw.png', 'x': x0, 'y': y0, 'line': L, 'max': J['max'], 'mouth': J['mouth'], 'profile': J.get('profile', False)}
 
 meta = {}
 for name, P in POSES.items():

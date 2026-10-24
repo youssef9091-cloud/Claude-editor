@@ -77,9 +77,10 @@
     const L = J.line, x0 = L[0][0], x1 = L[L.length - 1][0], [cx, hw] = J.mouth, xa = cx - hw, xb = cx + hw;
     const ly = x => { for (let i = 1; i < L.length; i++) if (x <= L[i][0]) { const u = (x - L[i - 1][0]) / (L[i][0] - L[i - 1][0]); return lerp(L[i - 1][1], L[i][1], u); } return L[L.length - 1][1]; };
     // the opening: centred under the nose, a lens shape that is deepest in the middle and closes at both corners
-    const prof = x => Math.pow(Math.sin(Math.PI * clamp((x - xa) / (xb - xa))), 1.1);
-    // the jaw drop: the same centre, fading out more softly towards the moustache tips
-    const drop = x => Math.pow(Math.sin(Math.PI * clamp((x - (cx - hw * 1.6)) / (hw * 3.2))), 1.4);
+    // side view: the opening is a wedge, deepest at the lips' front, closed at the corner
+    const prof = J.profile ? x => Math.pow(clamp((xb - x) / (xb - xa)), .8) : x => Math.pow(Math.sin(Math.PI * clamp((x - xa) / (xb - xa))), 1.1);
+    // the jaw drop: the same centre, fading out more softly towards the moustache tips (or the back of the jaw)
+    const drop = J.profile ? x => Math.pow(clamp((xb + hw * .8 - x) / (xb + hw * .8 - xa)), .9) : x => Math.pow(Math.sin(Math.PI * clamp((x - (cx - hw * 1.6)) / (hw * 3.2))), 1.4);
     const N = 48, xs = []; for (let i = 0; i <= N; i++) xs.push(lerp(xa, xb, i / N));
     c.save(); c.beginPath(); xs.forEach((x, i) => i ? c.lineTo(x, ly(x) - 2) : c.moveTo(x, ly(x) - 2));
     for (let i = N; i >= 0; i--) c.lineTo(xs[i], ly(xs[i]) + d * prof(xs[i]) + 4); c.closePath();
@@ -87,7 +88,7 @@
     // upper teeth follow the lip line (not a flat bar)
     const th = Math.min(d * .26, 12); c.beginPath(); xs.forEach((x, i) => i ? c.lineTo(x, ly(x) - 4) : c.moveTo(x, ly(x) - 4));
     for (let i = N; i >= 0; i--) c.lineTo(xs[i], ly(xs[i]) + th * Math.sqrt(prof(xs[i]))); c.closePath(); c.fillStyle = '#ece4da'; c.fill();
-    if (d > 16) { c.fillStyle = '#b5525a'; c.beginPath(); c.ellipse(cx, ly(cx) + d * .95, hw * .55, d * .38, 0, 0, 7); c.fill(); }
+    if (d > 16 && !J.profile) { c.fillStyle = '#b5525a'; c.beginPath(); c.ellipse(cx, ly(cx) + d * .95, hw * .55, d * .38, 0, 0, 7); c.fill(); }
     c.restore();
     const M = Math.ceil(img.width / 3), cw = img.width / M;   // his lower lip + beard drop in 3-px columns
     for (let i = 0; i < M; i++) { const sx = i * cw, x = J.x + sx + cw / 2; c.drawImage(img, sx, 0, cw + .8, img.height, J.x + sx, J.y + d * Math.max(drop(x), prof(x)), cw + .8, img.height); }

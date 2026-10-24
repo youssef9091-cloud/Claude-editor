@@ -110,8 +110,12 @@ def _jaw(c, J, open_, im):
     xs_ = [p[0] for p in L]; ys_ = [p[1] for p in L]
     ly = lambda x: float(np.interp(x, xs_, ys_))
     cl = lambda u: max(0.0, min(1.0, u))
-    prof = lambda x: math.sin(math.pi * cl((x - xa) / (xb - xa))) ** 1.1
-    drop = lambda x: math.sin(math.pi * cl((x - (cx - hw * 1.6)) / (hw * 3.2))) ** 1.4
+    if J.get('profile'):   # side view: the opening is a wedge, deepest at the lips' front, closed at the corner
+        prof = lambda x: cl((xb - x) / (xb - xa)) ** .8
+        drop = lambda x: cl((xb + hw * .8 - x) / (xb + hw * .8 - xa)) ** .9
+    else:
+        prof = lambda x: math.sin(math.pi * cl((x - xa) / (xb - xa))) ** 1.1
+        drop = lambda x: math.sin(math.pi * cl((x - (cx - hw * 1.6)) / (hw * 3.2))) ** 1.4
     N = 48; xs = [xa + (xb - xa) * i / N for i in range(N + 1)]
     path = skia.Path(); path.moveTo(xs[0], ly(xs[0]) - 2)
     for x in xs[1:]: path.lineTo(x, ly(x) - 2)
@@ -122,7 +126,7 @@ def _jaw(c, J, open_, im):
     for x in xs[1:]: tp.lineTo(x, ly(x) - 4)
     for x in reversed(xs): tp.lineTo(x, ly(x) + th * math.sqrt(prof(x)))
     tp.close(); c.drawPath(tp, skia.Paint(AntiAlias=True, Color=0xFFECE4DA))
-    if d > 16: c.drawOval(skia.Rect.MakeXYWH(cx - hw * .55, ly(cx) + d * .95 - d * .38, hw * 1.1, d * .76), skia.Paint(AntiAlias=True, Color=0xFFB5525A))
+    if d > 16 and not J.get('profile'): c.drawOval(skia.Rect.MakeXYWH(cx - hw * .55, ly(cx) + d * .95 - d * .38, hw * 1.1, d * .76), skia.Paint(AntiAlias=True, Color=0xFFB5525A))
     c.restore()
     W = im.width(); M = int(math.ceil(W / 3)); cw = W / M
     for i in range(M):
