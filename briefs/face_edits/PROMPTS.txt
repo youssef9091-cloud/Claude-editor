@@ -1,0 +1,37 @@
+FACE EDITS: 16 images, each an edit of the SAME pose picture.
+Use a separate chat for each pose. Upload the POSE image once at the start of the chat, then send each prompt in turn
+(each time say "edit the ORIGINAL uploaded image", not the previous result). Save each result with the name shown.
+
+Every prompt starts with this line (copy it each time):
+EDIT the ORIGINAL uploaded image. Change ONLY what is described below. Everything else must stay pixel-identical: same pose, same head angle and position, same size, same framing, same hair, same clothes, same colours, same line style, same white background. Square 1024x1024.
+
+====================================================================
+GIRL: upload POSE_girl.png  (6 images)
+====================================================================
+girl_ah.png     → Her mouth open as if saying "AH": jaw dropped, top teeth showing, a little tongue. Eyes and eyebrows unchanged.
+girl_ee.png     → Her mouth wide as if saying "EE": teeth together and showing, corners pulled back. Eyes and eyebrows unchanged.
+girl_oh.png     → Her mouth a small rounded "OH", lips pushed forward. Eyes and eyebrows unchanged.
+girl_mbp.png    → Her lips pressed together flat (saying "M"). Eyes and eyebrows unchanged.
+girl_blink.png  → Both eyes fully closed, relaxed (curved lash lines). Mouth and eyebrows unchanged.
+girl_browsup.png→ Both eyebrows raised (curious, surprised). Eyes and mouth unchanged.
+
+====================================================================
+DAD SIDE: upload POSE_dad_side.png  (5 images)
+====================================================================
+dadside_ah.png    → His mouth open as if saying "AH", under his moustache, top teeth showing. Glasses, eyes, beard unchanged.
+dadside_ee.png    → His mouth as if saying "EE", teeth together and showing under the moustache. Glasses, eyes, beard unchanged.
+dadside_oh.png    → His mouth a small rounded "OH" under the moustache. Glasses, eyes, beard unchanged.
+dadside_mbp.png   → His lips pressed together (saying "M"). Glasses, eyes, beard unchanged.
+dadside_blink.png → His eyes fully closed behind the glasses. Mouth unchanged.
+
+====================================================================
+DAD FRONT: upload POSE_dad_front.png  (5 images)
+====================================================================
+dadfront_ah.png    → His mouth open as if saying "AH", under his moustache, top teeth showing. Glasses, eyes, beard unchanged.
+dadfront_ee.png    → His mouth as if saying "EE", teeth together and showing under the moustache. Glasses, eyes, beard unchanged.
+dadfront_oh.png    → His mouth a small rounded "OH" under the moustache. Glasses, eyes, beard unchanged.
+dadfront_mbp.png   → His lips pressed together (saying "M"). Glasses, eyes, beard unchanged.
+dadfront_blink.png → Both eyes fully closed behind the glasses. Mouth unchanged.
+
+CHECK each result before saving: if the head moved, the hair/beard changed, or the style became softer or shinier,
+regenerate it. Only the mouth (or eyes or brows) may differ from the uploaded image.
